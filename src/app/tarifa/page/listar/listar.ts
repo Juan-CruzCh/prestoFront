@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TarifasService } from '../../service/TarifasService';
 import { ListarTarifasRangoI } from '../../model/tarifa';
+import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-listar',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './listar.html',
   styleUrl: './listar.css',
 })
 export class Listar implements OnInit {
-  tarifas: ListarTarifasRangoI[] = [];
+  tarifas$!: Observable<ListarTarifasRangoI[]>;
   constructor(private router: Router, private readonly tarifasService: TarifasService) {}
 
   ngOnInit() {
@@ -21,14 +23,9 @@ export class Listar implements OnInit {
     this.router.navigate(['/tarifa/crear']);
   }
 
-  async listar() {
+  listar() {
     try {
-      const response = await this.tarifasService.listarTaridas();
-
-      if (response && response.length > 0) {
-        this.tarifas = [...response];
-        console.log(this.tarifas);
-      }
+      this.tarifas$ = this.tarifasService.listarTarifas();
     } catch (error) {
       console.log(error);
     }

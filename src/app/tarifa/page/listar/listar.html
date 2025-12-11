@@ -21,7 +21,7 @@
       </thead>
       <tbody>
     
-        @for (item of tarifas; track $index) {
+        @for (item of  tarifas$ | async; track $index) {
         <tr class="hover:bg-gray-50">
           <td class="px-4 py-3 border font-medium">{{ item.nombre }}</td>
           <td class="px-4 py-3 border">
