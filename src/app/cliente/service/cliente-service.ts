@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ResultadoHttp } from '../../share/model/ResultadoHttp';
 import { ListarClienteI } from '../model/cliente';
 import { Observable } from 'rxjs';
+import { ResultadoHttp } from '../../../share/model/ResultadoHttp';
 
 @Injectable({
   providedIn: 'root',

@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class Listar implements OnInit {
   tarifas$!: Observable<ListarTarifasRangoI[]>;
-  constructor(private router: Router, private readonly tarifasService: TarifasService) {}
+  constructor(private router: Router, private readonly tarifasService: TarifasService) { }
 
   ngOnInit() {
     this.listar();
@@ -25,7 +25,7 @@ export class Listar implements OnInit {
 
   listar() {
     try {
-      this.tarifas$ = this.tarifasService.listarTarifas();
+      this.tarifas$ = this.tarifasService.listarTarifasRangos();
     } catch (error) {
       console.log(error);
     }

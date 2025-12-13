@@ -1,60 +1,137 @@
-<p>crear-medidor works!</p>
 <div class="w-full p-4 bg-gray-50 min-h-screen">
     <div class="max-w-7xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
 
 
             <div class="md:col-span-8 order-1 md:order-1">
-                <app-listar-cliente></app-listar-cliente>
+                <app-listar-cliente (clienteSeleccionado)="getCliente($event)">
+
+                </app-listar-cliente>
             </div>
 
 
             <div class="md:col-span-4 order-2 md:order-2">
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <h2 class="text-xl font-bold mb-4">Crear Medidor</h2>
+                    <!-- DATOS DEL CLIENTE -->
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
 
-                    <form>
+                        <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                            Datos del Cliente
+                        </h3>
+
+
+
+                        <!-- Cuando hay cliente -->
+                        <div class="bg-white border border-gray-200 rounded-xl p-4 space-y-4 text-sm">
+
+                            <div class="grid grid-cols-2 gap-x-4 gap-y-3">
+                                <div>
+                                    <p class="text-xs text-gray-400 uppercase tracking-wide">Código</p>
+                                    <p class="font-semibold text-gray-800">
+                                        {{ codigo }}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <p class="text-xs text-gray-400 uppercase tracking-wide">CI</p>
+                                    <p class="font-semibold text-gray-800">
+                                        {{ ci }}
+                                    </p>
+                                </div>
+
+
+                                <div>
+                                    <p class="text-xs text-gray-400 uppercase tracking-wide">Nombre</p>
+                                    <p class="font-semibold text-gray-800">
+                                        {{ nombre }}
+                                    </p>
+                                </div>
+
+
+                                <div>
+                                    <p class="text-xs text-gray-400 uppercase tracking-wide">Apellido Paterno</p>
+                                    <p class="font-semibold text-gray-800">
+                                        {{ apellidoPaterno }}
+                                    </p>
+                                </div>
+
+
+
+                                <div class="col-span-2">
+                                    <p class="text-xs text-gray-400 uppercase tracking-wide">Apellido Materno</p>
+                                    <p class="font-semibold text-gray-800">
+                                        {{ apellidoMaterno }}
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <form [formGroup]="medidorForm">
 
                         <!-- Número de Medidor -->
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Número de Medidor *</label>
-                            <input type="text"
+                            <input type="text" formControlName="numeroMedidor"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @if(medidorForm.get('numeroMedidor')?.invalid && medidorForm.get('numeroMedidor')?.touched){
+                            <small class="text-red-500">El numero de medidor es obligatorio</small>
+                            }
+
                         </div>
 
                         <!-- Descripción -->
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Descripción</label>
-                            <input type="text"
+                            <input type="text" formControlName="descripcion"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+
                         </div>
 
                         <!-- Tarifa -->
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Tarifa *</label>
-                            <select
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <select formControlName="tarifa" class="w-full px-3 py-2 border
+                                 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <option value="">Seleccione una tarifa</option>
-                                <option>Tarifa 1</option>
-                                <option>Tarifa 2</option>
+                                @for (item of tarifas$ | async; track $index) {
+                                <option value={{item._id}}>{{item.nombre}}</option>
+                                }
+
                             </select>
+
+                            @if(medidorForm.get('tarifa')?.invalid && medidorForm.get('tarifa')?.touched){
+                            <small class="text-red-500">la tarifa es obligatorio</small>
+                            }
                         </div>
 
                         <!-- Dirección -->
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Dirección *</label>
-                            <input type="text"
+                            <input formControlName="direccion" type="text"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @if(medidorForm.get('direccion')?.invalid && medidorForm.get('direccion')?.touched){
+                            <small class="text-red-500">la direccion es obligatorio</small>
+                            }
                         </div>
 
                         <!-- Fecha de instalación -->
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de Instalación *</label>
-                            <input type="date"
+                            <input formControlName="fechaInstalacion" type="date"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @if(medidorForm.get('fechaInstalacion')?.invalid &&
+                            medidorForm.get('fechaInstalacion')?.touched){
+                            <small class="text-red-500">la fecha de instalacion es obligatorio</small>
+                            }
                         </div>
 
-                        <button type="submit"
+                        <button type="submit" (click)="btnRegistrarMedidor()"
                             class="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 font-medium">
                             Guardar
                         </button>

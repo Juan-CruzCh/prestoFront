@@ -1,5 +1,5 @@
 export interface FormularioRango {
-    nombre:string
+  nombre: string
   rango1: number;
   rango2: number;
   costo: number;
@@ -11,7 +11,7 @@ export interface TarifaI {
   rango: RangoI[];
 }
 
- interface RangoI {
+interface RangoI {
   rango1: number;
   rango2: number;
   costo: number;
@@ -20,22 +20,31 @@ export interface TarifaI {
 
 
 export interface TarifaRango {
-    _id: string;
-    rango1: number;
-    rango2: number;
-    costo: number;
-    tarifa: string;
-    iva: number;
-    flag: string;
-    fecha: string;
+  _id: string;
+  rango1: number;
+  rango2: number;
+  costo: number;
+  tarifa: string;
+  iva: number;
+  flag: string;
+  fecha: string;
 
 }
 
 export interface ListarTarifasRangoI {
-    _id: string;
-    fecha: string;
-    flag: string;
-    nombre: string;
-    rango: TarifaRango[];
+  _id: string;
+  fecha: string;
+  flag: string;
+  nombre: string;
+  rango: TarifaRango[];
+
+}
+
+
+export interface ListarTarifasI {
+  _id: string;
+
+  nombre: string;
+
 
 }

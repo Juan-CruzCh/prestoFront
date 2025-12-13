@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ListarTarifasRangoI, TarifaI } from '../model/tarifa';
+import { ListarTarifasI, ListarTarifasRangoI, TarifaI } from '../model/tarifa';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { firstValueFrom, Observable, throwError } from 'rxjs';
 
@@ -8,13 +8,21 @@ import { firstValueFrom, Observable, throwError } from 'rxjs';
 })
 export class TarifasService {
   private apiUrl = 'http://localhost:5000/api';
-  constructor(private http: HttpClient) {}
- crearTarifa(data: TarifaI): Observable<HttpResponse<any>> {
+  constructor(private http: HttpClient) { }
+  crearTarifa(data: TarifaI): Observable<HttpResponse<any>> {
     return this.http.post<any>(`${this.apiUrl}/tarifa`, data, { observe: 'response' });
   }
 
-    listarTarifas(): Observable<ListarTarifasRangoI[]> {
-    return this.http.get<ListarTarifasRangoI[]>(`${this.apiUrl}/tarifa/rangos`).pipe((res)=> res)
-    
+  listarTarifasRangos(): Observable<ListarTarifasRangoI[]> {
+    return this.http.get<ListarTarifasRangoI[]>(`${this.apiUrl}/tarifa/rangos`).pipe((res) => res)
+
+
+  }
+
+
+  listarTarifas(): Observable<ListarTarifasI[]> {
+    return this.http.get<ListarTarifasI[]>(`${this.apiUrl}/tarifa`).pipe((res) => res)
+
+
   }
 }

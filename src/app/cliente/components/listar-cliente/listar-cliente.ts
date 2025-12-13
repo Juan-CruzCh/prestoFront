@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, output } from '@angular/core';
 import { ClienteService } from '../../service/cliente-service';
 import { map, Observable } from 'rxjs';
 import { ListarClienteI } from '../../model/cliente';
-import { ResultadoHttp } from '../../../share/model/ResultadoHttp';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ResultadoHttp } from '../../../../share/model/ResultadoHttp';
 
 @Component({
   selector: 'app-listar-cliente',
@@ -23,6 +24,8 @@ export class ListarCliente implements OnInit {
   apellidoPaterno: string = '';
   apellidoMaterno: string = '';
   pagina: number = 1
+
+  @Output() private clienteSeleccionado = new EventEmitter<ListarClienteI>()
 
 
   constructor(private readonly clienteService: ClienteService) { }
@@ -68,7 +71,7 @@ export class ListarCliente implements OnInit {
     return paginasArray;
   }
   radioButtonSeleccionarCliente(cliente: ListarClienteI) {
-    console.log(cliente);
+    this.clienteSeleccionado.emit(cliente)
 
   }
 

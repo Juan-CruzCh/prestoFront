@@ -19,43 +19,72 @@
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
+              @for (item of listarMedidorClientes$ | async; track $index) {
               <tr>
-                <td class="px-4 py-2">C001</td>
-                <td class="px-4 py-2">12345678</td>
-                <td class="px-4 py-2">Juan</td>
-                <td class="px-4 py-2">Pérez</td>
-                <td class="px-4 py-2">Gómez</td>
-                <td class="px-4 py-2">Av. Principal #123</td>
-                <td class="px-4 py-2">M001</td>
-                <td class="px-4 py-2">Tarifa A</td>
+                <td class="px-4 py-2">{{item.codigo}}</td>
+                <td class="px-4 py-2">{{item.ci}}</td>
+                <td class="px-4 py-2">{{item.nombre}}</td>
+                <td class="px-4 py-2">{{item.apellidoPaterno}}</td>
+                <td class="px-4 py-2">{{item.apellidoMaterno}}</td>
+                <td class="px-4 py-2">{{item.direccion}}</td>
+                <td class="px-4 py-2">{{item.numeroMedidor}}</td>
+                <td class="px-4 py-2">{{item.tarifa}}</td>
                 <td class="px-4 py-2">
-                  <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">Activo</span>
+                  <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">{{item.estado}}</span>
                 </td>
                 <td class="px-4 py-2">
                   <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-xs">Editar</button>
                 </td>
               </tr>
+              }
 
-              <tr>
-                <td class="px-4 py-2">C002</td>
-                <td class="px-4 py-2">87654321</td>
-                <td class="px-4 py-2">María</td>
-                <td class="px-4 py-2">López</td>
-                <td class="px-4 py-2">Ramírez</td>
-                <td class="px-4 py-2">Calle Secundaria #456</td>
-                <td class="px-4 py-2">M002</td>
-                <td class="px-4 py-2">Tarifa B</td>
-                <td class="px-4 py-2">
-                  <span class="px-2 py-1 bg-red-100 text-red-700 rounded text-xs font-medium">Inactivo</span>
-                </td>
-                <td class="px-4 py-2">
-                  <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-xs">Editar</button>
-                </td>
-              </tr>
+
 
               <!-- Agrega más filas según necesites -->
             </tbody>
           </table>
+          <div class="mt-4 flex justify-center items-center space-x-1">
+            <!-- Botón Anterior -->
+            <button (click)="cambiarPagina(pagina - 1)" [disabled]="pagina === 1"
+              class="px-3 py-1 bg-gray-200 rounded disabled:opacity-50">Anterior</button>
+
+            <!-- Primera página y "..." si hace falta -->
+
+            @if (paginasVisibles[0] > 1) {
+            <button (click)="cambiarPagina(1)" class="px-3 py-1 bg-gray-200 rounded">1</button>
+            }
+
+            @if (paginasVisibles[0] > 2) {
+            <span>...</span>
+            }
+
+            @for (p of paginasVisibles; track $index) {
+            <button (click)="cambiarPagina(p)"
+              [ngClass]="{'bg-blue-500 text-white': pagina === p, 'bg-gray-200 text-gray-700': pagina !== p}"
+              class="px-3 py-1 rounded">
+              {{ p }}
+            </button>
+            }
+
+
+            @if (paginasVisibles[0] > 1) {
+            <button (click)="cambiarPagina(1)" class="px-3 py-1 bg-gray-200 rounded">1</button>
+            }
+
+            @if (paginasVisibles[paginasVisibles.length - 1] < paginas - 1) { <span>...</span>
+              }
+              <!-- "..." y última página si hace falta -->
+              @if (paginasVisibles[paginasVisibles.length - 1] < paginas) { <button (click)="cambiarPagina(paginas)"
+                class="px-3 py-1 bg-gray-200 rounded">{{ paginas }}</button>
+                }
+
+
+
+                <!-- Botón Siguiente -->
+                <button (click)="cambiarPagina(pagina + 1)" [disabled]="pagina === paginas"
+                  class="px-3 py-1 bg-gray-200 rounded disabled:opacity-50">Siguiente</button>
+          </div>
+
         </div>
       </div>
     </div>
