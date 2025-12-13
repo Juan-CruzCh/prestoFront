@@ -1,102 +1,96 @@
 <div class="mb-6">
-    <h3 class="text-lg font-medium mb-3 text-gray-700">Clientes</h3>
-    <div class="overflow-x-auto border rounded-lg">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-100">
-                <tr>
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Seleccionar</th>
+  <h3 class="text-lg font-medium mb-3 text-gray-700">Clientes</h3>
+  <div class="overflow-x-auto border rounded-lg">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Seleccionar</th>
 
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
-                        Código Cliente
-                        <input type="text" placeholder="Buscar" [(ngModel)]="codigo" (input)="listarClientes()"
-                            class="mt-1 w-full p-1 border border-gray-300 rounded text-sm" />
-                    </th>
+          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
+            Código Cliente
+            <input
+              type="text"
+              placeholder="Buscar"
+              [(ngModel)]="codigo"
+              (input)="listarClientes()"
+              class="mt-1 w-full p-1 border border-gray-300 rounded text-sm"
+            />
+          </th>
 
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
-                        CI
-                        <input type="text" placeholder="Buscar" [(ngModel)]="ci" (input)="listarClientes()"
-                            class="mt-1 w-full p-1 border border-gray-300 rounded text-sm" />
-                    </th>
+          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
+            CI
+            <input
+              type="text"
+              placeholder="Buscar"
+              [(ngModel)]="ci"
+              (input)="listarClientes()"
+              class="mt-1 w-full p-1 border border-gray-300 rounded text-sm"
+            />
+          </th>
 
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
-                        Nombre
-                        <input type="text" placeholder="Buscar" [(ngModel)]="nombre" (input)="listarClientes()"
-                            class="mt-1 w-full p-1 border border-gray-300 rounded text-sm" />
-                    </th>
+          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
+            Nombre
+            <input
+              type="text"
+              placeholder="Buscar"
+              [(ngModel)]="nombre"
+              (input)="listarClientes()"
+              class="mt-1 w-full p-1 border border-gray-300 rounded text-sm"
+            />
+          </th>
 
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
-                        Apellido Paterno
-                        <input type="text" placeholder="Buscar" [(ngModel)]="apellidoPaterno" (input)="listarClientes()"
-                            class="mt-1 w-full p-1 border border-gray-300 rounded text-sm" />
-                    </th>
+          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
+            Apellido Paterno
+            <input
+              type="text"
+              placeholder="Buscar"
+              [(ngModel)]="apellidoPaterno"
+              (input)="listarClientes()"
+              class="mt-1 w-full p-1 border border-gray-300 rounded text-sm"
+            />
+          </th>
 
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
-                        Apellido Materno
-                        <input type="text" placeholder="Buscar" [(ngModel)]="apellidoMaterno" (input)="listarClientes()"
-                            class="mt-1 w-full p-1 border border-gray-300 rounded text-sm" />
-                    </th>
+          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
+            Apellido Materno
+            <input
+              type="text"
+              placeholder="Buscar"
+              [(ngModel)]="apellidoMaterno"
+              (input)="listarClientes()"
+              class="mt-1 w-full p-1 border border-gray-300 rounded text-sm"
+            />
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200 bg-white">
+        @for (item of clientes$ | async; track $index) {
+        <tr>
+          <td class="px-4 py-2">
+            <input
+              type="radio"
+              (click)="radioButtonSeleccionarCliente(item)"
+              name="cliente"
+              class="form-radio h-5 w-5 text-blue-600"
+            />
+          </td>
+          <td class="px-4 py-2">{{ item.codigo }}</td>
+          <td class="px-4 py-2">{{ item.ci }}</td>
+          <td class="px-4 py-2">{{ item.nombre }}</td>
+          <td class="px-4 py-2">{{ item.apellidoPaterno }}</td>
+          <td class="px-4 py-2">{{ item.apellidoMaterno }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
 
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200 bg-white">
-                @for (item of clientes$ | async; track $index) {
-                <tr>
-                    <td class="px-4 py-2">
-                        <input type="radio" (click)="radioButtonSeleccionarCliente(item)" name="cliente"
-                            class="form-radio h-5 w-5 text-blue-600" />
-                    </td>
-                    <td class="px-4 py-2">{{item.codigo}}</td>
-                    <td class="px-4 py-2">{{item.ci}}</td>
-                    <td class="px-4 py-2">{{item.nombre}}</td>
-                    <td class="px-4 py-2">{{item.apellidoPaterno}}</td>
-                    <td class="px-4 py-2">{{item.apellidoMaterno}}</td>
-                </tr>
-                }
-
-            </tbody>
-        </table>
-        <div class="mt-4 flex justify-center items-center space-x-1">
-            <!-- Botón Anterior -->
-            <button (click)="cambiarPagina(pagina - 1)" [disabled]="pagina === 1"
-                class="px-3 py-1 bg-gray-200 rounded disabled:opacity-50">Anterior</button>
-
-            <!-- Primera página y "..." si hace falta -->
-
-            @if (paginasVisibles[0] > 1) {
-            <button (click)="cambiarPagina(1)" class="px-3 py-1 bg-gray-200 rounded">1</button>
-            }
-
-            @if (paginasVisibles[0] > 2) {
-            <span>...</span>
-            }
-
-            @for (p of paginasVisibles; track $index) {
-            <button (click)="cambiarPagina(p)"
-                [ngClass]="{'bg-blue-500 text-white': pagina === p, 'bg-gray-200 text-gray-700': pagina !== p}"
-                class="px-3 py-1 rounded">
-                {{ p }}
-            </button>
-            }
-
-
-            @if (paginasVisibles[0] > 1) {
-            <button (click)="cambiarPagina(1)" class="px-3 py-1 bg-gray-200 rounded">1</button>
-            }
-
-            @if (paginasVisibles[paginasVisibles.length - 1] < paginas - 1) { <span>...</span>
-                }
-                <!-- "..." y última página si hace falta -->
-                @if (paginasVisibles[paginasVisibles.length - 1] < paginas) { <button (click)="cambiarPagina(paginas)"
-                    class="px-3 py-1 bg-gray-200 rounded">{{ paginas }}</button>
-                    }
-
-
-
-                    <!-- Botón Siguiente -->
-                    <button (click)="cambiarPagina(pagina + 1)" [disabled]="pagina === paginas"
-                        class="px-3 py-1 bg-gray-200 rounded disabled:opacity-50">Siguiente</button>
-        </div>
+<mat-paginator
+  [length]="paginas"
+  [pageSize]="1"
+  [pageSizeOptions]="[1]"
+  (page)="onPageChange($event)"
+  aria-label="Select page">
+</mat-paginator>
 
 
-    </div>
+  </div>
 </div>

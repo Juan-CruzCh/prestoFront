@@ -4,10 +4,11 @@ import { map, Observable } from 'rxjs';
 import { ListarMedidorClientesI } from '../../model/medidor';
 import { ResultadoHttp } from '../../../../share/model/ResultadoHttp';
 import { CommonModule } from '@angular/common';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-listar',
-  imports: [CommonModule],
+  imports: [CommonModule,MatPaginatorModule],
   templateUrl: './listar.html',
   styleUrl: './listar.css',
 })
@@ -15,7 +16,7 @@ export class Listar implements OnInit {
   listarMedidorClientes$!: Observable<ListarMedidorClientesI[]>
   paginas: number = 0
   pagina: number = 1
-  maxVisiblePages = 7
+  totalMedidores = 0
   constructor(private readonly medidorService: MedidorService) {
 
   }
@@ -27,7 +28,8 @@ export class Listar implements OnInit {
   listarMedidorCliente() {
     this.listarMedidorClientes$ = this.medidorService.listarMedidorCliente().pipe(
       map((item: ResultadoHttp<ListarMedidorClientesI>) => {
-        this.paginas
+        this.paginas = item.paginas
+        this.totalMedidores = item.total
         return item.data
 
       })
@@ -35,26 +37,11 @@ export class Listar implements OnInit {
 
   }
 
-  cambiarPagina(nuevaPagina: number) {
-    if (nuevaPagina < 1 || nuevaPagina > this.paginas) return;
-    this.pagina = nuevaPagina;
-    this.listarMedidorCliente(); // vuelve a cargar los datos con la nueva página
+  
+  onPageChange(event: PageEvent) {
+    this.pagina = event.pageIndex + 1;
+    this.listarMedidorCliente();
   }
 
-
-  get paginasVisibles(): number[] {
-    const paginasArray: number[] = [];
-    let start = Math.max(1, this.pagina - Math.floor(this.maxVisiblePages / 2));
-    let end = Math.min(this.paginas, start + this.maxVisiblePages - 1);
-
-    // ajustar start si llegamos al final
-    start = Math.max(1, end - this.maxVisiblePages + 1);
-
-    for (let i = start; i <= end; i++) {
-      paginasArray.push(i);
-    }
-
-    return paginasArray;
-  }
 
 }

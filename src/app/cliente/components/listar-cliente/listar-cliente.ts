@@ -2,14 +2,14 @@ import { Component, EventEmitter, OnInit, Output, output } from '@angular/core';
 import { ClienteService } from '../../service/cliente-service';
 import { map, Observable } from 'rxjs';
 import { ListarClienteI } from '../../model/cliente';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResultadoHttp } from '../../../../share/model/ResultadoHttp';
-
+import { PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-listar-cliente',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatPaginatorModule],
   standalone: true,
   templateUrl: './listar-cliente.html',
 })
@@ -34,6 +34,8 @@ export class ListarCliente implements OnInit {
   }
 
   listarClientes() {
+    console.log(this.pagina);
+    
     this.clientes$ = this.clienteService.listarClientes(this.codigo,
       this.ci,
       this.nombre,
@@ -49,27 +51,11 @@ export class ListarCliente implements OnInit {
     );
   }
 
-  cambiarPagina(nuevaPagina: number) {
-    if (nuevaPagina < 1 || nuevaPagina > this.paginas) return;
-    this.pagina = nuevaPagina;
-    this.listarClientes(); // vuelve a cargar los datos con la nueva página
-  }
+ onPageChange(event: PageEvent) {
+  this.pagina = event.pageIndex + 1;
+  this.listarClientes();
+}
 
-
-  get paginasVisibles(): number[] {
-    const paginasArray: number[] = [];
-    let start = Math.max(1, this.pagina - Math.floor(this.maxVisiblePages / 2));
-    let end = Math.min(this.paginas, start + this.maxVisiblePages - 1);
-
-    // ajustar start si llegamos al final
-    start = Math.max(1, end - this.maxVisiblePages + 1);
-
-    for (let i = start; i <= end; i++) {
-      paginasArray.push(i);
-    }
-
-    return paginasArray;
-  }
   radioButtonSeleccionarCliente(cliente: ListarClienteI) {
     this.clienteSeleccionado.emit(cliente)
 

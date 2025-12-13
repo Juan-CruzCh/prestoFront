@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpBackend, HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { TarifasService } from "../../tarifa/service/TarifasService";
 import { FormularioMedidorI, ListarMedidorClientesI } from "../model/medidor";
@@ -15,8 +15,8 @@ export class MedidorService {
 
     ) { }
 
-    crearMedidor(data: FormularioMedidorI) {
-        return this.http.post<any>(`${this.apiUrl}/medidor`, data, { observe: 'response' });
+    crearMedidor(data: FormularioMedidorI) :Observable<any>{
+        return this.http.post<any>(`${this.apiUrl}/medidor`, data, {observe:"response"});
     }
 
     listarMedidorCliente(): Observable<ResultadoHttp<ListarMedidorClientesI>> {
