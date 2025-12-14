@@ -1,6 +1,6 @@
 <div class="min-h-screen flex justify-center items-center bg-gray-50 px-4 py-6">
   <div class="w-full max-w-3xl bg-white p-6 sm:p-8 rounded-lg shadow-md">
-    
+
     <h2 class="text-xl sm:text-2xl font-semibold mb-6 text-center text-gray-800">
       Crear Lectura
     </h2>
@@ -13,8 +13,8 @@
           Número de Medidor
         </label>
         <input id="numeroMedidor" type="text" placeholder="Ingrese número de medidor"
-               class="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm sm:text-base"
-               value="M001" readonly>
+          class="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm sm:text-base"
+          value="M001" readonly>
       </div>
 
       <!-- Información del cliente -->
@@ -43,7 +43,7 @@
           Año
         </label>
         <select id="anio"
-                class="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm sm:text-base bg-white">
+          class="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm sm:text-base bg-white">
           <option value="2025">2025</option>
           <option value="2024">2024</option>
           <option value="2023">2023</option>
@@ -56,20 +56,12 @@
           Mes
         </label>
         <select id="mes"
-                class="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm sm:text-base bg-white">
+          class="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm sm:text-base bg-white">
           <option value="" disabled selected>-- Seleccione un mes --</option>
-          <option>Enero</option>
-          <option>Febrero</option>
-          <option>Marzo</option>
-          <option>Abril</option>
-          <option>Mayo</option>
-          <option>Junio</option>
-          <option>Julio</option>
-          <option>Agosto</option>
-          <option>Septiembre</option>
-          <option>Octubre</option>
-          <option>Noviembre</option>
-          <option>Diciembre</option>
+          @for (item of mesesAno; track $index) {
+          <option value={{item}}>{{item}}</option>
+          }
+
         </select>
       </div>
 
@@ -80,22 +72,22 @@
             Lectura Anterior
           </label>
           <input id="lecturaAnterior" type="number" placeholder="Lectura anterior"
-                 class="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 text-right cursor-not-allowed text-sm sm:text-base"
-                 value="150" readonly>
+            class="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 text-right cursor-not-allowed text-sm sm:text-base"
+            value="150" readonly>
         </div>
         <div class="w-full">
           <label for="lecturaActual" class="block mb-2 font-medium text-gray-700 text-sm sm:text-base">
             Lectura Actual
           </label>
           <input id="lecturaActual" type="number" placeholder="Ingrese lectura actual"
-                 class="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm sm:text-base">
+            class="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm sm:text-base">
         </div>
       </div>
 
       <!-- Botón Guardar -->
       <div class="pt-2 flex justify-center">
         <button type="submit"
-                class="w-full sm:w-auto sm:min-w-[200px] bg-blue-600 text-white px-6 py-2.5 sm:py-3 rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors font-medium text-sm sm:text-base shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+          class="w-full sm:w-auto sm:min-w-[200px] bg-blue-600 text-white px-6 py-2.5 sm:py-3 rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors font-medium text-sm sm:text-base shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400">
           Guardar
         </button>
       </div>

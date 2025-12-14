@@ -12,4 +12,11 @@ import { router } from './router';
     RouterModule.forChild(router)
   ]
 })
-export class LecturaModule { }
+export class LecturaModule {
+ 
+
+
+
+
+
+}

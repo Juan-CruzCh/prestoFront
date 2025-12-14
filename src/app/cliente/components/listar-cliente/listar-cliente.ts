@@ -34,8 +34,7 @@ export class ListarCliente implements OnInit {
   }
 
   listarClientes() {
-    console.log(this.pagina);
-    
+  
     this.clientes$ = this.clienteService.listarClientes(this.codigo,
       this.ci,
       this.nombre,
