@@ -1,15 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { map, Observable } from 'rxjs';
+import { ListarLecturaMedidorI } from '../../model/lectura';
+import { lecturaService } from '../../service/lecturaService';
+import { CommonModule } from '@angular/common';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-listar',
-  imports: [],
+  imports: [CommonModule, MatPaginatorModule],
   templateUrl: './listar.html',
   styleUrl: './listar.css',
 })
 export class Listar implements OnInit {
-
+  listarLecturas$!: Observable<ListarLecturaMedidorI[]>
+  pagina: number = 0
   fechaInicio: string = ""
   fechaFin: string = ""
+  totalPaginas: number = 200
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  constructor(private readonly lecturaService: lecturaService) { }
+
   ngOnInit(): void {
     const hoy = new Date()
     hoy.setHours(hoy.getHours() - 4)
@@ -19,6 +30,15 @@ export class Listar implements OnInit {
   }
 
   listarLecturas() {
-    
+    this.listarLecturas$ = this.lecturaService.listarLecturas(this.fechaInicio, this.fechaFin).pipe(map((item) => {
+      this.totalPaginas = Math.ceil((item.length / 20))
+      // this.totalLecturas + item.length
+      return item
+    }))
   }
+  onPageChange(event: PageEvent) {
+    this.pagina = event.pageIndex + 1;
+    this.listarLecturas();
+  }
+
 }

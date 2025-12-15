@@ -19,14 +19,14 @@ export interface FormularioLecturaI {
 
 }
 
-
-export interface listarLecturasI {
-    codigo: string;
-    mes: string;
+export interface ListarLecturaMedidorI {
+    _id: string
+    numeroMedidor: string;
+    gestion: number;
+    mes: number;
     lecturaActual: number;
     lecturaAnterior: number;
-    consumoTotal: number
-    costoApagar: number,
-    estado: string
-
+    consumoTotal: number;
+    costoApagar: number;
+    estado: string;
 }

@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ResultadoHttp } from '../../../share/model/ResultadoHttp';
-import { BuscarMedidorClienteI, FormularioLecturaI } from '../model/lectura';
+import { BuscarMedidorClienteI, FormularioLecturaI, ListarLecturaMedidorI } from '../model/lectura';
 
 @Injectable({
   providedIn: 'root',
@@ -18,10 +17,10 @@ export class lecturaService {
   registrarLectura(data: FormularioLecturaI): Observable<any> {
     return this.http.post(`${this.apiUrl}/lectura`, data)
   }
-  listarLecturas(codigo: string, fehaInicio: string, fechaFin: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/lectura/listar`, {
-      codigo,
-      fehaInicio,
+  listarLecturas(fechaInicio: string, fechaFin: string): Observable<ListarLecturaMedidorI[]> {
+   
+    return this.http.post<ListarLecturaMedidorI[]>(`${this.apiUrl}/lectura/listar`,{
+      fechaInicio,
       fechaFin
     })
   }
