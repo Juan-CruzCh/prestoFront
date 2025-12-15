@@ -5,6 +5,46 @@
 
   <table class="min-w-full divide-y divide-gray-200">
     <thead class="bg-gray-100">
+      <tr class="bg-gray-50">
+        <!-- Código -->
+        <th class="px-3 py-2">
+          <input type="text" name="codigo" placeholder="Código" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm
+                 focus:border-blue-500 focus:ring-2 focus:ring-blue-200
+                 placeholder-gray-400" />
+        </th>
+
+        <!-- Mes (vacío o futuro filtro) -->
+        <th class="px-3 py-2"></th>
+
+        <!-- Lectura anterior -->
+        <th class="px-3 py-2"></th>
+
+        <!-- Lectura actual -->
+        <th class="px-3 py-2"></th>
+
+        <!-- Fecha inicio -->
+        <th class="px-3 py-2">
+          <input type="date" value={{fechaInicio}} class="w-full rounded-lg border border-gray-300 px-2 py-2 text-sm
+                 focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+        </th>
+
+        <!-- Fecha fin -->
+        <th class="px-3 py-2">
+          <input type="date" value={{fechaFin}} class="w-full rounded-lg border border-gray-300 px-2 py-2 text-sm
+                 focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+        </th>
+
+        <!-- Botón buscar -->
+        <th class="px-3 py-2 text-center">
+          <button class="w-full flex items-center justify-center gap-2
+                 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white
+                 hover:bg-blue-700 transition-colors
+                 focus:outline-none focus:ring-2 focus:ring-blue-300">
+            🔍 Buscar
+          </button>
+        </th>
+      </tr>
+
       <tr>
         <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Medidor</th>
         <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Mes</th>

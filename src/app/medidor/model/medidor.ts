@@ -19,4 +19,5 @@ export interface ListarMedidorClientesI {
     codigo: string;
     tarifa: string;
     ci: string;
+    lecturasPendientes: number
 }

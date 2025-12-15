@@ -95,7 +95,7 @@ export class CrearMedidor implements OnInit {
           horizontalPosition: 'right',
           verticalPosition: 'top',
         });
-        console.log(err.error.error);
+       
       },
     });
   }

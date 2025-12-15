@@ -51,7 +51,8 @@ export class Listar implements OnInit {
       this.apellidoMaterno,
       this.numeroMedidor,
       this.tarifa,
-      this.estado
+      this.estado,
+      ""
     ).pipe(
       map((item: ResultadoHttp<ListarMedidorClientesI>) => {
         this.paginas = item.paginas

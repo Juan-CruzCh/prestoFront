@@ -19,7 +19,16 @@ export class MedidorService {
         return this.http.post<any>(`${this.apiUrl}/medidor`, data, { observe: "response" });
     }
 
-    listarMedidorCliente(codigo: string, ci: string, nombre: string, apellidoPaterno: string, apellidoMaterno: string, numeroMedidor: string, tarifa: string, estado: string): Observable<ResultadoHttp<ListarMedidorClientesI>> {
+    listarMedidorCliente(codigo: string,
+        ci: string, nombre: string,
+        apellidoPaterno: string,
+        apellidoMaterno: string,
+        numeroMedidor: string,
+        tarifa: string,
+        estado: string,
+        estadoMedidor: string
+
+    ): Observable<ResultadoHttp<ListarMedidorClientesI>> {
         return this.http.get<ResultadoHttp<ListarMedidorClientesI>>(`${this.apiUrl}/medidor`, {
             params: {
                 codigo,
@@ -29,7 +38,8 @@ export class MedidorService {
                 numeroMedidor,
                 ci,
                 tarifa,
-                estado  
+                estado,
+                estadoMedidor
             }
         }).pipe((res) => res);
     }
