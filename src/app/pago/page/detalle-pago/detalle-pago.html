@@ -1,0 +1,222 @@
+<div #recibo class="w-[216mm] min-h-[279mm] mx-auto my-6 bg-white text-black p-10 shadow-xl">
+
+    <!-- Encabezado Elegante -->
+    <div class="flex items-center justify-between mb-8">
+        <img src="logo/logo23.webp" class="w-50 h-30 object-contain" alt="Logo" />
+
+        <div class="text-center flex-1 border-b-4 border-black pb-2">
+            <h1 class="text-3xl font-bold tracking-widest mb-1">RECIBO DE PAGO</h1>
+            <p class="text-sm tracking-wide">Servicio de Agua Potable</p>
+        </div>
+
+        <img src="logo/escudo.png" class="w-40 h-25 object-contain" alt="Escudo" />
+    </div>
+
+    <!-- Información del Cliente - Diseño Limpio -->
+    <div class="mb-8">
+        <div class="grid grid-cols-3 gap-6 text-sm">
+            <div class="col-span-2">
+                <div class="mb-3">
+                    <span class="text-xs uppercase tracking-wide text-gray-600">Cliente</span>
+                    <p class="text-base font-bold mt-1">Juan Carlos Chocllu Mamani</p>
+                </div>
+                <div>
+                    <span class="text-xs uppercase tracking-wide text-gray-600">Dirección</span>
+                    <p class="text-base mt-1">Barrio Central – Calle Bolívar #123</p>
+                </div>
+            </div>
+            <div class="text-right space-y-2">
+                <div>
+                    <span class="text-xs uppercase tracking-wide text-gray-600">N° Socio</span>
+                    <p class="font-bold">6789456 LP</p>
+                </div>
+                <div>
+                    <span class="text-xs uppercase tracking-wide text-gray-600">N° Medidor</span>
+                    <p class="font-bold">MED-4589</p>
+                </div>
+                <div>
+                    <span class="text-xs uppercase tracking-wide text-gray-600">Fecha Emisión</span>
+                    <p class="font-bold">05/05/2025</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="h-0.5 bg-black mb-6"></div>
+
+    <!-- Comprobante de Pago - Diseño Moderno -->
+    <div class="mb-8 bg-gray-50 p-6 rounded-lg">
+        <div class="text-center mb-5">
+            <h2 class="text-xl font-bold uppercase tracking-wide">Comprobante de Pago</h2>
+            <div class="w-24 h-1 bg-black mx-auto mt-2"></div>
+        </div>
+
+
+        <!-- Tabla sin bordes externos -->
+        <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+            <div class="grid grid-cols-5 bg-black text-white text-sm font-bold py-3 px-4">
+                <div>Mes</div>
+                <div class="text-center">Lect. Anterior</div>
+                <div class="text-center">Lect. Actual</div>
+                <div class="text-center">Consumo m³</div>
+                <div class="text-right">Importe Bs</div>
+            </div>
+
+            <div class="px-4 py-3 grid grid-cols-5 items-center border-b border-gray-200">
+                <div class="font-semibold">Mayo</div>
+                <div class="text-center">1,245</div>
+                <div class="text-center">1,273</div>
+                <div class="text-center font-semibold">28</div>
+                <div class="text-right font-semibold">42.00</div>
+            </div>
+
+            <div class="bg-gray-100 px-4 py-4 grid grid-cols-5 items-center font-bold text-base">
+                <div class="col-span-4 uppercase tracking-wide">Total Pagado</div>
+                <div class="text-right text-xl">42.00</div>
+            </div>
+
+            <div class="px-4 py-3 text-small italic text-gray-700 border-t border-gray-300">
+                Son: Cuarenta y dos 00/100 Bolivianos
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Historial Anual - Diseño Simplificado -->
+    <div class="mb-8">
+        <div class="flex items-center mb-4">
+            <h3 class="font-bold text-base uppercase tracking-wide">Historial Anual 2025</h3>
+            <div class="flex-1 h-0.5 bg-black ml-4"></div>
+        </div>
+
+        <div class="bg-white">
+            <div class="grid grid-cols-5 bg-gray-200 text-xs font-bold py-2 px-4 uppercase tracking-wide">
+                <div>Mes</div>
+                <div class="text-center">m³</div>
+                <div class="text-right">Bs</div>
+                <div class="text-center">Estado</div>
+                <div class="text-center">F. Pago</div>
+            </div>
+
+            <div class="divide-y divide-gray-200 text-xs">
+                <div class="grid grid-cols-5 py-2 px-4 hover:bg-gray-50">
+                    <div>Enero</div>
+                    <div class="text-center">25</div>
+                    <div class="text-right">37.50</div>
+                    <div class="text-center font-bold">PAGADO</div>
+                    <div class="text-center">05/05/25</div>
+                </div>
+                <div class="grid grid-cols-5 py-2 px-4 hover:bg-gray-50">
+                    <div>Febrero</div>
+                    <div class="text-center">25</div>
+                    <div class="text-right">37.50</div>
+                    <div class="text-center font-bold">PAGADO</div>
+                    <div class="text-center">05/05/25</div>
+                </div>
+                <div class="grid grid-cols-5 py-2 px-4 hover:bg-gray-50">
+                    <div>Marzo</div>
+                    <div class="text-center">30</div>
+                    <div class="text-right">45.00</div>
+                    <div class="text-center font-bold">PAGADO</div>
+                    <div class="text-center">05/05/25</div>
+                </div>
+                <div class="grid grid-cols-5 py-2 px-4 hover:bg-gray-50">
+                    <div>Abril</div>
+                    <div class="text-center">20</div>
+                    <div class="text-right">30.00</div>
+                    <div class="text-center font-bold">PAGADO</div>
+                    <div class="text-center">05/05/25</div>
+                </div>
+                <div class="grid grid-cols-5 py-2 px-4 bg-gray-50">
+                    <div>Mayo</div>
+                    <div class="text-center">28</div>
+                    <div class="text-right">42.00</div>
+                    <div class="text-center font-bold">PAGADO</div>
+                    <div class="text-center">10/06/25</div>
+                </div>
+                <div class="grid grid-cols-5 py-2 px-4 text-gray-400">
+                    <div>Junio</div>
+                    <div class="text-center">-</div>
+                    <div class="text-right">-</div>
+                    <div class="text-center">Pendiente</div>
+                    <div class="text-center">-</div>
+                </div>
+                <div class="grid grid-cols-5 py-2 px-4 text-gray-400">
+                    <div>Julio</div>
+                    <div class="text-center">-</div>
+                    <div class="text-right">-</div>
+                    <div class="text-center">Pendiente</div>
+                    <div class="text-center">-</div>
+                </div>
+                <div class="grid grid-cols-5 py-2 px-4 text-gray-400">
+                    <div>Agosto</div>
+                    <div class="text-center">-</div>
+                    <div class="text-right">-</div>
+                    <div class="text-center">Pendiente</div>
+                    <div class="text-center">-</div>
+                </div>
+                <div class="grid grid-cols-5 py-2 px-4 text-gray-400">
+                    <div>Septiembre</div>
+                    <div class="text-center">-</div>
+                    <div class="text-right">-</div>
+                    <div class="text-center">Pendiente</div>
+                    <div class="text-center">-</div>
+                </div>
+                <div class="grid grid-cols-5 py-2 px-4 text-gray-400">
+                    <div>Octubre</div>
+                    <div class="text-center">-</div>
+                    <div class="text-right">-</div>
+                    <div class="text-center">Pendiente</div>
+                    <div class="text-center">-</div>
+                </div>
+                <div class="grid grid-cols-5 py-2 px-4 text-gray-400">
+                    <div>Noviembre</div>
+                    <div class="text-center">-</div>
+                    <div class="text-right">-</div>
+                    <div class="text-center">Pendiente</div>
+                    <div class="text-center">-</div>
+                </div>
+                <div class="grid grid-cols-5 py-2 px-4 text-gray-400">
+                    <div>Diciembre</div>
+                    <div class="text-center">-</div>
+                    <div class="text-right">-</div>
+                    <div class="text-center">Pendiente</div>
+                    <div class="text-center">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nota Legal -->
+    <div class="mb-8 pl-4 border-l-4 border-black">
+        <p class="text-xs text-gray-700">
+            <strong>Nota:</strong> Conserve este recibo como comprobante de pago. Para reclamos presentar dentro de
+            30 días.
+        </p>
+    </div>
+
+    <!-- Firmas Minimalistas -->
+    <div class="grid grid-cols-2 gap-20 mt-16">
+        <div class="text-center">
+            <div class="w-48 mx-auto mb-3  border-t-2 border-black"></div>
+            <p class="font-bold text-sm">Secretario Hacienda</p>
+            <p class="text-xs text-gray-600">Firma y Sello</p>
+        </div>
+        <div class="text-center">
+            <div class="w-48 mx-auto mb-3 border-t-2 border-black"></div>
+            <p class="font-bold text-sm">Recibí Conforme</p>
+            <p class="text-xs text-gray-600">Firma del Socio</p>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div class="text-center my-6">
+    <button (click)="imprimirRecibo()"
+        class="bg-black text-white px-10 py-4 rounded-lg text-base font-bold hover:bg-gray-800 tracking-wide uppercase shadow-lg">
+        Imprimir Recibo
+    </button>
+</div>
