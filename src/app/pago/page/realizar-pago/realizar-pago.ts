@@ -3,7 +3,7 @@ import { ListarCliente } from "../../../cliente/components/listar-cliente/listar
 
 @Component({
   selector: 'app-realizar-pago',
-  imports: [ListarCliente, ListarCliente],
+  imports: [ListarCliente],
   templateUrl: './realizar-pago.html'
 })
 export class RealizarPago {

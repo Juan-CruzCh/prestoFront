@@ -1,0 +1,58 @@
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+#recibo {
+  width: 180mm;        /* ligeramente menor que antes */
+  min-height: 250mm;   /* reduce altura total */
+  padding: 8mm;        /* menos espacio interno */
+  background: white;
+  color: black;
+  box-sizing: border-box;
+  font-size: 12px;     /* reduce tamaño de texto general */
+  margin: 0 auto;      /* centra horizontalmente */
+}
+
+#recibo h1 {
+  font-size: 20px;     /* encabezado principal más pequeño */
+}
+
+#recibo h2 {
+  font-size: 16px;     /* subtítulos más pequeños */
+}
+
+#recibo h3 {
+  font-size: 14px;     /* títulos secciones */
+}
+
+#recibo table th,
+#recibo table td {
+  padding: 4px 6px;    /* reduce padding de celdas */
+  font-size: 11px;     /* texto de tabla más pequeño */
+}
+
+#recibo .grid-cols-2 > div p {
+  font-size: 10px;     /* reduce tamaño de texto de firmas */
+}
+
+@media print {
+  @page {
+    size: letter;
+    margin: 5mm;
+  }
+
+  #recibo {
+    width: auto;
+    min-height: auto;
+    padding: 8mm;
+    page-break-inside: avoid;
+  }
+
+  table, tr, td, th {
+    page-break-inside: avoid !important;
+  }
+}
