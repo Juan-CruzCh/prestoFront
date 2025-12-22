@@ -22,7 +22,6 @@ export class RealizarLectura implements OnInit {
   gestiones: number[] = []
   mes: string = ""
   numeroMedidor = ""
-  lecturaActual = 0
   error: string = ""
   gestion: string = ""
 
@@ -54,6 +53,9 @@ export class RealizarLectura implements OnInit {
         next: (value) => {
           this.error = ""
           this.lecturaCliente = value
+          this.formularioLectura.patchValue({
+            lecturaAnterior:value.lecturaActual
+          })
           this.cdr.detectChanges()
 
         },
@@ -70,9 +72,9 @@ export class RealizarLectura implements OnInit {
     if (this.formularioLectura.invalid) {
       this.formularioLectura.markAllAsTouched();
       return;
-    }
-    console.log(this.lecturaCliente.medidor, this.gestion, this.mes)
-    console.log(this.formularioLectura.value, this.formularioLectura.controls.lecturaActual.value);
+      }
+      console.log(this.formularioLectura);
+      
     if (this.lecturaCliente.medidor && this.gestion && this.mes) {
       const data: FormularioLecturaI = {
         gestion: this.gestion,
@@ -82,7 +84,8 @@ export class RealizarLectura implements OnInit {
         mes: this.mes
       }
 
-
+      console.log(data);
+      
       this.lecturaService.registrarLectura(data).subscribe({
         next: (value) => {
           this.snackBar.open("registrado", 'cerrar', {

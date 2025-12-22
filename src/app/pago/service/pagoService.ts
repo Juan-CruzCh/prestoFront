@@ -18,10 +18,11 @@ export class PagoService {
     }
     
 
-    realizarPago(lecturas:string[]){
-        console.log( {lecturas:lecturas});
-        
-      return this.http.post(`${this.apiUrl}/pago`, {lecturas:lecturas.map((item)=> ({lectura:item}))})
+    realizarPago(lecturas:string[], cliente:string, medidor:string){
+      return this.http.post(`${this.apiUrl}/pago`, {cliente:cliente, medidor:medidor,lecturas:lecturas.map((item)=> ({lectura:item}))})
     }   
     
+     detallePago(pago:string):Observable<any>{ 
+      return this.http.get<any>(`${this.apiUrl}/pago/detalle/${pago}`)
+    } 
 }   

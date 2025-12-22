@@ -82,7 +82,7 @@
                         class="h-4 w-4 text-blue-600"
                         [disabled]="medidorSeleccionado !== item.numeroMedidor"
                         [checked]="lecturaSeleccionas.includes(itemLectura._id)"
-                        (change)="btnLectura($event, itemLectura._id, itemLectura.costoApagar, itemLectura.mes)"
+                        (change)="btnLectura($event, itemLectura._id, itemLectura.costoApagar, itemLectura.mes, item._id)"
                       >
                     </td>
                   </tr>

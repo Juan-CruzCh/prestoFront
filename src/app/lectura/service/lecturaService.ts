@@ -15,6 +15,8 @@ export class lecturaService {
   }
 
   registrarLectura(data: FormularioLecturaI): Observable<any> {
+    console.log(data);
+    
     return this.http.post(`${this.apiUrl}/lectura`, data)
   }
   listarLecturas(fechaInicio: string, fechaFin: string): Observable<ListarLecturaMedidorI[]> {

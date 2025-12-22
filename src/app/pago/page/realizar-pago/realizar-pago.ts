@@ -7,6 +7,7 @@ import { PagoService } from '../../service/pagoService';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { AlertUtils } from '../../../../share/utils/alertas';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-realizar-pago',
@@ -18,13 +19,15 @@ export class RealizarPago {
   total: number = 0
   lecturasCliente$!: Observable<buscarMedidorClienteI[]>
   lecturaSeleccionas: string[] = []
-  meses :string[]=[]
-  cliente:string=''
-
-  constructor(private readonly pagoService: PagoService) { }
+  meses: string[] = []
+  cliente: string = ''
+  idMedidor: string = ''
+  idCliente: string = ''
+  constructor(private readonly pagoService: PagoService, private router: Router) { }
   getCliente(cliente: ListarClienteI) {
     this.lecturasCliente$ = this.pagoService.buscarMedidorCliente(cliente._id)
     this.medidorSeleccionado = ''
+    this.idCliente = cliente._id
     this.cliente = `${cliente.nombre} ${cliente.apellidoPaterno} ${cliente.apellidoMaterno}`
 
   }
@@ -34,14 +37,14 @@ export class RealizarPago {
       this.medidorSeleccionado = numeroMedidor;
       this.total = 0;
       this.lecturaSeleccionas = [];
-      this.meses=[]
+      this.meses = []
     }
 
   }
 
-  btnLectura(event: Event, id: string, monto: number, meses:string) {
+  btnLectura(event: Event, id: string, monto: number, meses: string, idMedidor: string) {
     const checked = (event.target as HTMLInputElement).checked;
-
+    this.idMedidor = idMedidor
     if (checked) {
       this.total += monto;
       this.lecturaSeleccionas.push(id);
@@ -50,23 +53,24 @@ export class RealizarPago {
       this.total -= monto;
       this.lecturaSeleccionas = this.lecturaSeleccionas.filter(l => l !== id);
     }
+
   }
 
 
- async  btnRealizarPago() {
-    if(this.lecturaSeleccionas.length <= 0 ){
+  async btnRealizarPago() {
+    if (this.lecturaSeleccionas.length <= 0) {
       AlertUtils.advertencia("Debe seleccionar al menos una lectura")
+      return
     }
-    const confirmacion= await AlertUtils.confirmarPago(this.cliente, this.meses, this.total)
-    if(!confirmacion) return
-    this.pagoService.realizarPago(this.lecturaSeleccionas).subscribe({
-      next(value) {
-        console.log(value);
-        
+    const confirmacion = await AlertUtils.confirmarPago(this.cliente, this.meses, this.total)
+    if (!confirmacion) return
+    this.pagoService.realizarPago(this.lecturaSeleccionas, this.idCliente, this.idMedidor).subscribe({
+      next: (value) => {
+        this.router.navigate(['/pago/detalle', value]);
       },
       error(err) {
-        console.log(err);
-        
+        AlertUtils.error("Ocuccio un error")
+
       },
     })
 

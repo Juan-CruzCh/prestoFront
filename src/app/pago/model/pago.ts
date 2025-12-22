@@ -1,5 +1,6 @@
 
 export interface buscarMedidorClienteI {
+    _id:string
     numeroMedidor: string,
     direccion: string,
     estado: string
