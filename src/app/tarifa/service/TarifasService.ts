@@ -9,8 +9,8 @@ import { firstValueFrom, Observable, throwError } from 'rxjs';
 export class TarifasService {
   private apiUrl = 'http://localhost:5000/api';
   constructor(private http: HttpClient) { }
-  crearTarifa(data: TarifaI): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.apiUrl}/tarifa`, data, { observe: 'response' });
+  crearTarifa(data: TarifaI): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/tarifa`, data);
   }
 
   listarTarifasRangos(): Observable<ListarTarifasRangoI[]> {

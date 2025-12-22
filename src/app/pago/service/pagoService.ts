@@ -17,4 +17,11 @@ export class PagoService {
         return this.http.get<buscarMedidorClienteI[]>(`${this.apiUrl}/lectura/medidor/cliente/${idClinte}`)
     }
     
+
+    realizarPago(lecturas:string[]){
+        console.log( {lecturas:lecturas});
+        
+      return this.http.post(`${this.apiUrl}/pago`, {lecturas:lecturas.map((item)=> ({lectura:item}))})
+    }   
+    
 }   

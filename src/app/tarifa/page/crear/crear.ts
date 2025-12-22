@@ -49,7 +49,7 @@ export class Crear {
   btnEliminarTarifa(index: number) {
     this.tarifas = this.tarifas.filter((_, i) => i !== index);
   }
-  async btnGuardarTarifa() {
+   btnGuardarTarifa() {
     const data: TarifaI = {
       nombre: this.tarifas[0].nombre.toUpperCase(),
       rango: this.tarifas.map((item) => ({
@@ -59,11 +59,17 @@ export class Crear {
         rango2: item.rango2,
       })),
     };
-    try {
-      const response = await this.tarifasService.crearTarifa(data);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
+
+    this.tarifasService.crearTarifa(data).subscribe({
+      next(value) {
+        console.log(value);
+        
+      },
+      error(err) {
+        console.log(err);
+        
+      },
+    })
+    
   }
 }
