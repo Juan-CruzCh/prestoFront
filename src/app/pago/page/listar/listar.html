@@ -1,94 +1,73 @@
 <div class="overflow-x-auto border rounded-lg">
-  <table class="min-w-full divide-y divide-gray-200">
-    <thead class="bg-gray-100">
-      <tr>
-        <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Cliente</th>
-        <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Medidor</th>
-        <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Total Pagado</th>
-        <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Fecha de Pago</th>
-        <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Detalle</th>
-        <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Recibo</th>
-      </tr>
-    </thead>
-    <tbody class="divide-y divide-gray-200 bg-white text-sm">
+	<table class="min-w-full divide-y divide-gray-200">
+		<thead class="bg-gray-100">
+			<tr>
+				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Nombre</th>
+				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Apellido paterno</th>
+				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Apellido Materno</th>
+				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Medidor</th>
+				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Total Pagado</th>
+				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Fecha de Pago</th>
+				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Detalle</th>
+				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Recibo</th>
+			</tr>
+		</thead>
+		<tbody
+			class="divide-y divide-gray-200 bg-white text-sm">
 
-      <!-- Pago 1 -->
-      <tr>
-        <td class="px-4 py-2">Juan Pérez Gómez</td>
-        <td class="px-4 py-2">M001</td>
-        <td class="px-4 py-2">$50</td>
-        <td class="px-4 py-2">05/02/2025</td>
-        <td class="px-4 py-2">
-          <table class="min-w-full divide-y divide-gray-200 border rounded text-xs">
-            <thead class="bg-gray-50">
-              <tr>
-                <th class="px-2 py-1">Mes</th>
-                <th class="px-2 py-1">Anterior</th>
-                <th class="px-2 py-1">Actual</th>
-                <th class="px-2 py-1">Consumo</th>
-                <th class="px-2 py-1">Costo</th>
-              </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-              <tr>
-                <td class="px-2 py-1">Enero 2025</td>
-                <td class="px-2 py-1">100</td>
-                <td class="px-2 py-1">150</td>
-                <td class="px-2 py-1">50</td>
-                <td class="px-2 py-1">$50</td>
-              </tr>
-            </tbody>
-          </table>
-        </td>
-        <td class="px-4 py-2">
-          <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-xs">
-            Ver Recibo
-          </button>
-        </td>
-      </tr>
+			<!-- Pago 1 -->
+			@for (item of listarPagos$ | async; track $index) {
+			<tr>
+				<td class="px-4 py-2">{{item.nombre}}
 
-      <!-- Pago 2 -->
-      <tr>
-        <td class="px-4 py-2">María López Ramírez</td>
-        <td class="px-4 py-2">M002</td>
-        <td class="px-4 py-2">$55</td>
-        <td class="px-4 py-2">06/03/2025</td>
-        <td class="px-4 py-2">
-          <table class="min-w-full divide-y divide-gray-200 border rounded text-xs">
-            <thead class="bg-gray-50">
-              <tr>
-                <th class="px-2 py-1">Mes</th>
-                <th class="px-2 py-1">Anterior</th>
-                <th class="px-2 py-1">Actual</th>
-                <th class="px-2 py-1">Consumo</th>
-                <th class="px-2 py-1">Costo</th>
-              </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-              <tr>
-                <td class="px-2 py-1">Enero 2025</td>
-                <td class="px-2 py-1">50</td>
-                <td class="px-2 py-1">80</td>
-                <td class="px-2 py-1">30</td>
-                <td class="px-2 py-1">$30</td>
-              </tr>
-              <tr>
-                <td class="px-2 py-1">Febrero 2025</td>
-                <td class="px-2 py-1">80</td>
-                <td class="px-2 py-1">100</td>
-                <td class="px-2 py-1">20</td>
-                <td class="px-2 py-1">$25</td>
-              </tr>
-            </tbody>
-          </table>
-        </td>
-        <td class="px-4 py-2">
-          <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-xs">
-            Ver Recibo
-          </button>
-        </td>
-      </tr>
+				</td>
+				<td class="px-4 py-2">{{item.apellidoPaterno}}
 
-    </tbody>
-  </table>
+				</td>
+				<td class="px-4 py-2">{{item.apellidoMaterno}}
+
+				</td>
+				<td class="px-4 py-2">{{item.numeroMedidor}}</td>
+				<td class="px-4 py-2">{{item.total}}</td>
+				<td class="px-4 py-2">{{item.fecha | date:'dd/MM/yyyy HH:mm:ss':'UTC' }}</td>
+				<td class="px-4 py-2">
+					<table class="min-w-full divide-y divide-gray-200 border rounded text-xs">
+						<thead class="bg-gray-50">
+							<tr>
+								<th class="px-2 py-1">Mes</th>
+								<th class="px-2 py-1">Anterior</th>
+								<th class="px-2 py-1">Actual</th>
+								<th class="px-2 py-1">Consumo</th>
+								<th class="px-2 py-1">Costo</th>
+							</tr>
+						</thead>
+						<tbody class="bg-white divide-y divide-gray-200">
+							@for (detalle of item.detallePago; track $index) {
+							<tr>
+								<td class="px-2 py-1">
+									{{detalle.mes}}</td>
+								<td class="px-2 py-1">
+									{{detalle.lecturaAnterior}}</td>
+								<td class="px-2 py-1">
+									{{detalle.lecturaActual}}</td>
+								<td class="px-2 py-1">
+									{{detalle.consumoTotal}}</td>
+								<td class="px-2 py-1">
+									{{detalle.costoPagado}}
+									Bs</td>
+							</tr>}
+						</tbody>
+					</table>
+				</td>
+				<td class="px-4 py-2">
+					<button   [routerLink]="['/pago/detalle', item._id]" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-xs">
+						Ver Recibo
+					</button>
+				</td>
+			</tr>
+			}
+
+
+		</tbody>
+	</table>
 </div>

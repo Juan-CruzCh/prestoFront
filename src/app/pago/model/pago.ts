@@ -1,29 +1,29 @@
 
 export interface buscarMedidorClienteI {
-    _id:string
-    numeroMedidor: string,
-    direccion: string,
-    estado: string
-    lecturas: LecturasPagoI[]
+  _id: string
+  numeroMedidor: string,
+  direccion: string,
+  estado: string
+  lecturas: LecturasPagoI[]
 }
 
 
 interface LecturasPagoI {
-    _id: string;
-    codigo: string;
-    numeroLectura: number;
-    mes: string;
-    lecturaActual: number;
-    lecturaAnterior: number;
-    consumoTotal: number;
-    costoApagar: number;
-    gestion: string;
-    estado: string;
-    medidor: string;
-    usuario: string;
-    flag: string;
-    fechaVencimiento: Date;
-    fecha: Date;
+  _id: string;
+  codigo: string;
+  numeroLectura: number;
+  mes: string;
+  lecturaActual: number;
+  lecturaAnterior: number;
+  consumoTotal: number;
+  costoApagar: number;
+  gestion: string;
+  estado: string;
+  medidor: string;
+  usuario: string;
+  flag: string;
+  fechaVencimiento: Date;
+  fecha: Date;
 }
 
 
@@ -41,7 +41,7 @@ export interface DetallePagoLectura {
   costoApagar: number;
   mes: string;
   flag: string;
-  fecha: string; 
+  fecha: string;
 }
 
 
@@ -50,13 +50,13 @@ export interface DetallePagoCliente {
   apellidoMaterno: string;
   apellidoPaterno: string;
   codigoCliente: string;
-direccion: string;
+  direccion: string;
   detallePago: DetallePagoLectura[];
-  fecha: string; 
+  fecha: string;
   nombre: string;
   numeroPago: number;
   total: number;
-  numeroMedidor:string
+  numeroMedidor: string
 }
 
 
@@ -74,8 +74,9 @@ export interface HistorialLectura {
   medidor: string;
   usuario: string;
   flag: string;
-  fechaVencimiento: string; 
+  fechaVencimiento: string;
   fecha: string;
+  fechaPago: string;
 }
 
 
@@ -83,4 +84,19 @@ export interface PagoDetalleResponse {
   detallePago: DetallePagoCliente;
   gestion: number;
   historial: HistorialLectura[];
+}
+
+
+
+export interface ListarPagos {
+  _id: string;
+  apellidoMaterno: string;
+  apellidoPaterno: string;
+  codigoCliente: string;
+  detallePago: DetallePagoLectura[];
+  fecha: string;
+  nombre: string;
+  numeroPago: number;
+  total: number;
+  numeroMedidor: string
 }

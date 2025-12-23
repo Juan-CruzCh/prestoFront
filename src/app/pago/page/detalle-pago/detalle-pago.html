@@ -1,220 +1,159 @@
-<div  class="flex justify-center py-6 bg-gray-100 min-h-screen">
-@if (detallePago$ | async; as item) {
+<div class="flex justify-center py-6 bg-gray-100 min-h-screen">
+	@if (detallePago$ | async; as item) {
 
 
-<div #recibo class="bg-white text-black p-4" style="width:180mm; min-height:250mm; font-size:12px;">
+	<div
+		#recibo class="bg-white text-black p-4" style="width:180mm; min-height:250mm; font-size:12px;">
 
-    <!-- Encabezado Elegante -->
-    <div class="flex items-center justify-between mb-4">
-        <img src="logo/logo23.webp" class="w-36 h-24 object-contain" alt="Logo" />
+		<!-- Encabezado Elegante -->
+		<div class="flex items-center justify-between mb-4">
+			<img src="logo/logo23.webp" class="w-36 h-24 object-contain" alt="Logo"/>
 
-        <div class="text-center flex-1 border-b-4 border-black pb-1">
-            <h1 class="text-2xl font-bold tracking-widest mb-1">RECIBO DE PAGO</h1>
-            <p class="text-sm tracking-wide">Servicio de Agua Potable</p>
-        </div>
+			<div class="text-center flex-1 border-b-4 border-black pb-1">
+				<h1 class="text-2xl font-bold tracking-widest mb-1">RECIBO DE PAGO</h1>
+				<p class="text-sm tracking-wide">Servicio de Agua Potable</p>
+			</div>
 
-        <img src="logo/escudo.png" class="w-28 h-20 object-contain" alt="Escudo" />
-    </div>
+			<img src="logo/escudo.png" class="w-28 h-20 object-contain" alt="Escudo"/>
+		</div>
 
-    <!-- Número de Recibo -->
-    <div class="text-right mb-4">
-        <p class="text-xs font-bold">Nº Recibo: {{item.detallePago.numeroPago}}</p>
-    </div>
+		<!-- Número de Recibo -->
+		<div class="text-right mb-4">
+			<p class="text-xs font-bold">Nº Recibo:
+				{{item.detallePago.numeroPago}}</p>
+		</div>
 
-    <!-- Información del Cliente -->
-    <div class="mb-4 grid grid-cols-3 gap-2 text-xs">
-        <div>
-            <p class="uppercase text-gray-600">Cliente</p>
-            <p class="font-bold"> {{item.detallePago.nombre}}  {{item.detallePago.apellidoPaterno}}   {{item.detallePago.apellidoMaterno}}</p>
-        </div>
-        <div>
-            <p class="uppercase text-gray-600">Dirección</p>
-            <p> {{item.detallePago.direccion}}</p>
-        </div>
-        <div>
-            <p class="uppercase text-gray-600">Medidor / Socio</p>
-            <p class="font-bold">{{item.detallePago.numeroMedidor}} / {{item.detallePago.codigoCliente}}</p>
-            <p class="uppercase text-gray-600">Fecha Emisión</p>
-            <p class="font-bold">{{ item.detallePago.fecha | date:'dd/MM/yyyy HH:mm:ss':'UTC' }}</p>
-        </div>
-    </div>
+		<!-- Información del Cliente -->
+		<div class="mb-4 grid grid-cols-3 gap-2 text-xs">
+			<div>
+				<p class="uppercase text-gray-600">Cliente</p>
+				<p class="font-bold">
+					{{item.detallePago.nombre}}
+					{{item.detallePago.apellidoPaterno}}
+					{{item.detallePago.apellidoMaterno}}</p>
+			</div>
+			<div>
+				<p class="uppercase text-gray-600">Dirección</p>
+				<p>
+					{{item.detallePago.direccion}}</p>
+			</div>
+			<div>
+				<p class="uppercase text-gray-600">Medidor / Socio</p>
+				<p class="font-bold">{{item.detallePago.numeroMedidor}}
+					/
+					{{item.detallePago.codigoCliente}}</p>
+				<p class="uppercase text-gray-600">Fecha Emisión</p>
+				<p class="font-bold">{{ item.detallePago.fecha | date:'dd/MM/yyyy HH:mm:ss':'UTC' }}</p>
+			</div>
+		</div>
 
-    <div class="h-0.5 bg-black mb-4"></div>
+		<div class="h-0.5 bg-black mb-4"></div>
 
-    <!-- Comprobante de Pago -->
-    <div class="p-2 mb-4">
-        <div class="text-center mb-2">
-            <h2 class="text-lg font-bold uppercase tracking-wide">Comprobante de Pago</h2>
-        </div>
+		<!-- Comprobante de Pago -->
+		<div class="p-2 mb-4">
+			<div class="text-center mb-2">
+				<h2 class="text-lg font-bold uppercase tracking-wide">Comprobante de Pago</h2>
+			</div>
 
-        <table class="w-full border-collapse text-xs">
-            <thead>
-                <tr class="bg-black text-white font-bold">
-                    <th class="py-1 px-1">Mes</th>
-                    <th class="py-1 px-1 text-center">Lect. Anterior</th>
-                    <th class="py-1 px-1 text-center">Lect. Actual</th>
-                    <th class="py-1 px-1 text-center">Consumo m³</th>
-                    <th class="py-1 px-1 text-right">Importe Bs</th>
-                </tr>
-            </thead>
-            <tbody>
-               @for (item of item.detallePago.detallePago; track $index) {
-                 <tr class="border-b border-gray-200">
-                    <td class="py-1 px-1 font-semibold">{{item.mes}}</td>
-                    <td class="py-1 px-1 text-center">{{item.lecturaAnterior}}</td>
-                    <td class="py-1 px-1 text-center">{{item.lecturaActual}}</td>
-                    <td class="py-1 px-1 text-center font-semibold">{{item.consumoTotal}}</td>
-                    <td class="py-1 px-1 text-right font-semibold">{{item.costoApagar}}</td>
-                </tr>
-               }
-            </tbody>
-            <tfoot>
-                <tr class="bg-gray-100 font-bold text-sm">
-                    <td colspan="4" class="py-1 px-1 uppercase tracking-wide">Total Pagado</td>
-                    <td class="py-1 px-1 text-right"> {{totalPagado}} Bs</td>
-                </tr>
-                <tr>
-                    <td colspan="5" class="py-1 px-1 italic text-sm  text-black border-t border-gray-300">
-                        Son: {{totalTexto}}
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
+			<table class="w-full border-collapse text-xs">
+				<thead>
+					<tr class="bg-black text-white font-bold">
+						<th class="py-1 px-1">Mes</th>
+						<th class="py-1 px-1 text-center">Lect. Anterior</th>
+						<th class="py-1 px-1 text-center">Lect. Actual</th>
+						<th class="py-1 px-1 text-center">Consumo m³</th>
+						<th class="py-1 px-1 text-right">Importe Bs</th>
+					</tr>
+				</thead>
+				<tbody>
+					@for (item of item.detallePago.detallePago; track $index) {
+					<tr class="border-b border-gray-200">
+						<td class="py-1 px-1 font-semibold">{{item.mes}}</td>
+						<td class="py-1 px-1 text-center">{{item.lecturaAnterior}}</td>
+						<td class="py-1 px-1 text-center">{{item.lecturaActual}}</td>
+						<td class="py-1 px-1 text-center font-semibold">{{item.consumoTotal}}</td>
+						<td class="py-1 px-1 text-right font-semibold">{{item.costoApagar}}</td>
+					</tr>
+					}
+				</tbody>
+				<tfoot>
+					<tr class="bg-gray-100 font-bold text-sm">
+						<td colspan="4" class="py-1 px-1 uppercase tracking-wide">Total Pagado</td>
+						<td class="py-1 px-1 text-right">
+							{{totalPagado}}
+							Bs</td>
+					</tr>
+					<tr>
+						<td colspan="5" class="py-1 px-1 italic text-sm  text-black border-t border-gray-300">
+							Son:
+							{{totalTexto}}
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
 
-    <!-- Historial Anual -->
-    <div class="mb-4 p-2">
-        <div class="flex items-center mb-2">
-            <h3 class="font-bold text-sm uppercase tracking-wide">Historial Anual {{item.gestion}}</h3>
-            <div class="flex-1 h-0.5 bg-black ml-2"></div>
-        </div>
+		<!-- Historial Anual -->
+		<div class="mb-4 p-2">
+			<div class="flex items-center mb-2">
+				<h3 class="font-bold text-sm uppercase tracking-wide">Historial Anual
+					{{item.gestion}}</h3>
+				<div class="flex-1 h-0.5 bg-black ml-2"></div>
+			</div>
 
-        <table class="w-full border-collapse text-xs">
-            <thead>
-                <tr class="bg-gray-200 font-bold uppercase">
-                    <th class="py-1 px-1">Mes</th>
-                    <th class="py-1 px-1 text-center">m³</th>
-                    <th class="py-1 px-1 text-right">Bs</th>
-                    <th class="py-1 px-1 text-center">Estado</th>
-                    <th class="py-1 px-1 text-center">F. Pago</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-                <tr>
-                    <td class="py-2 px-2">Enero</td>
-                    <td class="py-2 px-2 text-center">25</td>
-                    <td class="py-2 px-2 text-right">37.50</td>
-                    <td class="py-2 px-2 text-center font-bold">PAGADO</td>
-                    <td class="py-2 px-2 text-center">05/01/25</td>
-                </tr>
-                <tr>
-                    <td class="py-2 px-2">Febrero</td>
-                    <td class="py-2 px-2 text-center">25</td>
-                    <td class="py-2 px-2 text-right">37.50</td>
-                    <td class="py-2 px-2 text-center font-bold">PAGADO</td>
-                    <td class="py-2 px-2 text-center">05/02/25</td>
-                </tr>
-                <tr>
-                    <td class="py-2 px-2">Marzo</td>
-                    <td class="py-2 px-2 text-center">30</td>
-                    <td class="py-2 px-2 text-right">45.00</td>
-                    <td class="py-2 px-2 text-center font-bold">PAGADO</td>
-                    <td class="py-2 px-2 text-center">05/03/25</td>
-                </tr>
-                <tr>
-                    <td class="py-2 px-2">Abril</td>
-                    <td class="py-2 px-2 text-center">20</td>
-                    <td class="py-2 px-2 text-right">30.00</td>
-                    <td class="py-2 px-2 text-center font-bold">PAGADO</td>
-                    <td class="py-2 px-2 text-center">05/04/25</td>
-                </tr>
-                <tr>
-                    <td class="py-2 px-2">Mayo</td>
-                    <td class="py-2 px-2 text-center">28</td>
-                    <td class="py-2 px-2 text-right">42.00</td>
-                    <td class="py-2 px-2 text-center font-bold">PAGADO</td>
-                    <td class="py-2 px-2 text-center">05/05/25</td>
-                </tr>
-                <tr class="text-gray-400">
-                    <td class="py-2 px-2">Junio</td>
-                    <td class="py-2 px-2 text-center">-</td>
-                    <td class="py-2 px-2 text-right">-</td>
-                    <td class="py-2 px-2 text-center">Pendiente</td>
-                    <td class="py-2 px-2 text-center">-</td>
-                </tr>
-                <tr class="text-gray-400">
-                    <td class="py-2 px-2">Julio</td>
-                    <td class="py-2 px-2 text-center">-</td>
-                    <td class="py-2 px-2 text-right">-</td>
-                    <td class="py-2 px-2 text-center">Pendiente</td>
-                    <td class="py-2 px-2 text-center">-</td>
-                </tr>
-                <tr class="text-gray-400">
-                    <td class="py-2 px-2">Agosto</td>
-                    <td class="py-2 px-2 text-center">-</td>
-                    <td class="py-2 px-2 text-right">-</td>
-                    <td class="py-2 px-2 text-center">Pendiente</td>
-                    <td class="py-2 px-2 text-center">-</td>
-                </tr>
-                <tr class="text-gray-400">
-                    <td class="py-2 px-2">Septiembre</td>
-                    <td class="py-2 px-2 text-center">-</td>
-                    <td class="py-2 px-2 text-right">-</td>
-                    <td class="py-2 px-2 text-center">Pendiente</td>
-                    <td class="py-2 px-2 text-center">-</td>
-                </tr>
-                <tr class="text-gray-400">
-                    <td class="py-2 px-2">Octubre</td>
-                    <td class="py-2 px-2 text-center">-</td>
-                    <td class="py-2 px-2 text-right">-</td>
-                    <td class="py-2 px-2 text-center">Pendiente</td>
-                    <td class="py-2 px-2 text-center">-</td>
-                </tr>
-                <tr class="text-gray-400">
-                    <td class="py-2 px-2">Noviembre</td>
-                    <td class="py-2 px-2 text-center">-</td>
-                    <td class="py-2 px-2 text-right">-</td>
-                    <td class="py-2 px-2 text-center">Pendiente</td>
-                    <td class="py-2 px-2 text-center">-</td>
-                </tr>
-                <tr class="text-gray-400">
-                    <td class="py-2 px-2">Diciembre</td>
-                    <td class="py-2 px-2 text-center">-</td>
-                    <td class="py-2 px-2 text-right">-</td>
-                    <td class="py-2 px-2 text-center">Pendiente</td>
-                    <td class="py-2 px-2 text-center">-</td>
-                </tr>
+			<table class="w-full border-collapse text-xs">
+				<thead>
+					<tr class="bg-gray-200 font-bold uppercase">
+						<th class="py-1 px-1">Mes</th>
+						<th class="py-1 px-1 text-center">m³</th>
+						<th class="py-1 px-1 text-right">Bs</th>
+						<th class="py-1 px-1 text-center">Estado</th>
+						<th class="py-1 px-1 text-center">F. Pago</th>
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-gray-200">
+					@for (itemH of item.historial; track $index) {
+					<tr>
+						<td class="py-2 px-2">{{itemH.mes}}</td>
+						<td class="py-2 px-2 text-center">{{itemH.consumoTotal}}</td>
+						<td class="py-2 px-2 text-right">{{itemH.costoApagar}}</td>
+						<td class="py-2 px-2 text-center font-bold">{{itemH.estado}}</td>
+						<td class="py-2 px-2 text-center">{{itemH.fechaPago | date:'dd/MM/yyyy HH:mm:ss':'UTC'}}</td>
+					</tr>
+					}
 
-            </tbody>
-        </table>
-    </div>
+					
+				</tbody>
+			</table>
+		</div>
 
-    <!-- Nota Legal -->
-    <div class="mb-4 pl-2 border-l-4 border-black text-xs text-gray-700">
-        <p><strong>Nota:</strong> Conserve este recibo como comprobante de pago. Para reclamos presentar dentro de 30
-            días.</p>
-    </div>
+		<!-- Nota Legal -->
+		<div class="mb-4 pl-2 border-l-4 border-black text-xs text-gray-700">
+			<p>
+				<strong>Nota:</strong>
+				Conserve este recibo como comprobante de pago. Para reclamos presentar dentro de 30
+				            días.</p>
+		</div>
 
-    <!-- Firmas -->
-    <div class="grid grid-cols-2 gap-8 mt-8 text-xs">
-        <div class="text-center">
-            <div class="w-36 mx-auto mb-1 border-t-2 border-black"></div>
-            <p class="font-bold">Secretario Hacienda</p>
-            <p>Firma y Sello</p>
-        </div>
-        <div class="text-center">
-            <div class="w-36 mx-auto mb-1 border-t-2 border-black"></div>
-            <p class="font-bold">Recibí Conforme</p>
-            <p>Firma del Socio</p>
-        </div>
-    </div>
+		<!-- Firmas -->
+		<div class="grid grid-cols-2 gap-8 mt-8 text-xs">
+			<div class="text-center">
+				<div class="w-36 mx-auto mb-1 border-t-2 border-black"></div>
+				<p class="font-bold">Secretario Hacienda</p>
+				<p>Firma y Sello</p>
+			</div>
+			<div class="text-center">
+				<div class="w-36 mx-auto mb-1 border-t-2 border-black"></div>
+				<p class="font-bold">Recibí Conforme</p>
+				<p>Firma del Socio</p>
+			</div>
+		</div>
 
-</div>
-}
+	</div>
+	}
 </div>
 <div class="text-center my-6">
-    <button (click)="imprimirRecibo()"
-        class="bg-black text-white px-10 py-4 rounded-lg text-base font-bold hover:bg-gray-800 tracking-wide uppercase shadow-lg">
-        Imprimir Recibo
-    </button>
+	<button (click)="imprimirRecibo()" class="bg-black text-white px-10 py-4 rounded-lg text-base font-bold hover:bg-gray-800 tracking-wide uppercase shadow-lg">
+		Imprimir Recibo
+	</button>
 </div>
