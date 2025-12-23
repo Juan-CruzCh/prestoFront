@@ -1,4 +1,6 @@
-<div class="flex justify-center py-6 bg-gray-100 min-h-screen">
+<div  class="flex justify-center py-6 bg-gray-100 min-h-screen">
+@if (detallePago$ | async; as item) {
+
 
 <div #recibo class="bg-white text-black p-4" style="width:180mm; min-height:250mm; font-size:12px;">
 
@@ -16,24 +18,24 @@
 
     <!-- Número de Recibo -->
     <div class="text-right mb-4">
-        <p class="text-xs font-bold">Nº Recibo: 000123</p>
+        <p class="text-xs font-bold">Nº Recibo: {{item.detallePago.numeroPago}}</p>
     </div>
 
     <!-- Información del Cliente -->
     <div class="mb-4 grid grid-cols-3 gap-2 text-xs">
         <div>
             <p class="uppercase text-gray-600">Cliente</p>
-            <p class="font-bold">Juan Carlos Chocllu Mamani</p>
+            <p class="font-bold"> {{item.detallePago.nombre}}  {{item.detallePago.apellidoPaterno}}   {{item.detallePago.apellidoMaterno}}</p>
         </div>
         <div>
             <p class="uppercase text-gray-600">Dirección</p>
-            <p>Barrio Central – Calle Bolívar #123</p>
+            <p> {{item.detallePago.direccion}}</p>
         </div>
         <div>
             <p class="uppercase text-gray-600">Medidor / Socio</p>
-            <p class="font-bold">MED-4589 / 6789456 LP</p>
+            <p class="font-bold">{{item.detallePago.numeroMedidor}} / {{item.detallePago.codigoCliente}}</p>
             <p class="uppercase text-gray-600">Fecha Emisión</p>
-            <p class="font-bold">05/05/2025</p>
+            <p class="font-bold">{{ item.detallePago.fecha | date:'dd/MM/yyyy HH:mm:ss':'UTC' }}</p>
         </div>
     </div>
 
@@ -56,22 +58,24 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="border-b border-gray-200">
-                    <td class="py-1 px-1 font-semibold">Mayo</td>
-                    <td class="py-1 px-1 text-center">1,245</td>
-                    <td class="py-1 px-1 text-center">1,273</td>
-                    <td class="py-1 px-1 text-center font-semibold">28</td>
-                    <td class="py-1 px-1 text-right font-semibold">42.00</td>
+               @for (item of item.detallePago.detallePago; track $index) {
+                 <tr class="border-b border-gray-200">
+                    <td class="py-1 px-1 font-semibold">{{item.mes}}</td>
+                    <td class="py-1 px-1 text-center">{{item.lecturaAnterior}}</td>
+                    <td class="py-1 px-1 text-center">{{item.lecturaActual}}</td>
+                    <td class="py-1 px-1 text-center font-semibold">{{item.consumoTotal}}</td>
+                    <td class="py-1 px-1 text-right font-semibold">{{item.costoApagar}}</td>
                 </tr>
+               }
             </tbody>
             <tfoot>
                 <tr class="bg-gray-100 font-bold text-sm">
                     <td colspan="4" class="py-1 px-1 uppercase tracking-wide">Total Pagado</td>
-                    <td class="py-1 px-1 text-right">42.00</td>
+                    <td class="py-1 px-1 text-right"> {{totalPagado}} Bs</td>
                 </tr>
                 <tr>
-                    <td colspan="5" class="py-1 px-1 italic text-gray-700 border-t border-gray-300">
-                        Son: Cuarenta y dos 00/100 Bolivianos
+                    <td colspan="5" class="py-1 px-1 italic text-sm  text-black border-t border-gray-300">
+                        Son: {{totalTexto}}
                     </td>
                 </tr>
             </tfoot>
@@ -81,7 +85,7 @@
     <!-- Historial Anual -->
     <div class="mb-4 p-2">
         <div class="flex items-center mb-2">
-            <h3 class="font-bold text-sm uppercase tracking-wide">Historial Anual 2025</h3>
+            <h3 class="font-bold text-sm uppercase tracking-wide">Historial Anual {{item.gestion}}</h3>
             <div class="flex-1 h-0.5 bg-black ml-2"></div>
         </div>
 
@@ -206,6 +210,7 @@
     </div>
 
 </div>
+}
 </div>
 <div class="text-center my-6">
     <button (click)="imprimirRecibo()"

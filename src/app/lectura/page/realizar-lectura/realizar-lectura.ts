@@ -77,15 +77,12 @@ export class RealizarLectura implements OnInit {
       
     if (this.lecturaCliente.medidor && this.gestion && this.mes) {
       const data: FormularioLecturaI = {
-        gestion: this.gestion,
+        gestion: Number(this.gestion),
         medidor: this.lecturaCliente.medidor,
         lecturaActual: Number(this.formularioLectura.controls.lecturaActual.value),
         lecturaAnterior: Number(this.formularioLectura.controls.lecturaAnterior.value),
         mes: this.mes
-      }
-
-      console.log(data);
-      
+      }     
       this.lecturaService.registrarLectura(data).subscribe({
         next: (value) => {
           this.snackBar.open("registrado", 'cerrar', {

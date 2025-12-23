@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { buscarMedidorClienteI } from "../model/pago";
+import { buscarMedidorClienteI, PagoDetalleResponse } from "../model/pago";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -22,7 +22,7 @@ export class PagoService {
       return this.http.post(`${this.apiUrl}/pago`, {cliente:cliente, medidor:medidor,lecturas:lecturas.map((item)=> ({lectura:item}))})
     }   
     
-     detallePago(pago:string):Observable<any>{ 
+     detallePago(pago:string):Observable<PagoDetalleResponse>{ 
       return this.http.get<any>(`${this.apiUrl}/pago/detalle/${pago}`)
     } 
 }   

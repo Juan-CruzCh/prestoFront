@@ -14,7 +14,7 @@ export interface FormularioLecturaI {
     lecturaActual: number;
     lecturaAnterior: number;
     medidor: string
-    gestion: string
+    gestion: number
     mes: string,
 
 }
