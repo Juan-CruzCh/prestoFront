@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { buscarMedidorClienteI, ListarPagos, PagoDetalleResponse } from "../model/pago";
 import { Observable } from "rxjs";
+import { ResultadoHttp } from "../../../share/model/ResultadoHttp";
 
 @Injectable({
     providedIn: 'root',
@@ -26,7 +27,7 @@ export class PagoService {
       return this.http.get<PagoDetalleResponse>(`${this.apiUrl}/pago/detalle/${pago}`)
     } 
 
-    listarPagos():Observable<ListarPagos[]>{ 
-      return this.http.get<ListarPagos[]>(`${this.apiUrl}/pago`)
+    listarPagos():Observable<ResultadoHttp<ListarPagos>>{ 
+      return this.http.get<ResultadoHttp<ListarPagos>>(`${this.apiUrl}/pago`)
     } 
 }   

@@ -1,7 +1,50 @@
 <div class="overflow-x-auto border rounded-lg">
 	<table class="min-w-full divide-y divide-gray-200">
 		<thead class="bg-gray-100">
+			<tr class="bg-gray-50">
+				<th class="px-2 py-1">
+					<input type="text" placeholder="Cod. cliente" class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+				</th>
+				<th class="px-2 py-1">
+					<input type="text" placeholder="CI" class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+				</th>
+				<th class="px-2 py-1">
+					<input type="text" placeholder="Nombre" class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+				</th>
+				<th class="px-2 py-1">
+					<input type="text" placeholder="Apellido paterno" class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+				</th>
+				<th class="px-2 py-1">
+					<input type="text" placeholder="Apellido materno" class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+				</th>
+				<th class="px-2 py-1">
+					<input type="text" placeholder="Número de medidor" class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+				</th>
+
+				<!-- Checkbox con diseño -->
+				<th class="px-2 py-1 flex items-center space-x-2">
+					<input id="chkDeshabilitar" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+					<label for="chkDeshabilitar" class="text-sm text-gray-700">Deshabilitar fechas</label>
+				</th>
+
+				<th class="px-2 py-1">
+					<input type="date" [value]="fechaInicio" placeholder="Desde" class="w-full border border-gray-300 rounded px-2 py-1 text-sm mb-1">
+				</th>
+				<th class="px-2 py-1">
+					<input type="date" [value]="fechaFin" placeholder="Hasta" class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+				</th>
+				<th class="px-2 py-1">
+					<button id="btnBuscar" class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 w-full">
+						Buscar
+					</button>
+				</th>
+			</tr>
+		</thead>
+
+		<thead class="bg-gray-100">
 			<tr>
+				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Cod. cliente</th>
+				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Ci</th>
 				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Nombre</th>
 				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Apellido paterno</th>
 				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Apellido Materno</th>
@@ -18,6 +61,12 @@
 			<!-- Pago 1 -->
 			@for (item of listarPagos$ | async; track $index) {
 			<tr>
+				<td class="px-4 py-2">{{item.codigoCliente}}
+
+				</td>
+				<td class="px-4 py-2">{{item.ci}}
+
+				</td>
 				<td class="px-4 py-2">{{item.nombre}}
 
 				</td>
@@ -70,4 +119,6 @@
 
 		</tbody>
 	</table>
+	<mat-paginator [length]="paginas" [pageSize]="1" [pageSizeOptions]="[1]" (page)="onPageChange($event)" aria-label="Select page"></mat-paginator>
+
 </div>

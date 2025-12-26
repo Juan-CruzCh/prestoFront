@@ -99,4 +99,5 @@ export interface ListarPagos {
   numeroPago: number;
   total: number;
   numeroMedidor: string
+   ci: string
 }
