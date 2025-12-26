@@ -13,7 +13,7 @@ import { router } from './router';
   ]
 })
 export class LecturaModule {
- 
+
 
 
 

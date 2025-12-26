@@ -5,16 +5,20 @@ import { map, Observable } from 'rxjs';
 import { ListarPagos } from '../../model/pago';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-listar',
-  imports: [CommonModule, RouterModule, MatPaginatorModule],
+  imports: [CommonModule, RouterModule, MatPaginatorModule, FormsModule],
   templateUrl: './listar.html'
 })
 export class Listar implements OnInit {
   paginas: number = 0
   totalClientes: number = 0;
-  maxVisiblePages: number = 7;
+  listarPagos$!: Observable<ListarPagos[]>
+
+
+    
   codigo: string = '';
   ci: string = '';
   nombre: string = '';
@@ -23,8 +27,11 @@ export class Listar implements OnInit {
   pagina: number = 1
   fechaInicio: string = ""
   fechaFin: string = ""
-  listarPagos$!: Observable<ListarPagos[]>
+  numeroMedidor :string = ''
+
   constructor(private readonly pagoService: PagoService, private router: Router) { }
+
+  
 
   ngOnInit(): void {
      const hoy = new Date()
@@ -40,6 +47,11 @@ export class Listar implements OnInit {
 
       return item.data
     }))
+  }
+
+  btnBuscar(){
+    
+    
   }
 
   onPageChange(event: PageEvent) {

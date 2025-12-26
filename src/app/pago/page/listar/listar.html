@@ -3,38 +3,48 @@
 		<thead class="bg-gray-100">
 			<tr class="bg-gray-50">
 				<th class="px-2 py-1">
-					<input type="text" placeholder="Cod. cliente" class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+					<input type="text" [(ngModel)]="codigo"  placeholder="Cod. cliente"
+						class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
 				</th>
 				<th class="px-2 py-1">
-					<input type="text" placeholder="CI" class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+					<input type="text"  [(ngModel)]="ci" placeholder="CI" class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
 				</th>
 				<th class="px-2 py-1">
-					<input type="text" placeholder="Nombre" class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+					<input type="text"  [(ngModel)]="nombre" placeholder="Nombre"
+						class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
 				</th>
 				<th class="px-2 py-1">
-					<input type="text" placeholder="Apellido paterno" class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+					<input type="text"  [(ngModel)]="apellidoPaterno" placeholder="Apellido paterno"
+						class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
 				</th>
 				<th class="px-2 py-1">
-					<input type="text" placeholder="Apellido materno" class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+					<input type="text"  [(ngModel)]="apellidoMaterno"  placeholder="Apellido materno"
+						class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
 				</th>
 				<th class="px-2 py-1">
-					<input type="text" placeholder="Número de medidor" class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+					<input type="text" [(ngModel)]="numeroMedidor" placeholder="Número de medidor"
+						class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
 				</th>
 
 				<!-- Checkbox con diseño -->
 				<th class="px-2 py-1 flex items-center space-x-2">
-					<input id="chkDeshabilitar" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+					<input id="chkDeshabilitar" type="checkbox"
+						class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
 					<label for="chkDeshabilitar" class="text-sm text-gray-700">Deshabilitar fechas</label>
 				</th>
 
 				<th class="px-2 py-1">
-					<input type="date" [value]="fechaInicio" placeholder="Desde" class="w-full border border-gray-300 rounded px-2 py-1 text-sm mb-1">
+					<input type="date" [value]="fechaInicio" placeholder="Desde"
+						class="w-full border border-gray-300 rounded px-2 py-1 text-sm mb-1">
 				</th>
 				<th class="px-2 py-1">
-					<input type="date" [value]="fechaFin" placeholder="Hasta" class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
+					<input type="date" [value]="fechaFin" placeholder="Hasta"
+						class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
 				</th>
 				<th class="px-2 py-1">
-					<button id="btnBuscar" class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 w-full">
+					<button id="btnBuscar"
+						(click)="btnBuscar()"
+						class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 w-full">
 						Buscar
 					</button>
 				</th>
@@ -55,8 +65,7 @@
 				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Recibo</th>
 			</tr>
 		</thead>
-		<tbody
-			class="divide-y divide-gray-200 bg-white text-sm">
+		<tbody class="divide-y divide-gray-200 bg-white text-sm">
 
 			<!-- Pago 1 -->
 			@for (item of listarPagos$ | async; track $index) {
@@ -109,7 +118,8 @@
 					</table>
 				</td>
 				<td class="px-4 py-2">
-					<button [routerLink]="['/pago/detalle', item._id]" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-xs">
+					<button [routerLink]="['/pago/detalle', item._id]"
+						class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-xs">
 						Ver Recibo
 					</button>
 				</td>
@@ -119,6 +129,7 @@
 
 		</tbody>
 	</table>
-	<mat-paginator [length]="paginas" [pageSize]="1" [pageSizeOptions]="[1]" (page)="onPageChange($event)" aria-label="Select page"></mat-paginator>
+	<mat-paginator [length]="paginas" [pageSize]="1" [pageSizeOptions]="[1]" (page)="onPageChange($event)"
+		aria-label="Select page"></mat-paginator>
 
 </div>
