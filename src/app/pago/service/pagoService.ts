@@ -27,7 +27,27 @@ export class PagoService {
       return this.http.get<PagoDetalleResponse>(`${this.apiUrl}/pago/detalle/${pago}`)
     } 
 
-    listarPagos():Observable<ResultadoHttp<ListarPagos>>{ 
-      return this.http.get<ResultadoHttp<ListarPagos>>(`${this.apiUrl}/pago`)
+    listarPagos(
+      codigoCliente:string,
+      ci:string,
+      nombre:string,
+      apellidoMaterno:string,
+      apellidoPaterno:string,
+      numeroMedidor:string,
+      fechaInicio:string,
+      fechaFin:string
+    ):Observable<ResultadoHttp<ListarPagos>>{ 
+      return this.http.get<ResultadoHttp<ListarPagos>>(`${this.apiUrl}/pago`, {
+        params:{
+          codigoCliente,
+          ci,
+          nombre,
+          apellidoMaterno,
+          apellidoPaterno,
+          numeroMedidor,
+          fechaInicio,
+          fechaFin
+        }
+      })
     } 
 }   

@@ -17,8 +17,8 @@ export class Listar implements OnInit {
   totalClientes: number = 0;
   listarPagos$!: Observable<ListarPagos[]>
 
+  disableRangoFechas:boolean =false
 
-    
   codigo: string = '';
   ci: string = '';
   nombre: string = '';
@@ -27,14 +27,14 @@ export class Listar implements OnInit {
   pagina: number = 1
   fechaInicio: string = ""
   fechaFin: string = ""
-  numeroMedidor :string = ''
+  numeroMedidor: string = ''
 
   constructor(private readonly pagoService: PagoService, private router: Router) { }
 
-  
+
 
   ngOnInit(): void {
-     const hoy = new Date()
+    const hoy = new Date()
     hoy.setHours(hoy.getHours() - 4)
     this.fechaInicio = hoy.toISOString().split('T')[0];
     this.fechaFin = hoy.toISOString().split('T')[0];
@@ -42,21 +42,18 @@ export class Listar implements OnInit {
   }
 
   listarPagos() {
-    this.listarPagos$ = this.pagoService.listarPagos().pipe(map((item) => {
+    this.listarPagos$ = this.pagoService.listarPagos(this.codigo, this.ci, this.nombre, this.apellidoMaterno, this.apellidoPaterno, this.numeroMedidor, this.fechaInicio, this.fechaFin).pipe(map((item) => {
       this.paginas = item.paginas
-
       return item.data
     }))
   }
-
-  btnBuscar(){
-    
-    
-  }
-
   onPageChange(event: PageEvent) {
     this.pagina = event.pageIndex + 1;
     this.listarPagos();
+  }
+
+  btnDesabilitarFechas(){
+    this.disableRangoFechas = !this.disableRangoFechas
   }
 
 } 
