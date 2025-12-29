@@ -15,6 +15,7 @@ import { numeroATextoBolivianos } from '../../../../share/utils/numeroTexto';
 export class DetallePago implements OnInit {
   totalPagado: number = 0
   totalTexto: string = ''
+
   detallePago$!: Observable<PagoDetalleResponse>
   @ViewChild('recibo') recibo!: ElementRef;
   constructor(

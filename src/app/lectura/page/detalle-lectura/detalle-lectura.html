@@ -1,4 +1,5 @@
 <div class="flex justify-center items-center h-screen">
+  @if ( detalleLectura$| async; as item  ) {
   <div class="recibo-container" id="recibo">
     <!-- Header con logo -->
     <div class="recibo-header">
@@ -7,17 +8,17 @@
 
     <!-- Información del cliente -->
     <div class="recibo-info">
-      <p><span>Código Cliente:</span> 12345</p>
-      <p><span>Nro Medidor:</span> 67890</p>
+      <p><span>Código Cliente:</span> {{item.medidorCliente[0].codigoCliente}}</p>
+      <p><span>Nro Medidor:</span> {{item.medidorCliente[0].numeroMedidor}}</p>
     </div>
 
     <!-- Datos del recibo -->
     <div class="recibo-datos">
-      <p><span>Nombre:</span> Juan Pérez Gómez</p>
-      <p><span>Dirección:</span> Calle Ficticia 123, Ciudad</p>
-      <p><span>Categoría:</span> Residencial</p>
-      <p><span>Fecha de lectura:</span> 29/12/2025</p>
-      <p><span>Fecha de vencimiento:</span> 10/01/2026</p>
+      <p><span>Nombre:</span> {{item.medidorCliente[0].nombre}} {{item.medidorCliente[0].apellidoPaterno}}  {{item.medidorCliente[0].apellidoMaterno}}</p>
+      <p><span>Dirección:</span> {{item.medidorCliente[0].direccion}}</p>
+      <p><span>Categoría:</span> {{item.medidorCliente[0].tarifa}}</p>
+      <p><span>Fecha de lectura:</span> {{ item.lecturas[item.lecturas.length - 1].fecha  | date:'dd/MM/yyyy HH:mm:ss':'UTC'}}</p>
+      <p><span>Fecha de vencimiento:</span> {{item.lecturas[item.lecturas.length -1].fechaVencimiento | date:'dd/MM/yyyy'}}</p>
     </div>
 
     <div class="linea"></div>
@@ -43,41 +44,28 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Enero</td>
-              <td>120</td>
-              <td>150</td>
-              <td>30</td>
-              <td>150.0 Bs</td>
-              <td>PAGADO</td>
+              @for (lectura of item.lecturas; track $index) {
+              <tr>
+              <td>{{lectura.mes}}</td>
+              <td>{{lectura.lecturaAnterior}}</td>
+              <td>{{lectura.lecturaActual}}</td>
+              <td>{{lectura.consumoTotal}}</td>
+              <td>{{lectura.costoApagar}} Bs</td>
+              <td>{{lectura.estado}}</td>
             </tr>
-            <tr>
-              <td>Febrero</td>
-              <td>150</td>
-              <td>180</td>
-              <td>30</td>
-              <td>150.0 Bs</td>
-              <td>PENDIENTE</td>
-            </tr>
-            <tr>
-              <td>Marzo</td>
-              <td>180</td>
-              <td>210</td>
-              <td>30</td>
-              <td>150.0 Bs</td>
-              <td>PENDIENTE</td>
-            </tr>
+            }
           </tbody>
           <tfoot>
             <tr>
               <td colspan="4">Total a Pagar</td>
-              <td colspan="2">300.0 Bs</td>
+              <td colspan="2">{{item.totalApagar}} Bs</td>
             </tr>
           </tfoot>
         </table>
       </div>
     </div>
   </div>
+  }
 </div>
 
 <!-- Botón para imprimir -->
