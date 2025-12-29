@@ -73,8 +73,7 @@ export class RealizarLectura implements OnInit {
       this.formularioLectura.markAllAsTouched();
       return;
       }
-      console.log(this.formularioLectura);
-      
+  
     if (this.lecturaCliente.medidor && this.gestion && this.mes) {
       const data: FormularioLecturaI = {
         gestion: Number(this.gestion),
@@ -85,12 +84,9 @@ export class RealizarLectura implements OnInit {
       }     
       this.lecturaService.registrarLectura(data).subscribe({
         next: (value) => {
-          this.snackBar.open("registrado", 'cerrar', {
-            duration: 4000,
-            panelClass: 'snack-error',
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-          });
+          console.log(value);
+          
+
 
 
         },
