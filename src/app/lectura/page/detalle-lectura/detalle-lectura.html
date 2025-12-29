@@ -1,1 +1,88 @@
-<p>detalle-lectura works!</p>
+<div class="flex justify-center items-center h-screen">
+  <div class="recibo-container" id="recibo">
+    <!-- Header con logo -->
+    <div class="recibo-header">
+      <img src="logo.png" width="400" alt="Logo" />
+    </div>
+
+    <!-- Información del cliente -->
+    <div class="recibo-info">
+      <p><span>Código Cliente:</span> 12345</p>
+      <p><span>Nro Medidor:</span> 67890</p>
+    </div>
+
+    <!-- Datos del recibo -->
+    <div class="recibo-datos">
+      <p><span>Nombre:</span> Juan Pérez Gómez</p>
+      <p><span>Dirección:</span> Calle Ficticia 123, Ciudad</p>
+      <p><span>Categoría:</span> Residencial</p>
+      <p><span>Fecha de lectura:</span> 29/12/2025</p>
+      <p><span>Fecha de vencimiento:</span> 10/01/2026</p>
+    </div>
+
+    <div class="linea"></div>
+
+    <!-- Historial de pagos -->
+    <div class="recibo-pagos">
+      <h3>Historial de Lecturas</h3>
+      <div class="recibo-tabla">
+        <table border="1" cellspacing="0" cellpadding="3">
+          <thead>
+            <tr>
+              <th>Mes</th>
+              <th colspan="2">
+                <div style="text-align: center; font-weight: bold;">Lectura</div>
+                <div style="display: flex; justify-content: space-between; width: 100%;">
+                  <span style="text-align: left;">Ant</span>
+                  <span style="text-align: right;">Act</span>
+                </div>
+              </th>
+              <th>m³</th>
+              <th>Imp</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Enero</td>
+              <td>120</td>
+              <td>150</td>
+              <td>30</td>
+              <td>150.0 Bs</td>
+              <td>PAGADO</td>
+            </tr>
+            <tr>
+              <td>Febrero</td>
+              <td>150</td>
+              <td>180</td>
+              <td>30</td>
+              <td>150.0 Bs</td>
+              <td>PENDIENTE</td>
+            </tr>
+            <tr>
+              <td>Marzo</td>
+              <td>180</td>
+              <td>210</td>
+              <td>30</td>
+              <td>150.0 Bs</td>
+              <td>PENDIENTE</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4">Total a Pagar</td>
+              <td colspan="2">300.0 Bs</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Botón para imprimir -->
+<div class="mt-4 text-center">
+  <button class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition" onclick="window.print()">
+    Imprimir Recibo
+  </button>
+</div>

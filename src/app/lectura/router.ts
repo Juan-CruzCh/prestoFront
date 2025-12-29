@@ -13,7 +13,7 @@ export const router: Routes = [
         component: Listar
     },
     {
-        path: "detalle",
+        path: "detalle/:medidor/:lectura",
         component: DetalleLectura
     }
 ]

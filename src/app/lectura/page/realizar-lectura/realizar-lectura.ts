@@ -5,6 +5,7 @@ import { lecturaService } from '../../service/lecturaService';
 import { BuscarMedidorClienteI, FormularioLecturaI } from '../../model/lectura';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-realizar-lectura',
@@ -36,6 +37,7 @@ export class RealizarLectura implements OnInit {
     private readonly lecturaService: lecturaService,
     private cdr: ChangeDetectorRef,
     private readonly snackBar: MatSnackBar,
+    private readonly router :Router
   ) { }
   ngOnInit(): void {
     const date = new Date()
@@ -84,12 +86,9 @@ export class RealizarLectura implements OnInit {
       }     
       this.lecturaService.registrarLectura(data).subscribe({
         next: (value) => {
-          console.log(value);
-          
-
-
-
-        },
+          this.router.navigate(['/lectura/detalle', value.medidor, value.lectura]);
+      
+      },
         error: (err) => {
           this.snackBar.open(err.error.error, 'cerrar', {
             duration: 4000,
