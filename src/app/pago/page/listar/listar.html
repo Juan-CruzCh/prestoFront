@@ -34,11 +34,11 @@
 				</th>
 
 				<th class="px-2 py-1">
-					<input type="date" [disabled]="disableRangoFechas" [value]="fechaInicio" placeholder="Desde"
+					<input type="date" [disabled]="disableRangoFechas"[(ngModel)]="fechaInicio" placeholder="Desde"
 						class="w-full border border-gray-300 rounded px-2 py-1 text-sm mb-1">
 				</th>
 				<th class="px-2 py-1">
-					<input type="date" [disabled]="disableRangoFechas"  [value]="fechaFin" placeholder="Hasta"
+					<input type="date" [disabled]="disableRangoFechas"  [(ngModel)]="fechaFin" placeholder="Hasta"
 						class="w-full border border-gray-300 rounded px-2 py-1 text-sm">
 				</th>
 				<th class="px-2 py-1">

@@ -4,9 +4,10 @@ import { ListarLecturaMedidorI } from '../../model/lectura';
 import { lecturaService } from '../../service/lecturaService';
 import { CommonModule } from '@angular/common';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-listar',
-  imports: [CommonModule, MatPaginatorModule],
+  imports: [CommonModule, MatPaginatorModule, FormsModule],
   templateUrl: './listar.html',
   styleUrl: './listar.css',
 })

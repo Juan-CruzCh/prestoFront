@@ -42,6 +42,8 @@ export class Listar implements OnInit {
   }
 
   listarPagos() {
+    console.log(this.fechaInicio, this.fechaFin);
+    
     this.listarPagos$ = this.pagoService.listarPagos(this.codigo, this.ci, this.nombre, this.apellidoMaterno, this.apellidoPaterno, this.numeroMedidor, this.fechaInicio, this.fechaFin).pipe(map((item) => {
       this.paginas = item.paginas
       return item.data
