@@ -1,0 +1,108 @@
+<!-- Botón para abrir modal -->
+<button
+  class="bg-blue-600 text-white px-4 py-2 rounded"
+  (click)="abrirModal()"
+>
+  Crear Cliente
+</button>
+
+@if (isOpen) {
+  <div
+    class="fixed inset-0 flex items-center justify-center z-50 bg-opacity-50"
+  >
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold">Crear Cliente</h2>
+        <button (click)="cerrarModal()" class="text-xl">✕</button>
+      </div>
+
+      <form
+        [formGroup]="clienteForm"
+        class="space-y-4"
+      >
+
+        <!-- CI -->
+        <div>
+          <input
+            type="text"
+            placeholder="CI"
+            formControlName="ci"
+            class="w-full border rounded px-3 py-2"
+          />
+          @if (clienteForm.get('ci')?.touched && clienteForm.get('ci')?.invalid) {
+            <p class="text-red-500 text-sm">El CI es obligatorio</p>
+          }
+        </div>
+
+        <!-- Nombre -->
+        <div>
+          <input
+            type="text"
+            placeholder="Nombre"
+            formControlName="nombre"
+            class="w-full border rounded px-3 py-2"
+          />
+          @if (clienteForm.get('nombre')?.touched && clienteForm.get('nombre')?.invalid) {
+            <p class="text-red-500 text-sm">El nombre es obligatorio</p>
+          }
+        </div>
+
+        <!-- Apellido Paterno -->
+        <div>
+          <input
+            type="text"
+            placeholder="Apellido Paterno"
+            formControlName="apellidoPaterno"
+            class="w-full border rounded px-3 py-2"
+          />
+          @if (clienteForm.get('apellidoPaterno')?.touched && clienteForm.get('apellidoPaterno')?.invalid) {
+            <p class="text-red-500 text-sm">El apellido paterno es obligatorio</p>
+          }
+        </div>
+
+        <!-- Apellido Materno -->
+        <div>
+          <input
+            type="text"
+            placeholder="Apellido Materno"
+            formControlName="apellidoMaterno"
+            class="w-full border rounded px-3 py-2"
+          />
+          @if (clienteForm.get('apellidoMaterno')?.touched && clienteForm.get('apellidoMaterno')?.invalid) {
+            <p class="text-red-500 text-sm">El apellido materno es obligatorio</p>
+          }
+        </div>
+
+        <!-- Celular -->
+        <div>
+          <input
+            type="text"
+            placeholder="Celular"
+            formControlName="celular"
+            class="w-full border rounded px-3 py-2"
+          />
+          @if (clienteForm.get('celular')?.touched && clienteForm.get('celular')?.invalid) {
+            <p class="text-red-500 text-sm">El celular es obligatorio</p>
+          }
+        </div>
+
+      </form>
+
+      <div class="flex justify-end gap-3 mt-6">
+        <button (click)="cerrarModal()" class="px-4 py-2 border rounded">
+          Cancelar
+        </button>
+
+        <button
+          (click)="guardarCliente()"
+          class="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+          [disabled]="clienteForm.invalid"
+        >
+          Guardar
+        </button>
+      </div>
+
+    </div>
+  </div>
+}

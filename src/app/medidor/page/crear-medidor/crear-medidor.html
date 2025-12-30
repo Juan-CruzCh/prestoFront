@@ -4,6 +4,7 @@
 
 
             <div class="md:col-span-8 order-1 md:order-1">
+                <app-crear-cliente-modal  (clienteSeleccionado)="getCliente($event)"/>
                 <app-listar-cliente (clienteSeleccionado)="getCliente($event)">
 
                 </app-listar-cliente>

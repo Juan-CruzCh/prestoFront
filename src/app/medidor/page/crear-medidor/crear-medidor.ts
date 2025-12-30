@@ -11,10 +11,11 @@ import { ListarTarifasI } from '../../../tarifa/model/tarifa';
 import { MedidorService } from '../../service/medidorService';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpStatusCode } from '@angular/common/http';
+import { CrearClienteModal } from "../../../cliente/components/crear-cliente-modal/crear-cliente-modal";
 @Component({
   selector: 'app-crear-medidor',
   standalone: true,
-  imports: [ClienteModule, ListarCliente, CommonModule, ReactiveFormsModule],
+  imports: [ClienteModule, ListarCliente, CommonModule, ReactiveFormsModule, CrearClienteModal],
   templateUrl: './crear-medidor.html',
 styleUrls: ['./crear.css'],
 
@@ -27,16 +28,6 @@ export class CrearMedidor implements OnInit {
   codigo: string = '';
   idClinte: string = '';
   tarifas$!: Observable<ListarTarifasI[]>;
-
-  constructor(
-    private readonly snackBar: MatSnackBar,
-    private readonly tariFaService: TarifasService,
-    private readonly medidorService: MedidorService
-  ) {}
-
-  ngOnInit(): void {
-    this.tarifas$ = this.tariFaService.listarTarifas();
-  }
   medidorForm = new FormGroup({
     numeroMedidor: new FormControl('', { nonNullable: true, validators: Validators.required }),
     descripcion: new FormControl(''),
@@ -53,6 +44,16 @@ export class CrearMedidor implements OnInit {
       validators: [Validators.required],
     }),
   });
+  constructor(
+    private readonly snackBar: MatSnackBar,
+    private readonly tariFaService: TarifasService,
+    private readonly medidorService: MedidorService
+  ) {}
+
+  ngOnInit(): void {
+    this.tarifas$ = this.tariFaService.listarTarifas();
+  }
+  
 
   getCliente(cliente: ListarClienteI) {
     this.ci = cliente.ci;

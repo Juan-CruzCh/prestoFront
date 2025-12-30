@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ListarClienteI } from '../model/cliente';
+import { CrearClienteI, ListarClienteI } from '../model/cliente';
 import { Observable } from 'rxjs';
 import { ResultadoHttp } from '../../../share/model/ResultadoHttp';
 
@@ -30,6 +30,11 @@ export class ClienteService {
         pagina
       }
     }).pipe((res) => res)
+
+  }
+
+  crearCliente (data:CrearClienteI):Observable<ListarClienteI>{
+    return this.http.post<ListarClienteI>(`${this.apiUrl}/cliente`, data)
 
   }
 

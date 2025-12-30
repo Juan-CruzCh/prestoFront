@@ -10,3 +10,13 @@ export interface ListarClienteI {
     flag: string;
     nombre: string;
 }
+
+export interface CrearClienteI {
+
+   
+    apellidoMaterno: string;
+    apellidoPaterno: string;
+    celular: string;
+    ci: string;
+    nombre: string;
+}
