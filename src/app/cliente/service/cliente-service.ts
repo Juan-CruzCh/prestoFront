@@ -33,7 +33,7 @@ export class ClienteService {
 
   }
 
-  crearCliente (data:CrearClienteI):Observable<ListarClienteI>{
+  crearCliente(data: CrearClienteI): Observable<ListarClienteI> {
     return this.http.post<ListarClienteI>(`${this.apiUrl}/cliente`, data)
 
   }
