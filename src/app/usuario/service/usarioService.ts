@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { UsuarioListarI } from "../model/usuario";
+import { UsuarioCrearI, UsuarioListarI } from "../model/usuario";
 
 @Injectable({
     providedIn: 'root',
@@ -16,6 +16,11 @@ export class UsuarioService {
 
     listarUsuarios():Observable<UsuarioListarI[]>{
         return this.http.get<UsuarioListarI[]>(`${this.apiUrl}/usuario`)
+
+    }
+
+    crearUsuarios(data:UsuarioCrearI):Observable<any>{
+        return this.http.post<any>(`${this.apiUrl}/usuario`, data)
 
     }
 }

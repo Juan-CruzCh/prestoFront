@@ -2,13 +2,13 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CrearClienteI, ListarClienteI } from '../../model/cliente';
 import { ClienteService } from '../../service/cliente-service';
+import { RefrescarService } from '../../../../share/service/refrescarService';
 
 @Component({
   selector: 'app-crear-cliente-modal',
   imports: [FormsModule, ReactiveFormsModule],
   standalone: true,
   templateUrl: './crear-cliente-modal.html',
-  styleUrl: './crear-cliente-modal.css',
 })
 export class CrearClienteModal {
   isOpen = false;
@@ -30,7 +30,7 @@ export class CrearClienteModal {
 
   });
 
-  constructor(private readonly clienteService: ClienteService) { }
+  constructor(private readonly clienteService: ClienteService, private readonly refrescarService: RefrescarService) { }
   abrirModal() {
     this.clienteForm.reset()
     this.isOpen = true;
@@ -58,6 +58,7 @@ export class CrearClienteModal {
       next: (value) => {
         this.clienteSeleccionado.emit(value)
         this.cerrarModal()
+        this.refrescarService.triggerRefrescar()
       },
       error(err) {
         console.log(err);

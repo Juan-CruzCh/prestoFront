@@ -12,3 +12,17 @@ export interface UsuarioListarI {
   rol: string;
   fecha: Date;         
 }
+
+
+export interface UsuarioCrearI {
+  ci: string;
+  nombre: string;
+  celular: string;
+  apellidoMaterno: string;
+  apellidoPaterno: string;
+  usuario: string;
+  password: string;
+  direccion: string;
+  rol: string;
+        
+}

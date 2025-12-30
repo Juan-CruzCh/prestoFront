@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResultadoHttp } from '../../../../share/model/ResultadoHttp';
 import { PageEvent } from '@angular/material/paginator';
+import { RefrescarService } from '../../../../share/service/refrescarService';
 @Component({
   selector: 'app-listar-cliente',
   imports: [CommonModule, FormsModule, ReactiveFormsModule, MatPaginatorModule],
@@ -28,9 +29,10 @@ export class ListarCliente implements OnInit {
   @Output() private clienteSeleccionado = new EventEmitter<ListarClienteI>()
 
 
-  constructor(private readonly clienteService: ClienteService) { }
+  constructor(private readonly clienteService: ClienteService, private readonly refrescarService:RefrescarService ) { }
   ngOnInit(): void {
     this.listarClientes()
+    this.refrescarService.refrescar$.subscribe(()=> this.listarClientes())
   }
 
   listarClientes() {
