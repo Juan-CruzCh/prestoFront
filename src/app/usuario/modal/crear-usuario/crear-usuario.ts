@@ -44,7 +44,6 @@ export class CrearUsuario {
   }
 
   guardarUsuario() {
-    console.log(this.usuarioForm.value);
     
     if (this.usuarioForm.invalid) {
       this.usuarioForm.markAllAsTouched();

@@ -1,38 +1,38 @@
 <div class="mb-6">
   <h3 class="text-lg font-medium mb-3 text-gray-700">Usuarios</h3>
-  <app-crear-usuario/>
+  <app-crear-usuario />
   <div class="overflow-x-auto border rounded-lg">
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-100">
         <tr>
-         
+
           <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
             CI
-            
+
           </th>
 
           <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
             Nombre
-          
+
           </th>
 
           <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
             Apellido Paterno
-            
+
           </th>
 
           <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
             Apellido Materno
-            
+
           </th>
 
           <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
             Usuario
-            
+
           </th>
-           <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
+          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
             rol
-            
+
           </th>
         </tr>
       </thead>
@@ -40,16 +40,16 @@
         @for (item of usuarios$ | async; track $index) {
         <tr>
           <td class="px-4 py-2">
-            
+
           </td>
-    
+
           <td class="px-4 py-2">{{ item.ci }}</td>
           <td class="px-4 py-2">{{ item.nombre }}</td>
           <td class="px-4 py-2">{{ item.apellidoPaterno }}</td>
           <td class="px-4 py-2">{{ item.apellidoMaterno }}</td>
-             <td class="px-4 py-2">{{ item.usuario }}</td>
-               <td class="px-4 py-2">{{ item.rol }}</td>
-                <td class="px-4 py-2">{{ item.direccion }}</td>
+          <td class="px-4 py-2">{{ item.usuario }}</td>
+          <td class="px-4 py-2">{{ item.rol }}</td>
+          <td class="px-4 py-2">{{ item.direccion }}</td>
         </tr>
         }
       </tbody>
