@@ -38,6 +38,10 @@ export class ClienteService {
 
   }
 
+   eliminarCliente(id:string): Observable<ListarClienteI> {
+    return this.http.delete<ListarClienteI>(`${this.apiUrl}/cliente/${id}`)
+
+  }
 
 
 }

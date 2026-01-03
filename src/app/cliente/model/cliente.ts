@@ -12,8 +12,6 @@ export interface ListarClienteI {
 }
 
 export interface CrearClienteI {
-
-   
     apellidoMaterno: string;
     apellidoPaterno: string;
     celular: string;

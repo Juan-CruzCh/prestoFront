@@ -1,100 +1,68 @@
 <div class="mb-6">
-  <h3 class="text-lg font-medium mb-3 text-gray-700">Clientes</h3>
-  <div class="overflow-x-auto border rounded-lg">
-    <table class="min-w-full divide-y divide-gray-200">
-      <thead class="bg-gray-100">
-        <tr>
-          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Seleccionar</th>
+	<h3 class="text-lg font-medium mb-3 text-gray-700">Clientes</h3>
+	<div class="overflow-x-auto  rounded-lg">
+		<table class="min-w-full divide-y divide-gray-200">
+			<thead class="bg-gray-100">
+				<tr>
+					<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Seleccionar</th>
 
-          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
-            Código Cliente
-            <input
-              type="text"
-              placeholder="Buscar"
-              [(ngModel)]="codigo"
-              (input)="listarClientes()"
-              class="mt-1 w-full p-1 border border-gray-300 rounded text-sm"
-            />
-          </th>
+					<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
+						Código Cliente
+						<input type="text" placeholder="Buscar" [(ngModel)]="codigo" (input)="listarClientes()" class="mt-1 w-full p-1 border border-gray-300 rounded text-sm"/>
+					</th>
 
-          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
-            CI
-            <input
-              type="text"
-              placeholder="Buscar"
-              [(ngModel)]="ci"
-              (input)="listarClientes()"
-              class="mt-1 w-full p-1 border border-gray-300 rounded text-sm"
-            />
-          </th>
+					<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
+						CI
+						<input type="text" placeholder="Buscar" [(ngModel)]="ci" (input)="listarClientes()" class="mt-1 w-full p-1 border border-gray-300 rounded text-sm"/>
+					</th>
 
-          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
-            Nombre
-            <input
-              type="text"
-              placeholder="Buscar"
-              [(ngModel)]="nombre"
-              (input)="listarClientes()"
-              class="mt-1 w-full p-1 border border-gray-300 rounded text-sm"
-            />
-          </th>
+					<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
+						Nombre
+						<input type="text" placeholder="Buscar" [(ngModel)]="nombre" (input)="listarClientes()" class="mt-1 w-full p-1 border border-gray-300 rounded text-sm"/>
+					</th>
 
-          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
-            Apellido Paterno
-            <input
-              type="text"
-              placeholder="Buscar"
-              [(ngModel)]="apellidoPaterno"
-              (input)="listarClientes()"
-              class="mt-1 w-full p-1 border border-gray-300 rounded text-sm"
-            />
-          </th>
+					<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
+						Apellido Paterno
+						<input type="text" placeholder="Buscar" [(ngModel)]="apellidoPaterno" (input)="listarClientes()" class="mt-1 w-full p-1 border border-gray-300 rounded text-sm"/>
+					</th>
 
-          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
-            Apellido Materno
-            <input
-              type="text"
-              placeholder="Buscar"
-              [(ngModel)]="apellidoMaterno"
-              (input)="listarClientes()"
-              class="mt-1 w-full p-1 border border-gray-300 rounded text-sm"
-            />
-          </th>
-           <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
-            Celular
-          </th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-gray-200 bg-white">
-        @for (item of clientes$ | async; track $index) {
-        <tr>
-          <td class="px-4 py-2">
-            <input
-              type="radio"
-              (click)="radioButtonSeleccionarCliente(item)"
-              name="cliente"
-              class="form-radio h-5 w-5 text-blue-600"
-            />
-          </td>
-          <td class="px-4 py-2">{{ item.codigo }}</td>
-          <td class="px-4 py-2">{{ item.ci }}</td>
-          <td class="px-4 py-2">{{ item.nombre }}</td>
-          <td class="px-4 py-2">{{ item.apellidoPaterno }}</td>
-          <td class="px-4 py-2">{{ item.apellidoMaterno }}</td>
-           <td class="px-4 py-2">{{ item.celular }}</td>
-        </tr>
-        }
-      </tbody>
-    </table>
-
-<mat-paginator
-  [length]="paginas"
-  [pageSize]="1"
-  [pageSizeOptions]="[1]"
-  (page)="onPageChange($event)"
-  aria-label="Select page">
-</mat-paginator>
+					<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
+						Apellido Materno
+						<input type="text" placeholder="Buscar" [(ngModel)]="apellidoMaterno" (input)="listarClientes()" class="mt-1 w-full p-1 border border-gray-300 rounded text-sm"/>
+					</th>
+					<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
+						Celular
+					</th>
+					<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
+						Accion
+					</th>
+				</tr>
+			</thead>
+			<tbody class="divide-y divide-gray-200 bg-white">
+				@for (item of clientes; track $index) {
+				<tr>
+					<td class="px-4 py-2">
+						<input type="radio" (click)="radioButtonSeleccionarCliente(item)" name="cliente" class="form-radio h-5 w-5 text-blue-600"/>
+					</td>
+					<td class="px-4 py-2">{{ item.codigo }}</td>
+					<td class="px-4 py-2">{{ item.ci }}</td>
+					<td class="px-4 py-2">{{ item.nombre }}</td>
+					<td class="px-4 py-2">{{ item.apellidoPaterno }}</td>
+					<td class="px-4 py-2">{{ item.apellidoMaterno }}</td>
+					<td class="px-4 py-2">{{ item.celular }}</td>
+					<td class="px-4 py-2">
+						<button (click)="eliminar(item)" class="flex items-center gap-1 bg-red-500 p-2 text-white border-r-5">Eliminar</button>
+						<button (click)="actualizar(item)"  class="flex items-center gap-1 bg-green-500 p-2 text-white border-r-5">Actualizar</button>
+					</td>
 
 
-  </div>
+				</tr>
+				}
+			</tbody>
+		</table>
+
+		<mat-paginator [length]="paginas" [pageSize]="1" [pageSizeOptions]="[1]" (page)="onPageChange($event)" aria-label="Select page"></mat-paginator>
+
+
+	</div>
 </div>

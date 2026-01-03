@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, output } from '@angular/core';
 import { ClienteService } from '../../service/cliente-service';
 import { map, Observable } from 'rxjs';
 import { ListarClienteI } from '../../model/cliente';
@@ -8,14 +8,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResultadoHttp } from '../../../../share/model/ResultadoHttp';
 import { PageEvent } from '@angular/material/paginator';
 import { RefrescarService } from '../../../../share/service/refrescarService';
+import { MatIconModule } from "@angular/material/icon";
+import { AlertUtils } from '../../../../share/utils/alertas';
 @Component({
   selector: 'app-listar-cliente',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatPaginatorModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatPaginatorModule, MatIconModule],
   standalone: true,
   templateUrl: './listar-cliente.html',
 })
 export class ListarCliente implements OnInit {
-  clientes$!: Observable<ListarClienteI[]>
   paginas: number = 0
   totalClientes: number = 0;
   maxVisiblePages: number = 7;
@@ -25,19 +26,23 @@ export class ListarCliente implements OnInit {
   apellidoPaterno: string = '';
   apellidoMaterno: string = '';
   pagina: number = 1
-
+  clientes: ListarClienteI[] = [];
   @Output() private clienteSeleccionado = new EventEmitter<ListarClienteI>()
 
 
-  constructor(private readonly clienteService: ClienteService, private readonly refrescarService:RefrescarService ) { }
+  constructor(private readonly clienteService: ClienteService,
+     private readonly cdr: ChangeDetectorRef,
+      private readonly refrescarService: RefrescarService,
+
+    ) { }
   ngOnInit(): void {
     this.listarClientes()
-    this.refrescarService.refrescar$.subscribe(()=> this.listarClientes())
+    this.refrescarService.refrescar$.subscribe(() => this.listarClientes())
   }
 
   listarClientes() {
-  
-    this.clientes$ = this.clienteService.listarClientes(this.codigo,
+
+    this.clienteService.listarClientes(this.codigo,
       this.ci,
       this.nombre,
       this.apellidoPaterno,
@@ -49,16 +54,42 @@ export class ListarCliente implements OnInit {
         this.totalClientes = res.total;
         return res.data;
       })
+    ).subscribe(
+      {
+        next: (value) => {
+          this.clientes = value
+          this.cdr.detectChanges()
+        },
+      }
     );
+
   }
 
- onPageChange(event: PageEvent) {
-  this.pagina = event.pageIndex + 1;
-  this.listarClientes();
-}
+  onPageChange(event: PageEvent) {
+    this.pagina = event.pageIndex + 1;
+    this.listarClientes();
+  }
 
   radioButtonSeleccionarCliente(cliente: ListarClienteI) {
     this.clienteSeleccionado.emit(cliente)
+  }
+
+  async eliminar(cliente: ListarClienteI) {
+    let confirmacion = await AlertUtils.confirmarEliminar(cliente.nombre)
+    if (!confirmacion) return
+    this.clienteService.eliminarCliente(cliente._id).subscribe({
+      next: (value) => {
+        this.refrescarService.triggerRefrescar()
+      },
+      error(err) {
+        AlertUtils.error("Ocurrio un erro al eliminar el usuario")
+      },
+    })
+  }
+
+
+  async actualizar(cliente: ListarClienteI) {
+   
 
   }
 
