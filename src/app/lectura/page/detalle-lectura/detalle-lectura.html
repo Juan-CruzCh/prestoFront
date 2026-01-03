@@ -1,9 +1,9 @@
 <div class="flex justify-center items-center h-screen">
-  @if ( detalleLectura$| async; as item  ) {
+  @if ( detalleLectura$| async; as item ) {
   <div class="recibo-container" id="recibo">
     <!-- Header con logo -->
     <div class="recibo-header">
-      <img src="logo.png" width="400" alt="Logo" />
+      <img src="logo/logo.png" width="400" alt="Logo" />
     </div>
 
     <!-- Información del cliente -->
@@ -14,11 +14,14 @@
 
     <!-- Datos del recibo -->
     <div class="recibo-datos">
-      <p><span>Nombre:</span> {{item.medidorCliente[0].nombre}} {{item.medidorCliente[0].apellidoPaterno}}  {{item.medidorCliente[0].apellidoMaterno}}</p>
+      <p><span>Nombre:</span> {{item.medidorCliente[0].nombre}} {{item.medidorCliente[0].apellidoPaterno}}
+        {{item.medidorCliente[0].apellidoMaterno}}</p>
       <p><span>Dirección:</span> {{item.medidorCliente[0].direccion}}</p>
       <p><span>Categoría:</span> {{item.medidorCliente[0].tarifa}}</p>
-      <p><span>Fecha de lectura:</span> {{ item.lecturas[item.lecturas.length - 1].fecha  | date:'dd/MM/yyyy HH:mm:ss':'UTC'}}</p>
-      <p><span>Fecha de vencimiento:</span> {{item.lecturas[item.lecturas.length -1].fechaVencimiento | date:'dd/MM/yyyy'}}</p>
+      <p><span>Fecha de lectura:</span> {{ item.lecturas[item.lecturas.length - 1].fecha | date:'dd/MM/yyyy
+        HH:mm:ss':'UTC'}}</p>
+      <p><span>Fecha de vencimiento:</span> {{item.lecturas[item.lecturas.length -1].fechaVencimiento |
+        date:'dd/MM/yyyy'}}</p>
     </div>
 
     <div class="linea"></div>
@@ -44,8 +47,8 @@
             </tr>
           </thead>
           <tbody>
-              @for (lectura of item.lecturas; track $index) {
-              <tr>
+            @for (lectura of item.lecturas; track $index) {
+            <tr>
               <td>{{lectura.mes}}</td>
               <td>{{lectura.lecturaAnterior}}</td>
               <td>{{lectura.lecturaActual}}</td>
@@ -70,7 +73,8 @@
 
 <!-- Botón para imprimir -->
 <div class="mt-4 text-center">
-  <button class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition" onclick="window.print()">
+  <button class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition"
+    onclick="window.print()">
     Imprimir Recibo
   </button>
 </div>

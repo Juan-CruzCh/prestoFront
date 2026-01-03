@@ -43,4 +43,8 @@ export class MedidorService {
             }
         }).pipe((res) => res);
     }
+
+    eliminarMedidor(id: string): Observable<any> {
+        return this.http.delete<any>(`${this.apiUrl}/medidor/${id}`)
+    }
 }   

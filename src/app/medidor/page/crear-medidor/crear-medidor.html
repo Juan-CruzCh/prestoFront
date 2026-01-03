@@ -2,11 +2,11 @@
     <div class="max-w-full mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
 
+            <div class="col-span-8">
+                <app-crear-cliente-modal (clienteSeleccionado)="getCliente($event)">
+                </app-crear-cliente-modal>
 
-            <div class="md:col-span-8 order-1 md:order-1">
-                <app-crear-cliente-modal  (clienteSeleccionado)="getCliente($event)"/>
                 <app-listar-cliente (clienteSeleccionado)="getCliente($event)">
-
                 </app-listar-cliente>
             </div>
 

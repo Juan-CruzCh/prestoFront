@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, output, signal } from '@angular/core';
 import { ClienteService } from '../../service/cliente-service';
 import { map, Observable } from 'rxjs';
 import { ListarClienteI } from '../../model/cliente';
@@ -17,24 +17,25 @@ import { AlertUtils } from '../../../../share/utils/alertas';
   templateUrl: './listar-cliente.html',
 })
 export class ListarCliente implements OnInit {
-  paginas: number = 0
-  totalClientes: number = 0;
   maxVisiblePages: number = 7;
   codigo: string = '';
   ci: string = '';
   nombre: string = '';
   apellidoPaterno: string = '';
   apellidoMaterno: string = '';
-  pagina: number = 1
-  clientes: ListarClienteI[] = [];
+
+  pagina = signal(1);
+  totalClientes = signal(0);
+  paginas = signal(0);
+  clientes = signal<ListarClienteI[]>([]);
   @Output() private clienteSeleccionado = new EventEmitter<ListarClienteI>()
 
 
   constructor(private readonly clienteService: ClienteService,
-     private readonly cdr: ChangeDetectorRef,
-      private readonly refrescarService: RefrescarService,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly refrescarService: RefrescarService,
 
-    ) { }
+  ) { }
   ngOnInit(): void {
     this.listarClientes()
     this.refrescarService.refrescar$.subscribe(() => this.listarClientes())
@@ -47,18 +48,18 @@ export class ListarCliente implements OnInit {
       this.nombre,
       this.apellidoPaterno,
       this.apellidoMaterno,
-      this.pagina
+      this.pagina()
     ).pipe(
       map((res: ResultadoHttp<ListarClienteI>) => {
-        this.paginas = res.paginas;
-        this.totalClientes = res.total;
+        this.paginas.set(res.paginas);
+        this.totalClientes.set(res.total);
         return res.data;
       })
     ).subscribe(
       {
         next: (value) => {
-          this.clientes = value
-          this.cdr.detectChanges()
+          this.clientes.set(value)
+
         },
       }
     );
@@ -66,7 +67,7 @@ export class ListarCliente implements OnInit {
   }
 
   onPageChange(event: PageEvent) {
-    this.pagina = event.pageIndex + 1;
+    this.pagina.set(event.pageIndex + 1);
     this.listarClientes();
   }
 
@@ -75,21 +76,21 @@ export class ListarCliente implements OnInit {
   }
 
   async eliminar(cliente: ListarClienteI) {
-    let confirmacion = await AlertUtils.confirmarEliminar(cliente.nombre)
-    if (!confirmacion) return
+    const confirmacion = await AlertUtils.confirmarEliminar(cliente.nombre);
+    if (!confirmacion) return;
+
     this.clienteService.eliminarCliente(cliente._id).subscribe({
-      next: (value) => {
-        this.refrescarService.triggerRefrescar()
+      next: () => {
+        this.listarClientes();
       },
-      error(err) {
-        AlertUtils.error("Ocurrio un erro al eliminar el usuario")
-      },
-    })
+      error: () => {
+        AlertUtils.error('Ocurrió un error al eliminar el usuario');
+      }
+    });
   }
 
-
   async actualizar(cliente: ListarClienteI) {
-   
+
 
   }
 

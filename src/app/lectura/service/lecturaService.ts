@@ -16,20 +16,23 @@ export class lecturaService {
 
   registrarLectura(data: FormularioLecturaI): Observable<any> {
     console.log(data);
-    
+
     return this.http.post(`${this.apiUrl}/lectura`, data)
   }
 
   listarLecturas(fechaInicio: string, fechaFin: string): Observable<ListarLecturaMedidorI[]> {
-   
-    return this.http.post<ListarLecturaMedidorI[]>(`${this.apiUrl}/lectura/listar`,{
+
+    return this.http.post<ListarLecturaMedidorI[]>(`${this.apiUrl}/lectura/listar`, {
       fechaInicio,
       fechaFin
     })
   }
 
-   detalleLectura(medidor: string, lectura: string): Observable<DetalleLecturasResponse> {
+  detalleLectura(medidor: string, lectura: string): Observable<DetalleLecturasResponse> {
     return this.http.get<DetalleLecturasResponse>(`${this.apiUrl}/lectura/detalle/${medidor}/${lectura}`)
   }
+  eliminar(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/lectura/${id}`)
 
+  }
 }
