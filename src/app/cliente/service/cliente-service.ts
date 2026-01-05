@@ -38,6 +38,10 @@ export class ClienteService {
 
   }
 
+  editarCliente(data: CrearClienteI, id:string): Observable<ListarClienteI> {    
+    return this.http.patch<ListarClienteI>(`${this.apiUrl}/cliente/${id}`, data)
+
+  }
    eliminarCliente(id:string): Observable<ListarClienteI> {
     return this.http.delete<ListarClienteI>(`${this.apiUrl}/cliente/${id}`)
 

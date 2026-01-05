@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, output, ViewChild } from '@angular/core';
 import { ClienteService } from '../../service/cliente-service';
 import { map, Observable } from 'rxjs';
 import { ListarClienteI } from '../../model/cliente';
@@ -10,9 +10,10 @@ import { PageEvent } from '@angular/material/paginator';
 import { RefrescarService } from '../../../../share/service/refrescarService';
 import { MatIconModule } from "@angular/material/icon";
 import { AlertUtils } from '../../../../share/utils/alertas';
+import { Editar } from '../editar/editar';
 @Component({
   selector: 'app-listar-cliente',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatPaginatorModule, MatIconModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatPaginatorModule, MatIconModule, Editar],
   standalone: true,
   templateUrl: './listar-cliente.html',
 })
@@ -28,7 +29,7 @@ export class ListarCliente implements OnInit {
   pagina: number = 1
   clientes: ListarClienteI[] = [];
   @Output() private clienteSeleccionado = new EventEmitter<ListarClienteI>()
-
+  @ViewChild('editarModal') editarModal!: Editar;
 
   constructor(private readonly clienteService: ClienteService,
      private readonly cdr: ChangeDetectorRef,
@@ -89,7 +90,7 @@ export class ListarCliente implements OnInit {
 
 
   async actualizar(cliente: ListarClienteI) {
-   
+   this.editarModal.editarCliente(cliente);
 
   }
 
