@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, Signal } from '@angular/core';
 import { MedidorService } from '../../service/medidorService';
 import { map, Observable } from 'rxjs';
 import { ListarMedidorClientesI } from '../../model/medidor';
@@ -8,6 +8,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListarTarifasI } from '../../../tarifa/model/tarifa';
 import { TarifasService } from '../../../tarifa/service/TarifasService';
+import { AlertUtils } from '../../../../share/utils/alertas';
 
 @Component({
   selector: 'app-listar',
@@ -16,7 +17,7 @@ import { TarifasService } from '../../../tarifa/service/TarifasService';
   styleUrl: './listar.css',
 })
 export class Listar implements OnInit {
-  listarMedidorClientes$!: Observable<ListarMedidorClientesI[]>
+  listarMedidorClientes = signal<ListarMedidorClientesI[]>([])
   paginas: number = 0
   pagina: number = 1
   totalMedidores = 0
@@ -43,7 +44,7 @@ export class Listar implements OnInit {
   }
 
   listarMedidorCliente() {
-    this.listarMedidorClientes$ = this.medidorService.listarMedidorCliente(
+    this.medidorService.listarMedidorCliente(
       this.codigo,
       this.ci,
       this.nombre,
@@ -60,7 +61,11 @@ export class Listar implements OnInit {
         return item.data
 
       })
-    )
+    ).subscribe({
+      next: (value) => {
+        this.listarMedidorClientes.set(value)
+      },
+    })
 
   }
 
@@ -75,5 +80,17 @@ export class Listar implements OnInit {
     this.listarMedidorCliente();
   }
 
+  async eliminar(medidor: ListarMedidorClientesI) {
+    const confirmacion = await AlertUtils.confirmarEliminar(medidor.numeroMedidor)
+    if (!confirmacion) return
+    this.medidorService.eliminarMedidor(medidor._id).subscribe({
+      next: (value) => {
+        this.listarMedidorCliente()
+      },
+      error(err) {
+        AlertUtils.error("Ocurrio un error al eliminar el medidor")
+      },
+    })
 
+  }
 }

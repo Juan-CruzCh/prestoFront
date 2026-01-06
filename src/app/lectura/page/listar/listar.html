@@ -5,8 +5,7 @@
 
 	<table class="min-w-full divide-y divide-gray-200">
 		<thead class="bg-gray-100">
-			<tr
-				class="bg-gray-50">
+			<tr class="bg-gray-50">
 				<!-- Código -->
 				<th class="px-3 py-2"></th>
 
@@ -22,13 +21,13 @@
 				<!-- Fecha inicio -->
 				<th class="px-3 py-2">
 					<input type="date" [(ngModel)]="fechaInicio" class="w-full rounded-lg border border-gray-300 px-2 py-2 text-sm
-					                 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"/>
+					                 focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
 				</th>
 
 				<!-- Fecha fin -->
 				<th class="px-3 py-2">
 					<input type="date" [(ngModel)]="fechaFin" class="w-full rounded-lg border border-gray-300 px-2 py-2 text-sm
-					                 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"/>
+					                 focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
 				</th>
 
 				<!-- Botón buscar -->
@@ -49,11 +48,12 @@
 				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Lectura Actual</th>
 				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Consumo</th>
 				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Costo</th>
+				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Estado</th>
 				<th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Acciones</th>
 			</tr>
 		</thead>
 		<tbody class="divide-y divide-gray-200 bg-white text-sm">
-			@for (item of listarLecturas$ | async; track $index) {
+			@for (item of listarLecturas(); track $index) {
 			<tr>
 				<td class="px-4 py-2">{{item.numeroMedidor}}</td>
 				<td class="px-4 py-2">{{item.mes}}-{{item.gestion}}</td>
@@ -62,8 +62,16 @@
 				<td class="px-4 py-2">{{item.consumoTotal}}</td>
 				<td class="px-4 py-2">bs
 					{{item.costoApagar}}</td>
+				<td class="px-4 py-2">
+					{{item.estado}}</td>
+
 				<td class="px-4 py-2 space-x-2">
-					<button [routerLink]="['/lectura/detalle', item.idMedidor, item._id]" class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 text-xs">Recibo</button>
+					<button (click)="eliminar(item)"
+						class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 text-xs">Eliminar</button>
+				</td>
+				<td class="px-4 py-2 space-x-2">
+					<button [routerLink]="['/lectura/detalle', item.idMedidor, item._id]"
+						class="bg-green-700 text-white px-2 py-1 rounded hover:bg-red-700 text-xs">Recibo</button>
 				</td>
 			</tr>
 			}

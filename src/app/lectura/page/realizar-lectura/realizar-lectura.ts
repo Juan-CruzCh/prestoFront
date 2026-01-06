@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { lecturaService } from '../../service/lecturaService';
 import { BuscarMedidorClienteI, FormularioLecturaI } from '../../model/lectura';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Route, Router } from '@angular/router';
+import { AlertUtils } from '../../../../share/utils/alertas';
 
 @Component({
   selector: 'app-realizar-lectura',
@@ -15,7 +16,7 @@ import { Route, Router } from '@angular/router';
   styleUrl: './realizar-lectura.css',
 })
 export class RealizarLectura implements OnInit {
-  lecturaCliente: BuscarMedidorClienteI = {}
+  lecturaCliente = signal<BuscarMedidorClienteI>({})
   mesesAno: string[] = [
     "ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO",
     "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"
@@ -37,7 +38,7 @@ export class RealizarLectura implements OnInit {
     private readonly lecturaService: lecturaService,
     private cdr: ChangeDetectorRef,
     private readonly snackBar: MatSnackBar,
-    private readonly router :Router
+    private readonly router: Router
   ) { }
   ngOnInit(): void {
     const date = new Date()
@@ -54,16 +55,16 @@ export class RealizarLectura implements OnInit {
       {
         next: (value) => {
           this.error = ""
-          this.lecturaCliente = value
+          this.lecturaCliente.set(value)
           this.formularioLectura.patchValue({
-            lecturaAnterior:value.lecturaActual
+            lecturaAnterior: value.lecturaActual
           })
-          this.cdr.detectChanges()
+
 
         },
         error: (err) => {
           this.error = err.error.error
-          this.cdr.detectChanges()
+
         }
       }
     )
@@ -74,28 +75,23 @@ export class RealizarLectura implements OnInit {
     if (this.formularioLectura.invalid) {
       this.formularioLectura.markAllAsTouched();
       return;
-      }
-  
-    if (this.lecturaCliente.medidor && this.gestion && this.mes) {
+    }
+
+    if (this.lecturaCliente().medidor && this.gestion && this.mes) {
       const data: FormularioLecturaI = {
         gestion: Number(this.gestion),
-        medidor: this.lecturaCliente.medidor,
+        medidor: this.lecturaCliente().medidor ?? "",
         lecturaActual: Number(this.formularioLectura.controls.lecturaActual.value),
         lecturaAnterior: Number(this.formularioLectura.controls.lecturaAnterior.value),
         mes: this.mes
-      }     
+      }
       this.lecturaService.registrarLectura(data).subscribe({
         next: (value) => {
           this.router.navigate(['/lectura/detalle', value.medidor, value.lectura]);
-      
-      },
+
+        },
         error: (err) => {
-          this.snackBar.open(err.error.error, 'cerrar', {
-            duration: 4000,
-            panelClass: 'snack-error',
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-          });
+          AlertUtils.error(err.error.mensaje)
         },
       })
 

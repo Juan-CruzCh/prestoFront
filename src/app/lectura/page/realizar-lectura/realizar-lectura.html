@@ -27,21 +27,21 @@
 
 
     <!-- Información del cliente -->
-    @if (lecturaCliente ) {
+    @if (lecturaCliente() ) {
     <div class="p-4 sm:p-5 bg-gray-50 rounded-lg border border-gray-200">
       <div class="space-y-2">
         <p class="text-sm sm:text-base">
           <strong class="text-gray-700">Nombre:</strong>
-          <span class="ml-2 text-gray-600">{{lecturaCliente.nombre}}</span>
+          <span class="ml-2 text-gray-600">{{lecturaCliente().nombre}}</span>
         </p>
         <p class="text-sm sm:text-base">
           <strong class="text-gray-700">Número de Medidor:</strong>
-          <span class="ml-2 text-gray-600">{{lecturaCliente.numeroMedidor}}</span>
+          <span class="ml-2 text-gray-600">{{lecturaCliente().numeroMedidor}}</span>
         </p>
         <p class="text-sm sm:text-base">
           <strong class="text-gray-700">Estado:</strong>
           <span class="ml-2 px-2 py-1 bg-red-100 text-red-700 rounded text-xs sm:text-sm font-medium">
-            {{lecturaCliente.estado}}
+            {{lecturaCliente().estado}}
           </span>
         </p>
       </div>
@@ -83,8 +83,7 @@
             Lectura Anterior
           </label>
           <input formControlName="lecturaAnterior" id="lecturaAnterior" type="number" placeholder="Lectura anterior"
-            class="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 text-right cursor-not-allowed text-sm sm:text-base"
-            >
+            class="w-full p-2.5 sm:p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 text-right cursor-not-allowed text-sm sm:text-base">
           @if(formularioLectura.get('lecturaAnterior')?.invalid && formularioLectura.get('lecturaAnterior')?.touched){
           <small class="text-red-500">La lectura es obligatorio</small>
           }
