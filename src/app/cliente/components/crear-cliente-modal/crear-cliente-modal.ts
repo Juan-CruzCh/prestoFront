@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { CrearClienteI, ListarClienteI } from '../../model/cliente';
 import { ClienteService } from '../../service/cliente-service';
 import { RefrescarService } from '../../../../share/service/refrescarService';
+import { AlertUtils } from '../../../../share/utils/alertas';
 
 @Component({
   selector: 'app-crear-cliente-modal',
@@ -61,7 +62,8 @@ export class CrearClienteModal {
         this.refrescarService.triggerRefrescar()
       },
       error(err) {
-        console.log(err);
+        AlertUtils.error(err.error.mensaje)
+        console.log(err.error.mensaje);
 
       },
     },
