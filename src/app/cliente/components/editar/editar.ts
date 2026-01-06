@@ -13,7 +13,7 @@ import { AlertUtils } from '../../../../share/utils/alertas';
 })
 export class Editar {
 
-  idCliente:string =''
+  idCliente: string = ''
   isOpen = false;
 
   clienteForm = new FormGroup({
@@ -48,7 +48,7 @@ export class Editar {
       apellidoPaterno: cliente.apellidoPaterno,
       apellidoMaterno: cliente.apellidoMaterno,
     });
-    this.idCliente=cliente._id
+    this.idCliente = cliente._id
     this.isOpen = true;
   }
 
@@ -68,12 +68,11 @@ export class Editar {
     }
     this.clienteService.editarCliente(data, this.idCliente).subscribe({
       next: (value) => {
-
         this.cerrarModal()
         this.refrescarService.triggerRefrescar()
       },
       error(err) {
-       AlertUtils.error(err.error.mensaje)
+        AlertUtils.error(err.error.mensaje)
 
       },
     },

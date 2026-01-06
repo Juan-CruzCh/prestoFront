@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, output, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, output, signal, ViewChild } from '@angular/core';
 
 import { ClienteService } from '../../service/cliente-service';
 import { map, Observable } from 'rxjs';
