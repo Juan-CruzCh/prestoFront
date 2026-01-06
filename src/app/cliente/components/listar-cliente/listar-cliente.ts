@@ -11,8 +11,9 @@ import { ResultadoHttp } from '../../../../share/model/ResultadoHttp';
 import { PageEvent } from '@angular/material/paginator';
 import { RefrescarService } from '../../../../share/service/refrescarService';
 import { MatIconModule } from "@angular/material/icon";
-import { AlertUtils } from '../../../../share/utils/alertas';
+
 import { Editar } from '../editar/editar';
+import { confirmarEliminar, error } from '../../../../share/utils/alertas';
 @Component({
   selector: 'app-listar-cliente',
   imports: [CommonModule, FormsModule, ReactiveFormsModule, MatPaginatorModule, MatIconModule, Editar],
@@ -79,7 +80,7 @@ export class ListarCliente implements OnInit {
   }
 
   async eliminar(cliente: ListarClienteI) {
-    const confirmacion = await AlertUtils.confirmarEliminar(cliente.nombre);
+    const confirmacion = await confirmarEliminar(cliente.nombre);
     if (!confirmacion) return;
 
     this.clienteService.eliminarCliente(cliente._id).subscribe({
@@ -87,7 +88,7 @@ export class ListarCliente implements OnInit {
         this.listarClientes();
       },
       error: () => {
-        AlertUtils.error('Ocurrió un error al eliminar el usuario');
+        error('Ocurrió un error al eliminar el usuario');
       }
     });
   }

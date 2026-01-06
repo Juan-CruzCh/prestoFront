@@ -3,7 +3,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { CrearClienteI, ListarClienteI } from '../../model/cliente';
 import { ClienteService } from '../../service/cliente-service';
 import { RefrescarService } from '../../../../share/service/refrescarService';
-import { AlertUtils } from '../../../../share/utils/alertas';
+import { error } from '../../../../share/utils/alertas';
 
 @Component({
   selector: 'app-editar',
@@ -72,7 +72,7 @@ export class Editar {
         this.refrescarService.triggerRefrescar()
       },
       error(err) {
-        AlertUtils.error(err.error.mensaje)
+        error(err.error.mensaje)
 
       },
     },

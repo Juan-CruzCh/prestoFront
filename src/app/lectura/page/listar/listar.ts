@@ -6,7 +6,8 @@ import { CommonModule } from '@angular/common';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from "@angular/router";
-import { AlertUtils } from '../../../../share/utils/alertas';
+import { confirmarEliminar, error } from '../../../../share/utils/alertas';
+
 @Component({
   selector: 'app-listar',
   imports: [CommonModule, MatPaginatorModule, FormsModule, RouterModule],
@@ -49,14 +50,14 @@ export class Listar implements OnInit {
   }
 
   async eliminar(lectura: ListarLecturaMedidorI) {
-    const confirmacion = await AlertUtils.confirmarEliminar(lectura.numeroMedidor)
+    const confirmacion = await confirmarEliminar(lectura.numeroMedidor)
     if (!confirmacion) return
     this.lecturaService.eliminar(lectura._id).subscribe({
       next: (value) => {
         this.listarLecturasRegistradas()
       },
       error(err) {
-        AlertUtils.error(err.error.mensaje)
+        error(err.error.mensaje)
       },
     })
   }

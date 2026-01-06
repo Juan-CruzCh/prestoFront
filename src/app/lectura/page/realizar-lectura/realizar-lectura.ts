@@ -6,7 +6,7 @@ import { BuscarMedidorClienteI, FormularioLecturaI } from '../../model/lectura';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Route, Router } from '@angular/router';
-import { AlertUtils } from '../../../../share/utils/alertas';
+import { error } from '../../../../share/utils/alertas';
 
 @Component({
   selector: 'app-realizar-lectura',
@@ -91,7 +91,7 @@ export class RealizarLectura implements OnInit {
 
         },
         error: (err) => {
-          AlertUtils.error(err.error.mensaje)
+          error(err.error.mensaje)
         },
       })
 

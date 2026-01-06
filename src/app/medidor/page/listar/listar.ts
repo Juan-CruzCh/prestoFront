@@ -8,7 +8,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListarTarifasI } from '../../../tarifa/model/tarifa';
 import { TarifasService } from '../../../tarifa/service/TarifasService';
-import { AlertUtils } from '../../../../share/utils/alertas';
+import { confirmarEliminar, error } from '../../../../share/utils/alertas';
 
 @Component({
   selector: 'app-listar',
@@ -81,14 +81,14 @@ export class Listar implements OnInit {
   }
 
   async eliminar(medidor: ListarMedidorClientesI) {
-    const confirmacion = await AlertUtils.confirmarEliminar(medidor.numeroMedidor)
+    const confirmacion = await confirmarEliminar(medidor.numeroMedidor)
     if (!confirmacion) return
     this.medidorService.eliminarMedidor(medidor._id).subscribe({
       next: (value) => {
         this.listarMedidorCliente()
       },
       error(err) {
-        AlertUtils.error("Ocurrio un error al eliminar el medidor")
+        error("Ocurrio un error al eliminar el medidor")
       },
     })
 

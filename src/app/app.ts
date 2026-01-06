@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterModule,MatIconModule, MatToolbarModule, MatListModule, MatSidenavModule, CommonModule],
+  imports: [RouterOutlet, RouterModule, MatIconModule, MatToolbarModule, MatListModule, MatSidenavModule, CommonModule],
   templateUrl: './app.html',
   standalone: true
 })

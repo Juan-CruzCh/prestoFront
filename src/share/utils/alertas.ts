@@ -1,8 +1,6 @@
 import Swal from 'sweetalert2';
 
-export const AlertUtils = {
-
-  confirmarEliminar(nombre?: string): Promise<boolean> {
+  export function  confirmarEliminar(nombre?: string): Promise<boolean> {
     return Swal.fire({
       title: '¿Está seguro?',
       text: nombre
@@ -15,25 +13,25 @@ export const AlertUtils = {
       confirmButtonColor: '#d33',
       reverseButtons: true
     }).then(result => result.isConfirmed);
-  },
+  }
 
-  exito(mensaje: string) {
+ export function exito(mensaje: string) {
     return Swal.fire({
       icon: 'success',
       title: 'Éxito',
       text: mensaje
     });
-  },
+  }
 
-  error(mensaje: string) {
+  export function  error(mensaje: string) {
     return Swal.fire({
       icon: 'error',
       title: 'Error',
       text: mensaje
     });
-  },
+  }
 
-  loading(mensaje = 'Procesando...') {
+  export function loading(mensaje = 'Procesando...') {
     return Swal.fire({
       title: mensaje,
       allowOutsideClick: false,
@@ -41,16 +39,16 @@ export const AlertUtils = {
         Swal.showLoading();
       }
     });
-  },
-   advertencia(mensaje: string) {
+  }
+  export function  advertencia(mensaje: string) {
     return Swal.fire({
       icon: 'warning',
       title: 'Atención',
       text: mensaje
     });
-  },
+  }
 
-   confirmarPago(clienteNombre: string, meses: string[], total: number): Promise<boolean> {
+ export  function confirmarPago(clienteNombre: string, meses: string[], total: number): Promise<boolean> {
   const mesesTexto = meses.join(', ');
 
   return Swal.fire({
@@ -69,4 +67,4 @@ export const AlertUtils = {
   }).then(result => result.isConfirmed);
 }
 
-};
+

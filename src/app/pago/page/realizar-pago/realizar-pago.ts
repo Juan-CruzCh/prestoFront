@@ -5,9 +5,9 @@ import { Observable, raceWith } from 'rxjs';
 import { buscarMedidorClienteI } from '../../model/pago';
 import { PagoService } from '../../service/pagoService';
 import { CommonModule } from '@angular/common';
-import Swal from 'sweetalert2';
-import { AlertUtils } from '../../../../share/utils/alertas';
+
 import { Router } from '@angular/router';
+import { advertencia, confirmarPago, error } from '../../../../share/utils/alertas';
 
 @Component({
   selector: 'app-realizar-pago',
@@ -59,17 +59,17 @@ export class RealizarPago {
 
   async btnRealizarPago() {
     if (this.lecturaSeleccionas.length <= 0) {
-      AlertUtils.advertencia("Debe seleccionar al menos una lectura")
+      advertencia("Debe seleccionar al menos una lectura")
       return
     }
-    const confirmacion = await AlertUtils.confirmarPago(this.cliente, this.meses, this.total)
+    const confirmacion = await confirmarPago(this.cliente, this.meses, this.total)
     if (!confirmacion) return
     this.pagoService.realizarPago(this.lecturaSeleccionas, this.idCliente, this.idMedidor).subscribe({
       next: (value) => {
         this.router.navigate(['/pago/detalle', value]);
       },
       error(err) {
-        AlertUtils.error("Ocuccio un error")
+        error("Ocuccio un error")
 
       },
     })
