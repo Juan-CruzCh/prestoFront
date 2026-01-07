@@ -1,5 +1,4 @@
 import { Component, signal } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UsuarioCrearI } from '../../model/usuario';
 import { UsuarioService } from '../../service/usarioService';
 import { RefrescarService } from '../../../../share/service/refrescarService';
@@ -66,8 +65,8 @@ export class CrearUsuario {
     e.preventDefault()
     this.usuarioService.crearUsuarios(this.form().value()).subscribe({
       next: (value) => {
-          this.refrescarService.triggerRefrescar()
-      this.cerrarModal()
+        this.refrescarService.triggerRefrescar()
+        this.cerrarModal()
       },
       error(err) {
         console.log(err);
