@@ -1,41 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UsuarioCrearI } from '../../model/usuario';
 import { UsuarioService } from '../../service/usarioService';
 import { RefrescarService } from '../../../../share/service/refrescarService';
+import { Field, form, required } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-crear-usuario',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [Field],
   templateUrl: './crear-usuario.html',
   styleUrl: './crear-usuario.css',
 })
 export class CrearUsuario {
   isOpen: boolean = false
-  usuarioForm = new FormGroup({
-    ci: new FormControl('', { nonNullable: true, validators: Validators.required }),
-    nombre: new FormControl('', { nonNullable: true, validators: Validators.required }),
-    celular: new FormControl('', { nonNullable: true, validators: Validators.required }),
-    apellidoPaterno: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-    apellidoMaterno: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-    usuario: new FormControl('', { nonNullable: true, validators: Validators.required }),
-    password: new FormControl('', { nonNullable: true, validators: Validators.required }),
-    direccion: new FormControl('', { nonNullable: true, validators: Validators.required }),
-    rol: new FormControl('', { nonNullable: true, validators: Validators.required }),
-  });
+
+  private readonly cliente = signal<UsuarioCrearI>({
+    apellidoMaterno: '',
+    apellidoPaterno: '',
+    celular: '',
+    ci: '',
+    nombre: '',
+    direccion: '',
+    password: '',
+    rol: '',
+    usuario: ''
+  })
+
+  form = form(this.cliente, (field) => {
+    required(field.ci, { message: "El CI es obligatorio" })
+    required(field.nombre, { message: "El nombre es obligatorio" })
+    required(field.apellidoPaterno, { message: "El apellido paterno es obligatorio" })
+    required(field.apellidoMaterno, { message: "El apellido materno es obligatorio" })
+    required(field.celular, { message: "El celular es obligatorio" })
+    required(field.direccion, { message: "La dirección es obligatoria" })
+    required(field.usuario, { message: "El usuario es obligatorio" })
+    required(field.password, { message: "La contraseña es obligatoria" })
+    required(field.rol, { message: "El rol es obligatorio" })
+  })
+
 
   constructor(
     private readonly usuarioService: UsuarioService,
     private readonly refrescarService: RefrescarService
   ) { }
   abrirModal() {
-    this.usuarioForm.reset()
+    this.form().setControlValue({
+      apellidoMaterno: '',
+      apellidoPaterno: '',
+      celular: '',
+      ci: '',
+      nombre: '',
+      direccion: '',
+      password: '',
+      rol: '',
+      usuario: ''
+    })
     this.isOpen = true;
   }
 
@@ -43,35 +62,16 @@ export class CrearUsuario {
     this.isOpen = false;
   }
 
-  guardarUsuario() {
-    
-    if (this.usuarioForm.invalid) {
-      this.usuarioForm.markAllAsTouched();
-      return;
-    }
-    var data: UsuarioCrearI = {
-      ci: this.usuarioForm.controls.ci.value,
-      nombre: this.usuarioForm.controls.nombre.value,
-      apellidoPaterno: this.usuarioForm.controls.apellidoPaterno.value,
-      apellidoMaterno: this.usuarioForm.controls.apellidoMaterno.value,
-      celular: this.usuarioForm.controls.celular.value,
-      direccion: this.usuarioForm.controls.direccion.value,
-      password: this.usuarioForm.controls.password.value,
-      rol: this.usuarioForm.controls.rol.value,
-      usuario: this.usuarioForm.controls.usuario.value
-    }
-    console.log(data);
-    
-    this.usuarioService.crearUsuarios(data).subscribe({
-      next:(value)=> {
-        console.log(value);
-        
-        this.refrescarService.triggerRefrescar()
-        this.cerrarModal()
+  guardarUsuario(e: Event) {
+    e.preventDefault()
+    this.usuarioService.crearUsuarios(this.form().value()).subscribe({
+      next: (value) => {
+          this.refrescarService.triggerRefrescar()
+      this.cerrarModal()
       },
       error(err) {
         console.log(err);
-        
+
       },
     })
 
