@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { CrearMedidor } from './page/crear-medidor/crear-medidor';
 import { Listar } from './page/listar/listar';
 import { MedidorMoroso } from './page/medidor-moroso/medidor-moroso';
+import { EditarMedidor } from './page/editar-medidor/editar-medidor';
 
 export const router: Routes = [
   {
@@ -15,5 +16,10 @@ export const router: Routes = [
   {
     path: 'moroso',
     component: MedidorMoroso,
+  },
+
+   {
+    path: 'editar/:id',
+    component: EditarMedidor,
   },
 ];

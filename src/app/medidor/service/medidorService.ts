@@ -1,7 +1,7 @@
 import { HttpBackend, HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { TarifasService } from "../../tarifa/service/TarifasService";
-import { FormularioMedidorI, ListarMedidorClientesI } from "../model/medidor";
+import { FormularioMedidorI, ListarMedidorClientesI, MedidorClienteI } from "../model/medidor";
 import { Observable } from "rxjs";
 import { ResultadoHttp } from "../../../share/model/ResultadoHttp";
 
@@ -17,6 +17,9 @@ export class MedidorService {
 
     crearMedidor(data: FormularioMedidorI): Observable<any> {
         return this.http.post<any>(`${this.apiUrl}/medidor`, data, { observe: "response" });
+    }
+    editarMedidor(data: FormularioMedidorI, idMedidor:string): Observable<any> {
+        return this.http.patch<any>(`${this.apiUrl}/medidor/${idMedidor}`, data);
     }
 
     listarMedidorCliente(codigo: string,
@@ -46,5 +49,8 @@ export class MedidorService {
 
     eliminarMedidor(id: string): Observable<any> {
         return this.http.delete<any>(`${this.apiUrl}/medidor/${id}`)
+    }
+    obtenerMedidorPorid(id: string): Observable<MedidorClienteI[]> {
+        return this.http.get<MedidorClienteI[]>(`${this.apiUrl}/medidor/${id}`)
     }
 }   

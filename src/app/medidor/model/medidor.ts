@@ -21,3 +21,18 @@ export interface ListarMedidorClientesI {
     ci: string;
     lecturasPendientes: number
 }
+
+export interface MedidorClienteI {
+  _id: string;               
+  idCliente: string;         
+  nombre: string;
+  apellidoPaterno: string;
+  apellidoMaterno: string;
+  codigoCliente: string;
+  direccion: string;
+  fechaInstalacion: string;  
+  numeroMedidor: string;
+  tarifa: string; 
+  descripcion:string   
+  ci:string       
+}

@@ -5,14 +5,15 @@ import { ListarMedidorClientesI } from '../../model/medidor';
 import { ResultadoHttp } from '../../../../share/model/ResultadoHttp';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ListarTarifasI } from '../../../tarifa/model/tarifa';
 import { TarifasService } from '../../../tarifa/service/TarifasService';
 import { confirmarEliminar, error } from '../../../../share/utils/alertas';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-listar',
-  imports: [CommonModule, MatPaginatorModule, FormsModule],
+  imports: [CommonModule, MatPaginatorModule, FormsModule, RouterLink],
   templateUrl: './listar.html',
   styleUrl: './listar.css',
 })

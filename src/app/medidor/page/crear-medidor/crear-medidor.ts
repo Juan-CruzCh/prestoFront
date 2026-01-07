@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ClienteModule } from '../../../cliente/cliente-module';
 import { ListarCliente } from '../../../cliente/components/listar-cliente/listar-cliente';
 import { ListarClienteI } from '../../../cliente/model/cliente';
@@ -12,12 +12,14 @@ import { MedidorService } from '../../service/medidorService';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpStatusCode } from '@angular/common/http';
 import { CrearClienteModal } from "../../../cliente/components/crear-cliente-modal/crear-cliente-modal";
+import { Field, form, required } from '@angular/forms/signals';
+import { MedidorSchema } from '../../validate/medidorSchema';
 @Component({
   selector: 'app-crear-medidor',
   standalone: true,
-  imports: [ClienteModule, ListarCliente, CommonModule, ReactiveFormsModule, CrearClienteModal],
+  imports: [ClienteModule, ListarCliente, CommonModule, Field, CrearClienteModal],
   templateUrl: './crear-medidor.html',
-styleUrls: ['./crear.css'],
+  styleUrls: ['./crear.css'],
 
 })
 export class CrearMedidor implements OnInit {
@@ -28,32 +30,31 @@ export class CrearMedidor implements OnInit {
   codigo: string = '';
   idClinte: string = '';
   tarifas$!: Observable<ListarTarifasI[]>;
-  medidorForm = new FormGroup({
-    numeroMedidor: new FormControl('', { nonNullable: true, validators: Validators.required }),
-    descripcion: new FormControl(''),
-    tarifa: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-    direccion: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-    fechaInstalacion: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-  });
+
+  private readonly medidor = signal<FormularioMedidorI>({
+    cliente: '',
+    descripcion: '',
+    direccion: '',
+    fechaInstalacion: '',
+    numeroMedidor: '',
+    tarifa: ''
+  })
+
+
+  readonly form = form(this.medidor, MedidorSchema);
+
+
+
   constructor(
     private readonly snackBar: MatSnackBar,
     private readonly tariFaService: TarifasService,
     private readonly medidorService: MedidorService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.tarifas$ = this.tariFaService.listarTarifas();
   }
-  
+
 
   getCliente(cliente: ListarClienteI) {
     this.ci = cliente.ci;
@@ -64,23 +65,21 @@ export class CrearMedidor implements OnInit {
     this.idClinte = cliente._id;
   }
 
-  btnRegistrarMedidor() {
-    if (this.medidorForm.invalid) {
-      this.medidorForm.markAllAsTouched();
-      return;
+  btnRegistrarMedidor(e: Event) {
+    e.preventDefault()
+    const data = this.form().value();
+
+    if (data.fechaInstalacion) {
+      data.fechaInstalacion = new Date(data.fechaInstalacion).toISOString();
     }
-    const data: FormularioMedidorI = {
-      numeroMedidor: this.medidorForm.controls.numeroMedidor.value,
-      descripcion: this.medidorForm.controls.descripcion.value ?? '',
-      fechaInstalacion: new Date(this.medidorForm.controls.fechaInstalacion.value).toISOString(),
-      tarifa: this.medidorForm.controls.tarifa.value,
-      direccion: this.medidorForm.controls.direccion.value,
-      cliente: this.idClinte,
-    };
+    if (this.idClinte) {
+      data.cliente = this.idClinte
+    }
+
     this.medidorService.crearMedidor(data).subscribe({
       next: (res) => {
         if (res.status === HttpStatusCode.Created) {
-          this.medidorForm.reset()
+          this.form().reset()
           this.snackBar.open('Medidor registrado correctamente', 'Cerrar', {
             duration: 4000,
             panelClass: 'snack-success',
@@ -90,13 +89,15 @@ export class CrearMedidor implements OnInit {
         }
       },
       error: (err) => {
+        console.log(err);
+
         this.snackBar.open(err.error.error, 'cerrar', {
           duration: 4000,
           panelClass: 'snack-error',
           horizontalPosition: 'right',
           verticalPosition: 'top',
         });
-       
+
       },
     });
   }
