@@ -1,38 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CrearClienteI, ListarClienteI } from '../../model/cliente';
 import { ClienteService } from '../../service/cliente-service';
 import { RefrescarService } from '../../../../share/service/refrescarService';
 import { error } from '../../../../share/utils/alertas';
+import { form, required, Field } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-editar',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [Field],
   templateUrl: './editar.html',
 
 })
 export class Editar {
-
   idCliente: string = ''
   isOpen = false;
+  private readonly cliente = signal<CrearClienteI>({
+    apellidoMaterno: '',
+    apellidoPaterno: '',
+    celular: '',
+    ci: '',
+    nombre: ''
+  })
 
-  clienteForm = new FormGroup({
-    ci: new FormControl('', { nonNullable: true, validators: Validators.required }),
-    nombre: new FormControl('', { nonNullable: true, validators: Validators.required }),
-    celular: new FormControl('', { nonNullable: true, validators: Validators.required }),
-    apellidoPaterno: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-    apellidoMaterno: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-
-  });
+  form = form(this.cliente, (field) => {
+    required(field.ci, { message: "El ci es obligatorio" })
+    required(field.nombre, { message: "El nombre es obligatorio" })
+    required(field.apellidoPaterno, { message: "El   apellido paterno es obligatorio" })
+    required(field.apellidoMaterno, { message: "El   apellido materno es obligatorio" })
+    required(field.celular, { message: "El    celular es obligatorio" })
+  })
   constructor(private readonly clienteService: ClienteService, private readonly refrescarService: RefrescarService) { }
   abrirModal() {
-    this.clienteForm.reset()
     this.isOpen = true;
   }
 
@@ -41,42 +40,28 @@ export class Editar {
   }
 
   editarCliente(cliente: ListarClienteI) {
-    this.clienteForm.patchValue({
+    this.form().setControlValue({
       ci: cliente.ci,
-      nombre: cliente.nombre,
-      celular: cliente.celular,
-      apellidoPaterno: cliente.apellidoPaterno,
       apellidoMaterno: cliente.apellidoMaterno,
-    });
+      apellidoPaterno: cliente.apellidoPaterno,
+      celular: cliente.celular,
+      nombre: cliente.nombre
+    })
     this.idCliente = cliente._id
     this.isOpen = true;
   }
 
-  guardarCliente() {
-    if (this.clienteForm.invalid) {
-
-      this.clienteForm.markAllAsTouched();
-      return;
-    }
-    let data: CrearClienteI = {
-      nombre: this.clienteForm.controls.nombre.value,
-      apellidoPaterno: this.clienteForm.controls.apellidoPaterno.value,
-      apellidoMaterno: this.clienteForm.controls.apellidoMaterno.value,
-      celular: this.clienteForm.controls.celular.value,
-      ci: this.clienteForm.controls.ci.value,
-
-    }
-    this.clienteService.editarCliente(data, this.idCliente).subscribe({
+  guardarCliente(e: Event) {
+    e.preventDefault()
+    this.clienteService.editarCliente(this.form().value(), this.idCliente).subscribe({
       next: (value) => {
         this.cerrarModal()
         this.refrescarService.triggerRefrescar()
       },
       error(err) {
         error(err.error.mensaje)
-
       },
     },
-
     )
   }
 }
