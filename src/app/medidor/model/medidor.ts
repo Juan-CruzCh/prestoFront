@@ -3,7 +3,7 @@ export interface FormularioMedidorI {
     cliente: string
     tarifa: string
     direccion: string
-    fechaInstalacion: string
+    fechaInstalacion: Date
     numeroMedidor: string
 }
 

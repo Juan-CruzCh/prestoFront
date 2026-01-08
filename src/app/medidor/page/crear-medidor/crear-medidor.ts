@@ -35,7 +35,7 @@ export class CrearMedidor implements OnInit {
     cliente: '',
     descripcion: '',
     direccion: '',
-    fechaInstalacion: '',
+    fechaInstalacion: new Date(),
     numeroMedidor: '',
     tarifa: ''
   })
@@ -70,7 +70,7 @@ export class CrearMedidor implements OnInit {
     const data = this.form().value();
 
     if (data.fechaInstalacion) {
-      data.fechaInstalacion = new Date(data.fechaInstalacion).toISOString();
+      data.fechaInstalacion = new Date(data.fechaInstalacion);
     }
     if (this.idClinte) {
       data.cliente = this.idClinte

@@ -33,7 +33,7 @@ export class EditarMedidor implements OnInit {
     cliente: '',
     descripcion: '',
     direccion: '',
-    fechaInstalacion: '',
+    fechaInstalacion: new Date(),
     numeroMedidor: '',
     tarifa: ''
   })
@@ -75,7 +75,7 @@ export class EditarMedidor implements OnInit {
     const data = this.form().value();
 
     if (data.fechaInstalacion) {
-      data.fechaInstalacion = new Date(data.fechaInstalacion).toISOString();
+      data.fechaInstalacion = new Date(data.fechaInstalacion);
     }
     if (this.idClinte) {
       data.cliente = this.idClinte
@@ -83,8 +83,14 @@ export class EditarMedidor implements OnInit {
 
     this.medidorService.editarMedidor(data, this.idMedidor).subscribe({
       next: (res) => {
-      console.log(res);
-      
+        if( res.ModifiedCount  > 0 ){
+          this.snackBar.open('Medidor Editado', 'Cerrar', {
+            duration: 4000,
+            panelClass: 'snack-success',
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          });
+        }
       },
       error: (err) => {
         console.log(err);
@@ -95,8 +101,10 @@ export class EditarMedidor implements OnInit {
   }
 
   obtenerMeiddorPorId(id: string) {
+
     this.medidorService.obtenerMedidorPorid(id).subscribe({
       next: (value) => {
+    
         this.nombre = value[0].nombre
         this.ci = value[0].ci
         this.apellidoPaterno = value[0].apellidoPaterno
@@ -106,9 +114,9 @@ export class EditarMedidor implements OnInit {
         this.idMedidor = value[0]._id
         this.form().setControlValue({
           descripcion: value[0].descripcion,
-          direccion: value[0].descripcion,
+          direccion: value[0].direccion,
           cliente: value[0].idCliente,
-          fechaInstalacion: value[0].fechaInstalacion,
+          fechaInstalacion:new Date(value[0].fechaInstalacion),
           numeroMedidor: value[0].numeroMedidor,
           tarifa: value[0].tarifa
         })

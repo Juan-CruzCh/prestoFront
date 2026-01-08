@@ -42,7 +42,9 @@ export class CrearUsuario {
     private readonly usuarioService: UsuarioService,
     private readonly refrescarService: RefrescarService
   ) { }
+
   abrirModal() {
+    this.form().reset()
     this.form().setControlValue({
       apellidoMaterno: '',
       apellidoPaterno: '',
