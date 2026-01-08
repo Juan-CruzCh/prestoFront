@@ -51,12 +51,13 @@ export class Listar implements OnInit {
   }
 
   async eliminarRango(rango: TarifaRango) {
+
     const confirmar = await confirmarEliminar()
     if (!confirmar) return
-    this.tarifasService.eliminarTarifa(rango._id).subscribe({
+    this.tarifasService.eliminarRango(rango._id).subscribe({
       next: (value) => {
-        console.log(value);
-        
+
+
         if (value.MatchedCount > 0) {
           this.listar()
         }
