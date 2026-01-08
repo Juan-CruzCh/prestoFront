@@ -1,52 +1,68 @@
-<div class="p-6 min-h-screen bg-gray-50">
-  <!-- Header -->
-  <div class="flex justify-between items-center mb-4">
-    <h1 class="text-2xl font-semibold text-gray-800">Listado de Tarifas</h1>
-    <button
-      (click)="irCrearTarifa()"
-      class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
-    >
-      Crear Tarifa
-    </button>
-  </div>
+<div
+	class="p-6 min-h-screen bg-gray-50">
+	<!-- Header -->
+	<div class="flex justify-between items-center mb-4">
+		<h1 class="text-2xl font-semibold text-gray-800">Listado de Tarifas</h1>
+		<button (click)="irCrearTarifa()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+			Crear Tarifa
+		</button>
+	</div>
 
-  <!-- Tabla -->
-  <div class="overflow-x-auto bg-white rounded-lg shadow-md">
-    <table class="min-w-full border border-gray-200">
-      <thead class="bg-gray-100">
-        <tr>
-          <th class="px-4 py-3 border text-left">Nombre</th>
-          <th class="px-4 py-3 border text-left">Rangos</th>
-        </tr>
-      </thead>
-      <tbody>
-    
-        @for (item of  tarifas$ | async; track $index) {
-        <tr class="hover:bg-gray-50">
-          <td class="px-4 py-3 border font-medium">{{ item.nombre }}</td>
-          <td class="px-4 py-3 border">
-            <div class="flex gap-3 overflow-x-auto py-2">
-              <!-- Rango 1 -->
-             @for(r of item.rango; track $index){
-               <div
-                class="min-w-[180px] p-3 bg-blue-50 border border-blue-200 rounded-lg flex flex-col justify-between"
-              >
-                <p class="text-sm"><span class="font-semibold">Rango:</span> {{r.rango1}} -{{r.rango2}}</p>
-                <p class="text-sm"><span class="font-semibold">Costo:</span> Bs {{r.costo}}</p>
-                <p class="text-sm"><span class="font-semibold">IVA:</span> {{r.iva}}%</p>
-                <button
-                  class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-md mt-2"
-                >
-                  Editar
-                </button>
-              </div>
-             }
-              
-            </div>
-          </td>
-        </tr>
-        }
-      </tbody>
-    </table>
-  </div>
+	<!-- Tabla -->
+	<div class="overflow-x-auto bg-white rounded-lg shadow-md">
+		<table class="min-w-full border border-gray-200">
+			<thead class="bg-gray-100">
+				<tr>
+					<th class="px-4 py-3 border text-left">Nombre</th>
+					<th class="px-4 py-3 border text-left">Rangos</th>
+					<th class="px-4 py-3 border text-left">Accion</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				@for (item of  tarifas(); track $index) {
+				<tr class="hover:bg-gray-50">
+					<td class="px-4 py-3 border font-medium">{{ item.nombre }}</td>
+					<td class="px-4 py-3 border">
+						<div
+							class="flex gap-3 overflow-x-auto py-2">
+							<!-- Rango 1 -->
+							@for(r of item.rango; track $index){
+							<div class="min-w-[180px] p-3 bg-blue-50 border border-blue-200 rounded-lg flex flex-col justify-between">
+								<p class="text-sm">
+									<span class="font-semibold">Rango:</span>
+									{{r.rango1}}
+									-{{r.rango2}}</p>
+								<p class="text-sm">
+									<span class="font-semibold">Costo:</span>
+									Bs
+									{{r.costo}}</p>
+								<p class="text-sm">
+									<span class="font-semibold">IVA:</span>
+									{{r.iva}}%</p>
+								<button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-md mt-2">
+									Editar
+								</button>
+								<button (click)="eliminarRango(r)" class="bg-red-600  text-white px-3 py-1 rounded-md mt-2">
+									Eliminar
+								</button>
+							</div>
+							}
+
+						</div>
+					</td>
+					<td class="px-4 py-3 border font-medium">
+						<button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-md mt-2">
+							Editar
+						</button>
+						<button (click)="eliminarTarifa(item)" class="bg-red-600  text-white px-3 py-1 rounded-md mt-2">
+							Eliminar
+						</button>
+					</td>
+				</tr>
+
+				}
+			</tbody>
+		</table>
+	</div>
 </div>

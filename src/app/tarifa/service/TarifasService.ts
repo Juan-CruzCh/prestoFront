@@ -25,4 +25,17 @@ export class TarifasService {
 
 
   }
+
+   eliminarTarifa(id:string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/tarifa/${id}`)
+
+
+  }
+
+
+   eliminarRango(id:string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/tarifa/rango/${id}`)
+
+
+  }
 }
