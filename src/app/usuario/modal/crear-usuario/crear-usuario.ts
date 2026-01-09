@@ -3,6 +3,7 @@ import { UsuarioCrearI } from '../../model/usuario';
 import { UsuarioService } from '../../service/usarioService';
 import { RefrescarService } from '../../../../share/service/refrescarService';
 import { Field, form, required } from '@angular/forms/signals';
+import { usuarioSchema } from '../../validate/usuarioSchema';
 
 @Component({
   selector: 'app-crear-usuario',
@@ -25,17 +26,7 @@ export class CrearUsuario {
     usuario: ''
   })
 
-  form = form(this.cliente, (field) => {
-    required(field.ci, { message: "El CI es obligatorio" })
-    required(field.nombre, { message: "El nombre es obligatorio" })
-    required(field.apellidoPaterno, { message: "El apellido paterno es obligatorio" })
-    required(field.apellidoMaterno, { message: "El apellido materno es obligatorio" })
-    required(field.celular, { message: "El celular es obligatorio" })
-    required(field.direccion, { message: "La dirección es obligatoria" })
-    required(field.usuario, { message: "El usuario es obligatorio" })
-    required(field.password, { message: "La contraseña es obligatoria" })
-    required(field.rol, { message: "El rol es obligatorio" })
-  })
+  form = form(this.cliente, usuarioSchema)
 
 
   constructor(

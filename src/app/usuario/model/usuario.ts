@@ -26,3 +26,15 @@ export interface UsuarioCrearI {
   rol: string;
         
 }
+
+export interface UpdateUsuarioI {
+  ci: string;
+  nombre: string;
+  celular: string;
+  apellidoMaterno: string;
+  apellidoPaterno: string;
+  usuario: string;
+  direccion: string;
+  rol: string;
+        
+}

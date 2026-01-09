@@ -34,10 +34,14 @@
             rol
 
           </th>
+          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">
+            Accion
+
+          </th>
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-200 bg-white">
-        @for (item of usuarios$ | async; track $index) {
+        @for (item of usuarios(); track $index) {
         <tr>
           <td class="px-4 py-2">
 
@@ -50,6 +54,16 @@
           <td class="px-4 py-2">{{ item.usuario }}</td>
           <td class="px-4 py-2">{{ item.rol }}</td>
           <td class="px-4 py-2">{{ item.direccion }}</td>
+          <td class="px-4 py-2 flex gap-2">
+            <button (click)="btnEliminar(item)" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
+              Eliminar
+            </button>
+
+            <button (click)="btnEditar(item)" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">
+              Editar
+            </button>
+          </td>
+
         </tr>
         }
       </tbody>
@@ -59,4 +73,5 @@
 
 
   </div>
+  <app-editar #editarModal></app-editar>
 </div>

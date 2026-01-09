@@ -1,7 +1,4 @@
 
-<button class="bg-blue-600 text-white px-4 py-2 rounded" (click)="abrirModal()">
-  Crear
-</button>
 
 @if (isOpen) {
 <div class="fixed inset-0 flex items-center justify-center z-50  bg-opacity-40">
@@ -9,11 +6,11 @@
 
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
-      <h2 class="text-xl font-semibold">Crear Cliente</h2>
+      <h2 class="text-xl font-semibold">Editar Cliente</h2>
       <button (click)="cerrarModal()" class="text-xl">✕</button>
     </div>
 
-    <form (submit)="guardarUsuario($event)" class="space-y-6">
+    <form (submit)="editarUsuario($event)" class="space-y-6">
 
       <!-- GRID DOS COLUMNAS -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -102,19 +99,7 @@
           }
         </div>
 
-        <!-- Contraseña -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">
-            Contraseña
-          </label>
-          <input type="password" [field]="form.password"
-            class="w-full border rounded px-3 py-2" />
-          @if (this.form().touched()) {
-            @for (e of form.password().errors(); track $index) {
-              <p class="text-red-500 text-sm mt-1">{{ e.message }}</p>
-            }
-          }
-        </div>
+        
 
         <!-- Rol -->
         <div>
