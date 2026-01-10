@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   templateUrl: './login.html',
 })
 export class Login {
+   private isAutenticacion:boolean =false
+
+  public isLongin(){
+    return this.isAutenticacion
+  }
+
 
 }
