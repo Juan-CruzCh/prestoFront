@@ -13,8 +13,9 @@ import { CommonModule } from '@angular/common';
   standalone: true
 })
 export class App {
-  protected readonly title = signal('prestoFront');
+  protected readonly title = signal('Sistema de agua');
   drawerOpen = false;
+  isAutenticacion :boolean = true
 
   expandedMenus: { [key: string]: boolean } = {
     medidor: false,
