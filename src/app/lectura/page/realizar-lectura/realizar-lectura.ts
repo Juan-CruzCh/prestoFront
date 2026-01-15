@@ -87,10 +87,14 @@ export class RealizarLectura implements OnInit {
       }
       this.lecturaService.registrarLectura(data).subscribe({
         next: (value) => {
+          console.log(value);
+          
           this.router.navigate(['/lectura/detalle', value.medidor, value.lectura]);
 
         },
         error: (err) => {
+          console.log(err);
+          
           error(err.error.mensaje)
         },
       })
