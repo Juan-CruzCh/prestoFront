@@ -3,7 +3,8 @@ import { CanActivateFn, Router } from '@angular/router';
 import { Login } from '../page/login/login';
 
 export const autenticacionGuard: CanActivateFn = (route, state) => {
-  const authService = inject(Login);
-  const router = inject(Router);
+  
+  console.log("guard");
+  
   return true;
 };

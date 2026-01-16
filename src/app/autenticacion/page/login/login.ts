@@ -2,14 +2,10 @@ import { Component, signal } from '@angular/core';
 import { Field, form, required } from '@angular/forms/signals';
 import { AutenticacionService } from '../../service/autenticacionService';
 
-
 interface usuarioI {
   usuario: string
   password: string
 }
-
-
-
 @Component({
   selector: 'app-login',
   imports: [Field],
@@ -41,7 +37,9 @@ constructor(private readonly autenticacionService:AutenticacionService){}
     this.autenticacionService.login(this.form().value().usuario,this.form().value().password).subscribe(
       {
         next:(value)=> {
-          console.log(value);
+          if(value.token){
+           
+          }
           
         },
         error:(err)=> {
