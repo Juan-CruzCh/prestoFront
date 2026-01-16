@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 export class App {
   protected readonly title = signal('Sistema de agua');
   drawerOpen = false;
-  isAutenticacion :boolean = true
+  isAutenticacion :boolean = false
 
   expandedMenus: { [key: string]: boolean } = {
     medidor: false,
