@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
+import { AutenticacionService } from './autenticacion/service/autenticacionService';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +15,19 @@ import { CommonModule } from '@angular/common';
 })
 export class App {
   protected readonly title = signal('Sistema de agua');
+
+isAutenticacion = signal(false);
+
+  constructor(private readonly autenticacionService: AutenticacionService) {
+     effect(() => {
+      this.isAutenticacion.set(this.autenticacionService.autenticado());
+    });
+  }
+
+
+
   drawerOpen = false;
-  isAutenticacion :boolean = false
+
 
   expandedMenus: { [key: string]: boolean } = {
     medidor: false,

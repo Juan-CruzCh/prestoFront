@@ -1,4 +1,4 @@
-@if (isAutenticacion) {
+@if (isAutenticacion()) {
 <div
 	class="relative h-screen bg-gray-100">
 
@@ -21,16 +21,16 @@
 			</div>
 		</div>
 
-		<!-- Menú -->
+		
 		<nav
 			class="flex-1 overflow-y-auto">
-			<!-- Dashboard -->
-			<a routerlink="/dashboard" class="flex items-center p-3 hover:bg-gray-100">
+		
+			<a routerLink="/inicio" class="flex items-center p-3 hover:bg-gray-100">
 				<span class="material-icons">dashboard</span>
 				<span class="ml-2">Dashboard</span>
 			</a>
 
-			<!-- Medidor -->
+	
 			<div>
 				<button (click)="toggleSubmenu('medidor')" class="flex items-center p-3 w-full hover:bg-gray-100">
 					<span class="material-icons">speed</span>
@@ -41,15 +41,15 @@
 				</button>
 				@if(expandedMenus['medidor']) {
 				<div class="ml-6 flex flex-col">
-					<a routerlink="/medidor/crear" class="flex items-center p-2 hover:bg-gray-100">
+					<a routerLink="/medidor/crear" class="flex items-center p-2 hover:bg-gray-100">
 						<span class="material-icons text-sm">add</span>
 						<span class="ml-2 text-sm">Crear</span>
 					</a>
-					<a routerlink="/medidor/listar" class="flex items-center p-2 hover:bg-gray-100">
+					<a routerLink="/medidor/listar" class="flex items-center p-2 hover:bg-gray-100">
 						<span class="material-icons text-sm">list</span>
 						<span class="ml-2 text-sm">Listar</span>
 					</a>
-					<a routerlink="/medidor/moroso" class="flex items-center p-2 hover:bg-gray-100">
+					<a routerLink="/medidor/moroso" class="flex items-center p-2 hover:bg-gray-100">
 						<span class="material-icons text-sm">list</span>
 						<span class="ml-2 text-sm">Morosos</span>
 					</a>
@@ -68,11 +68,11 @@
 				</button>
 				@if(expandedMenus['lecturas']) {
 				<div class="ml-6 flex flex-col">
-					<a routerlink="/lectura/realizar" class="flex items-center p-2 hover:bg-gray-100">
+					<a routerLink="/lectura/realizar" class="flex items-center p-2 hover:bg-gray-100">
 						<span class="material-icons text-sm">add</span>
 						<span class="ml-2 text-sm">Crear</span>
 					</a>
-					<a routerlink="/lectura/listar" class="flex items-center p-2 hover:bg-gray-100">
+					<a routerLink="/lectura/listar" class="flex items-center p-2 hover:bg-gray-100">
 						<span class="material-icons text-sm">list</span>
 						<span class="ml-2 text-sm">Listar</span>
 					</a>
@@ -91,7 +91,7 @@
 				</button>
 				@if (expandedMenus['tarifa']) {
 				<div class="ml-6 flex flex-col">
-					<a routerlink="/tarifa/listar" class="flex items-center p-2 hover:bg-gray-100">
+					<a routerLink="/tarifa/listar" class="flex items-center p-2 hover:bg-gray-100">
 						<span class="material-icons text-sm">list</span>
 						<span class="ml-2 text-sm">Listar tarifas</span>
 					</a>
@@ -111,15 +111,15 @@
 				</button>
 				@if(expandedMenus['gastos']) {
 				<div class="ml-6 flex flex-col">
-					<a routerlink="/gastos/crear" class="flex items-center p-2 hover:bg-gray-100">
+					<a routerLink="/gastos/crear" class="flex items-center p-2 hover:bg-gray-100">
 						<span class="material-icons text-sm">add</span>
 						<span class="ml-2 text-sm">Registrar</span>
 					</a>
-					<a routerlink="/gastos/listar" class="flex items-center p-2 hover:bg-gray-100">
+					<a routerLink="/gastos/listar" class="flex items-center p-2 hover:bg-gray-100">
 						<span class="material-icons text-sm">list</span>
 						<span class="ml-2 text-sm">Listar</span>
 					</a>
-					<a routerlink="/gastos/categorias" class="flex items-center p-2 hover:bg-gray-100">
+					<a routerLink="/gastos/categorias" class="flex items-center p-2 hover:bg-gray-100">
 						<span class="material-icons text-sm">settings</span>
 						<span class="ml-2 text-sm">Categorías</span>
 					</a>
@@ -138,11 +138,11 @@
 				</button>
 				@if(expandedMenus['pagos']) {
 				<div class="ml-6 flex flex-col">
-					<a routerlink="/pago/realizar" class="flex items-center p-2 hover:bg-gray-100">
+					<a routerLink="/pago/realizar" class="flex items-center p-2 hover:bg-gray-100">
 						<span class="material-icons text-sm">add</span>
 						<span class="ml-2 text-sm">Realizar pago</span>
 					</a>
-					<a routerlink="/pago/listar" class="flex items-center p-2 hover:bg-gray-100">
+					<a routerLink="/pago/listar" class="flex items-center p-2 hover:bg-gray-100">
 						<span class="material-icons text-sm">list</span>
 						<span class="ml-2 text-sm">Listar pagos</span>
 					</a>
@@ -151,14 +151,14 @@
 			</div>
 
 			<!-- Usuarios -->
-			<a routerlink="/usuario/listar" class="flex items-center p-3 hover:bg-gray-100">
+			<a routerLink="/usuario/listar" class="flex items-center p-3 hover:bg-gray-100">
 				<span class="material-icons">group</span>
 				<span class="ml-2">Usuarios</span>
 			</a>
 
 
 			<!-- Logout -->
-			<a routerlink="/logout" class="flex items-center p-3 hover:bg-gray-100 mt-auto">
+			<a routerLink="/logout" class="flex items-center p-3 hover:bg-gray-100 mt-auto">
 				<span class="material-icons">logout</span>
 				<span class="ml-2">Cerrar sesión</span>
 			</a>

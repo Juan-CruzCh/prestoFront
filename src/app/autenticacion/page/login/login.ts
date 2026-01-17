@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { Field, form, required } from '@angular/forms/signals';
 import { AutenticacionService } from '../../service/autenticacionService';
+import { Router } from '@angular/router';
 
 interface usuarioI {
   usuario: string
@@ -12,8 +13,7 @@ interface usuarioI {
   templateUrl: './login.html',
 })
 export class Login {
-  private isAutenticacion: boolean = false
-  error:string = ''
+  error = signal<string>('')
   formUsuario = signal<usuarioI>({
     password: '',
     usuario: ''
@@ -25,34 +25,36 @@ export class Login {
     required(field.password, { message: "La contraseña es obligatoria" })
   })
 
-constructor(private readonly autenticacionService:AutenticacionService){}
+  constructor(
+    private readonly autenticacionService: AutenticacionService,
+  private readonly router: Router
+  ) { }
 
-  public isLongin() {
-    return this.isAutenticacion
-  }
-
-  btnSudmint(e:Event){
+  btnSudmint(e: Event) {
     e.preventDefault()
-    
-    this.autenticacionService.login(this.form().value().usuario,this.form().value().password).subscribe(
+
+    this.autenticacionService.login(this.form().value().usuario, this.form().value().password).subscribe(
       {
-        next:(value)=> {
-          if(value.token){
-           
+        next: (value) => {
+          if (value.token) {
+            this.autenticacionService.verificarLogin()
+              this.router.navigate(['/inicio'])
           }
-          
+
         },
-        error:(err)=> {
-          this.error = err.error.mensaje
- 
-          
+        error: (err) => {
+
+          this.error.set(err.error.mensaje)
+
+
         },
       }
     )
 
-    
-    
+
+
   }
+
 
 
 
