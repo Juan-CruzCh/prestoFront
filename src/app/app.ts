@@ -1,5 +1,5 @@
 import { Component, effect, signal } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
@@ -16,12 +16,17 @@ import { AutenticacionService } from './autenticacion/service/autenticacionServi
 export class App {
   protected readonly title = signal('Sistema de agua');
 
-isAutenticacion = signal(false);
+  isAutenticacion = signal(false);
 
-  constructor(private readonly autenticacionService: AutenticacionService) {
-     effect(() => {
+  constructor(private readonly autenticacionService: AutenticacionService, private readonly router :Router) {
+
+
+    effect(() => {
       this.isAutenticacion.set(this.autenticacionService.autenticado());
     });
+
+    this.autenticacionService.verificarLogin()
+
   }
 
 
@@ -49,5 +54,19 @@ isAutenticacion = signal(false);
   toggleSubmenu(menu: string) {
 
     this.expandedMenus[menu] = !this.expandedMenus[menu];
+  }
+
+  serraSession(){
+    this.autenticacionService.serrarSession().subscribe({
+      next:()=>{
+        this.isAutenticacion.set(false)
+        this.router.navigate(['/'])
+      },
+      error:(err) =>{
+        this.isAutenticacion.set(false)
+          this.router.navigate(['/'])
+      },
+      
+    })
   }
 }

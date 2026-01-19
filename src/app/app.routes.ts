@@ -10,34 +10,36 @@ export const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./inicio/inicio-module').then(m => m.InicioModule),
-    //canActivate: [autenticacionGuard]
+    canActivate: [autenticacionGuard]
   },
   {
     path: 'medidor',
     loadChildren: () => import('./medidor/medidor-module').then(m => m.MedidorModule),
-   // canActivate: [autenticacionGuard]
+    canActivate: [autenticacionGuard]
   },
 
   {
     path: 'lectura',
     loadChildren: () => import('./lectura/lectura-module').then(m => m.LecturaModule),
-   // canActivate: [autenticacionGuard]
+    canActivate: [autenticacionGuard]
   },
 
   {
     path: 'pago',
     loadChildren: () => import('./pago/pago-module').then(m => m.PagoModule),
-    //canActivate: [autenticacionGuard]
+    canActivate: [autenticacionGuard]
   },
 
   {
     path: 'tarifa',
     loadChildren: () => import('./tarifa/tarifa-module').then(m => m.TarifaModule),
-   // canActivate: [autenticacionGuard]
+    canActivate: [autenticacionGuard]
   },
   {
     path: 'usuario',
     loadChildren: () => import('./usuario/usuario-module').then(m => m.UsuarioModule),
-   // canActivate: [autenticacionGuard]
+    canActivate: [autenticacionGuard]
   },
+
+  { path: '**', redirectTo: '/', pathMatch: 'full' },
 ];

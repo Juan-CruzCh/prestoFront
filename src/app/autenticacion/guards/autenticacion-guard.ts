@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AutenticacionService } from '../service/autenticacionService';
+import { tap } from 'rxjs';
 
 export const autenticacionGuard: CanActivateFn = (route, state) => {
   const authService = inject(AutenticacionService)
@@ -8,9 +9,14 @@ export const autenticacionGuard: CanActivateFn = (route, state) => {
 
   if (authService.autenticado()) {
     return true
-  }else{
-    authService.verificarLogin()
   }
-  router.navigate(['/']);
-  return false;
+
+  return authService.verificarLogin().pipe(tap(isAuth => {
+    console.log(isAuth);
+    
+    if (!isAuth) {
+      router.navigate(['/'])
+    }
+
+  }));
 };
