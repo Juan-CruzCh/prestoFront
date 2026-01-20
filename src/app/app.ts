@@ -6,6 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
 import { AutenticacionService } from './autenticacion/service/autenticacionService';
+import { UpdateUsuarioI } from './usuario/model/usuario';
 
 @Component({
   selector: 'app-root',
@@ -15,14 +16,23 @@ import { AutenticacionService } from './autenticacion/service/autenticacionServi
 })
 export class App {
   protected readonly title = signal('Sistema de agua');
-
+  usuario= signal<UpdateUsuarioI>({
+    apellidoMaterno:'',
+    apellidoPaterno:'',
+    celular:'',
+    ci:'',
+    direccion:'',
+    nombre:'',
+    rol:'',
+    usuario:''
+  })
   isAutenticacion = signal(false);
 
   constructor(private readonly autenticacionService: AutenticacionService, private readonly router :Router) {
 
-
     effect(() => {
-      this.isAutenticacion.set(this.autenticacionService.autenticado());
+      this.isAutenticacion.set(this.autenticacionService.getIsAutenticado());
+      this.usuario.set(this.autenticacionService.getUsuaurioLogeado())
     });
 
     this.autenticacionService.verificarLogin()
@@ -42,10 +52,6 @@ export class App {
     pagos: false
   };
 
-  usuario = {
-    nombre: 'Juan',
-    rol: 'Administrador'
-  };
 
   toggleDrawer() {
     this.drawerOpen = !this.drawerOpen;

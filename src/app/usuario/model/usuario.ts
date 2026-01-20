@@ -38,3 +38,4 @@ export interface UpdateUsuarioI {
   rol: string;
         
 }
+

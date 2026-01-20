@@ -11,26 +11,37 @@
 	<aside
 		[class.translate-x-0]="drawerOpen" [class.-translate-x-full]="!drawerOpen" class="fixed top-16 left-0 w-64 h-[calc(100%-64px)] bg-white shadow-md flex flex-col transition-transform duration-300 z-50">
 		<!-- Usuario -->
-		<div class="flex items-center p-4 border-b">
-			<div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
-				<span class="text-gray-700 text-xl">👤</span>
+		<div
+			class="flex items-center p-4 border-b bg-white shadow-md rounded-lg hover:bg-gray-50 transition-all duration-200">
+			<!-- Avatar -->
+			<div class="w-12 h-12  from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-inner">
+				👤
 			</div>
-			<div class="ml-3">
-				<div class="font-semibold text-gray-800">{{ usuario.nombre }}</div>
-				<div class="text-sm text-gray-500">{{ usuario.rol }}</div>
+
+			<!-- Info del usuario -->
+			<div class="ml-4 flex flex-col">
+				<div class="font-semibold text-gray-900 text-lg">
+					{{ usuario().nombre }}
+					{{ usuario().apellidoMaterno }}
+				</div>
+				<div class="text-sm text-gray-500 mt-1">
+					Rol:
+					<span class="font-medium text-gray-700">{{ usuario().rol }}</span>
+				</div>
 			</div>
+
+
 		</div>
 
-		
-		<nav
-			class="flex-1 overflow-y-auto">
-		
+
+		<nav class="flex-1 overflow-y-auto">
+			@if (usuario().rol== "ADMINISTRADOR" ||  usuario().rol== "LECTURADOR") {
 			<a routerLink="/inicio" class="flex items-center p-3 hover:bg-gray-100">
 				<span class="material-icons">dashboard</span>
 				<span class="ml-2">Dashboard</span>
 			</a>
-
-	
+		}
+				@if (usuario().rol== "ADMINISTRADOR") {
 			<div>
 				<button (click)="toggleSubmenu('medidor')" class="flex items-center p-3 w-full hover:bg-gray-100">
 					<span class="material-icons">speed</span>
@@ -40,6 +51,7 @@
 					</span>
 				</button>
 				@if(expandedMenus['medidor']) {
+			
 				<div class="ml-6 flex flex-col">
 					<a routerLink="/medidor/crear" class="flex items-center p-2 hover:bg-gray-100">
 						<span class="material-icons text-sm">add</span>
@@ -53,11 +65,12 @@
 						<span class="material-icons text-sm">list</span>
 						<span class="ml-2 text-sm">Morosos</span>
 					</a>
-				</div>
-				}
+				</div>}
+			
 			</div>
-
+				}
 			<!-- Lecturas -->
+				@if (usuario().rol== "ADMINISTRADOR" ||  usuario().rol== "LECTURADOR") {
 			<div>
 				<button (click)="toggleSubmenu('lecturas')" class="flex items-center p-3 w-full hover:bg-gray-100">
 					<span class="material-icons">book</span>
@@ -79,8 +92,9 @@
 				</div>
 				}
 			</div>
-
-			<!-- Tarifas -->
+		}
+		
+				@if (usuario().rol== "ADMINISTRADOR") {
 			<div>
 				<button (click)="toggleSubmenu('tarifa')" class="flex items-center p-3 w-full hover:bg-gray-100">
 					<span class="material-icons">credit_card</span>
@@ -99,8 +113,9 @@
 				}
 
 			</div>
-
-			<!-- Gastos -->
+		}
+			
+				@if (usuario().rol== "ADMINISTRADOR") {
 			<div>
 				<button (click)="toggleSubmenu('gastos')" class="flex items-center p-3 w-full hover:bg-gray-100">
 					<span class="material-icons">account_balance_wallet</span>
@@ -126,7 +141,9 @@
 				</div>
 				}
 			</div>
-
+		}
+		
+				@if (usuario().rol== "ADMINISTRADOR") {
 			<!-- Pagos -->
 			<div>
 				<button (click)="toggleSubmenu('pagos')" class="flex items-center p-3 w-full hover:bg-gray-100">
@@ -149,14 +166,15 @@
 				</div>
 				}
 			</div>
-
-			<!-- Usuarios -->
+		}
+			
+				@if (usuario().rol== "ADMINISTRADOR") {
 			<a routerLink="/usuario/listar" class="flex items-center p-3 hover:bg-gray-100">
 				<span class="material-icons">group</span>
 				<span class="ml-2">Usuarios</span>
 			</a>
 
-
+		}
 			<!-- Logout -->
 			<a (click)="serraSession()" class="flex items-center p-3 hover:bg-gray-100 mt-auto">
 				<span class="material-icons">logout</span>
