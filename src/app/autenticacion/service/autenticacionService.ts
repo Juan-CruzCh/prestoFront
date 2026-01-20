@@ -23,7 +23,9 @@ export class AutenticacionService {
       this.autenticado.set(true);
       return true;
     }),
-    catchError((err) => {      
+    catchError((err) => {  
+      console.log(err);
+          
       this.autenticado.set(false);
       return of(false);
     })
